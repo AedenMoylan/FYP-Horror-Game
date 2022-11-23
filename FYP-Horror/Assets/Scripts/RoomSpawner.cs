@@ -25,22 +25,22 @@ public class RoomSpawner : MonoBehaviour
             if (openingDirection == 1)
             {
                 rand = Random.Range(0, roomTemplates.topRooms.Length);
-                Instantiate(roomTemplates.topRooms[rand], transform.position, Quaternion.identity);
+                Instantiate(roomTemplates.topRooms[rand], new Vector3(transform.position.x + 5, transform.position.y, transform.position.z - 5), Quaternion.identity);
             }
             else if (openingDirection == 2)
             {
                 rand = Random.Range(0, roomTemplates.rightRooms.Length);
-                Instantiate(roomTemplates.rightRooms[rand], transform.position, Quaternion.identity);
+                Instantiate(roomTemplates.rightRooms[rand], new Vector3(transform.position.x + 5, transform.position.y, transform.position.z - 5), Quaternion.identity);
             }
             else if (openingDirection == 3)
             {
                 rand = Random.Range(0, roomTemplates.bottomRooms.Length);
-                Instantiate(roomTemplates.bottomRooms[rand], transform.position, Quaternion.identity);
+                Instantiate(roomTemplates.bottomRooms[rand], new Vector3(transform.position.x + 5, transform.position.y, transform.position.z - 5), Quaternion.identity);
             }
             else if (openingDirection == 4)
             {
                 rand = Random.Range(0, roomTemplates.leftRooms.Length);
-                Instantiate(roomTemplates.leftRooms[rand], transform.position, Quaternion.identity);
+                Instantiate(roomTemplates.leftRooms[rand], new Vector3(transform.position.x + 5, transform.position.y, transform.position.z - 5), Quaternion.identity);
             }
         }
         isSpawned = true;

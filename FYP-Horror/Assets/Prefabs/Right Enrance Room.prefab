@@ -589,6 +589,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Circle
       objectReference: {fileID: 0}
+    - target: {fileID: 5892827158315219484, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: openingDirection
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
 --- !u!4 &2566077625465710835 stripped
