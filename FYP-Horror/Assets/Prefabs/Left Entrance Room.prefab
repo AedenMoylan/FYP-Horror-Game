@@ -397,6 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7730593948944958175}
+  - component: {fileID: 4193672015546130481}
   m_Layer: 0
   m_Name: Left Entrance Room
   m_TagString: Untagged
@@ -425,6 +426,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4193672015546130481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5846993229744391840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c976122530e5742a464f60754da847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8145907448560550186
 GameObject:
   m_ObjectHideFlags: 0

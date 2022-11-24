@@ -14,7 +14,7 @@ public class RoomSpawner : MonoBehaviour
         roomTemplates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         rand = 0;
         isSpawned = false;
-        Invoke("Spawn", 0.1f);
+        Invoke("Spawn", 0.5f);
     }
 
     // Update is called once per frame
@@ -49,9 +49,14 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("SpawnPoint") && other.GetComponent<RoomSpawner>().isSpawned == true)
+        if (other.CompareTag("SpawnPoint") )
         {
-            Destroy(gameObject);
+            if (other.GetComponent<RoomSpawner>().isSpawned == false && isSpawned == false)
+            {
+                Instantiate(roomTemplates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+            isSpawned = true;
         }
     }
 }
