@@ -7,6 +7,9 @@ TagManager:
   - CinemachineTarget
   - SpawnPoint
   - Rooms
+  - CellTag
+  - Cell
+  - 2 L R Corridor
   layers:
   - Default
   - TransparentFX

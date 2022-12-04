@@ -144,7 +144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890086564733477772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c976122530e5742a464f60754da847, type: 3}
   m_Name: 
@@ -701,6 +701,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Circle
       objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5892827158315219484, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}
       propertyPath: openingDirection
@@ -780,6 +785,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn Circle (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5892827158315219484, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}

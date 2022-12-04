@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 8092366494965247152}
   m_Layer: 0
   m_Name: Spawn Room
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2484558434112733925}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c976122530e5742a464f60754da847, type: 3}
   m_Name: 
@@ -900,6 +900,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Circle (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
 --- !u!4 &1489229082295047018 stripped
@@ -974,6 +979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
@@ -1050,6 +1060,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Circle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
 --- !u!4 &2434972197666802173 stripped
@@ -1125,6 +1140,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Circle (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
 --- !u!4 &5456142461650628241 stripped
@@ -1199,6 +1219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Destroyer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7825e36c1ce5f8478d3e32d63289989, type: 3}
