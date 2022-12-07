@@ -200,6 +200,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn Room
       objectReference: {fileID: 0}
+    - target: {fileID: 2484558434112733925, guid: 6fbcd365298b52545b96e8a7810b9f2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3702940663729582195, guid: 6fbcd365298b52545b96e8a7810b9f2d,
         type: 3}
       propertyPath: m_IsActive
@@ -2983,6 +2988,14 @@ MonoBehaviour:
     type: 3}
   verticalCorridor: {fileID: 8069565806451941869, guid: 6e7768625f9fa73469c4dc705451ad99,
     type: 3}
+  threeTLRCorridor: {fileID: 7425920470290315329, guid: a125a4400f0e0a545bd9a317f307198f,
+    type: 3}
+  threeRTBCorridor: {fileID: 5206002926286589149, guid: b262c8ae42c9ebf4491b00ad11718c0c,
+    type: 3}
+  threeBLRCorridor: {fileID: 5593791747335235554, guid: 8ab1f18184d460341b37710075019c51,
+    type: 3}
+  threeLTBCorridor: {fileID: 7040267181251335334, guid: d004162253faa0b4db88822db15c517c,
+    type: 3}
 --- !u!114 &1852795686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2997,6 +3010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   roomTypeName: EMPTY
+  canCurvedCorridorBePlaced: 0
   position: {x: 0, y: 0, z: 0}
 --- !u!1 &1944997904
 GameObject:
