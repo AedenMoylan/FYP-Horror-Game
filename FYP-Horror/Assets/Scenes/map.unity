@@ -2996,6 +2996,8 @@ MonoBehaviour:
     type: 3}
   threeLTBCorridor: {fileID: 7040267181251335334, guid: d004162253faa0b4db88822db15c517c,
     type: 3}
+  TestRoom: {fileID: 4199380927403139610, guid: df20ec0d115989446931ca67107083b4,
+    type: 3}
 --- !u!114 &1852795686
 MonoBehaviour:
   m_ObjectHideFlags: 0

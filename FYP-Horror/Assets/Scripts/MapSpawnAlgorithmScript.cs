@@ -364,12 +364,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id -51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Top Previous Room");
+                        Debug.Log("Top Previous Room");
                         return false;
                     }
                     else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Top Previous Room");
+                        Debug.Log("Retard Top Previous Room");
                         return false;
                     }
                 }
@@ -380,12 +380,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Right Previous Room");
+                        Debug.Log("Retard Right Previous Room");
                         return false;
                     }
                     else if (cells[t_id - 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Right Previous Room");
+                        Debug.Log("Retard Right Previous Room");
                         return false;
                     }
                 }
@@ -396,12 +396,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Bottom Previous Room");
+                        Debug.Log("Retard Bottom Previous Room");
                         return false;
                     }
                     else if (cells[t_id + 48 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Bottom Previous Room");
+                        Debug.Log("Retard Bottom Previous Room");
                         return false;
                     }
                 }
@@ -412,12 +412,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Left Previous Room");
+                        Debug.Log("Retard Left Previous Room");
                         return false;
                     }
                     else if (cells[t_id + 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard Left Previous Room");
+                        Debug.Log("Retard Left Previous Room");
                         return false;
                     }
                 }
