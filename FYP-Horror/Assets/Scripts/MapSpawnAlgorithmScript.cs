@@ -24,6 +24,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject threeRTBCorridor;
     public GameObject threeBLRCorridor;
     public GameObject threeLTBCorridor;
+    public GameObject TestRoom;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +32,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         spawnDirection1 =  Random.Range(0, 4);
         spawnDirection1 = Random.Range(0, 4);
         Debug.Log(spawnDirection1);
-        //spawnCorridor1Amount = Random.Range(3, 7);
-        //spawnCorridor2Amount = Random.Range(3, 7);
-
-        spawnCorridor1Amount = Random.Range(2, 2);
-        spawnCorridor2Amount = Random.Range(2, 2);
+        spawnCorridor1Amount = Random.Range(3, 7);
+        spawnCorridor2Amount = Random.Range(3, 7);
 
         while (spawnDirection2 == spawnDirection1)
         {
@@ -72,7 +70,6 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             cells[i].GetComponent<CellScript>().id = i;
             cells[i].GetComponent<CellScript>().position = spawnPosition;
         }
-
     }
     void SpawnStartCorridors()
     {
@@ -201,19 +198,24 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         {
             case 0: // TOP Previous room
                 Instantiate(threeTLRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id, "Curved Corridor");
                 break;
             case 1: // Right Previous room
                 Instantiate(threeRTBCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id, "Curved Corridor");
                 break;
             case 2: // Bottom Previous room
                 Instantiate(threeBLRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id, "Curved Corridor");
                 break;
             case 3: // Left Previous room
                 Instantiate(threeLTBCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id, "Curved Corridor");
                 break;
         }
     }
 
+    ////room types need to be changed
     void placedCurvedCorridorPathways(int t_id, int t_previousRoomDirection)
     {
         int randHallAmount = Random.Range(1, 7);
@@ -224,107 +226,135 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 0:
                 for (int i = 0; i < randHallAmount; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id - i, 1) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
+                        break;
                     }
                     else
                     {
                         Instantiate(horizontalCorridor, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
                     }
                 }
                 for (int i = 0; i < randHallAmount2; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id + i, 3) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
+                        break;
                     }
                     else
                     {
                         Instantiate(horizontalCorridor, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
                     }
                 }
                 break;
             case 1:
                 for (int i = 0; i < randHallAmount; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                    }
-                    else
-                    {
-                        Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                    }
-                }
-                for (int i = 0; i < randHallAmount2; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
-                    {
-                        Instantiate(spawnRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
+                        Debug.Log("Bababaooey4");
+                        break;
                     }
                     else
                     {
                         Instantiate(verticalCorridor, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
+                    }
+                }
+                for (int i = 0; i < randHallAmount2; i++)
+                {
+                    if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
+                    {
+                        Instantiate(TestRoom, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
+                        Debug.Log("Bababaooey");
+                        break;
+                    }
+                    else
+                    {
+                        Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
                     }
                 }
                 break;
             case 2:
                 for (int i = 0; i < randHallAmount; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id - i, 1) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
+                        break;
                     }
                     else
                     {
                         Instantiate(horizontalCorridor, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
                     }
                 }
                 for (int i = 0; i < randHallAmount2; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id + i, 3) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
+                        break;
                     }
                     else
                     {
                         Instantiate(horizontalCorridor, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
                     }
                 }
                 break;
             case 3:
                 for (int i = 0; i < randHallAmount; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
+                        Debug.Log("Bababaooey");
+                        break;
                     }
                     else
                     {
                         Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
                     }
                 }
                 for (int i = 0; i < randHallAmount2; i++)
                 {
-                    if (checkIsRoomPlaceValid(t_id, t_previousRoomDirection) == false)
+                    if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
                     {
-                        Instantiate(spawnRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        Instantiate(TestRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
+                        Debug.Log("Bababaooey4");
+                        break;
                     }
                     else
                     {
                         Instantiate(verticalCorridor, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
                     }
                 }
                 break;
-
         }
     }
 
-    void assignRoomType()
+    void assignRoomType(int t_id, string t_roomType)
     {
-
+        cells[t_id].GetComponent<CellScript>().roomTypeName = t_roomType;
     }
+
     bool checkIsRoomPlaceValid(int t_id, int t_previousRoomDirection)
     {
         switch (t_previousRoomDirection)
@@ -332,14 +362,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 0: // Top Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id + 50 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id -51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Top Previous Room");
                         return false;
                     }
-                    else if (cells[t_id + 100 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Top Previous Room");
                         return false;
                     }
                 }
@@ -348,14 +378,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 1: // Right Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id - 1 + (50 * (i - 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id - 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Right Previous Room");
                         return false;
                     }
-                    else if (cells[t_id - 1 + (100 * (i - 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id - 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Right Previous Room");
                         return false;
                     }
                 }
@@ -364,14 +394,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 2: // Bottom Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id + 50 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Bottom Previous Room");
                         return false;
                     }
-                    else if (cells[t_id + 100 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id + 48 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Bottom Previous Room");
                         return false;
                     }
                 }
@@ -380,14 +410,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 3: // Left Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id + 50 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id + 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Left Previous Room");
                         return false;
                     }
-                    else if (cells[t_id + 100 - (i + 1)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id + 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("UH OH Retard");
+                        Debug.Log("UH OH Retard Left Previous Room");
                         return false;
                     }
                 }
