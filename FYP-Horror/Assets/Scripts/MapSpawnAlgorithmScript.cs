@@ -25,12 +25,18 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject threeBLRCorridor;
     public GameObject threeLTBCorridor;
     public GameObject TestRoom;
+    public GameObject topEntranceCorridorDeadEnd;
+    public GameObject rightEntranceCorridorDeadEnd;
+    public GameObject bottomEntranceCorridorDeadEnd;
+    public GameObject leftEntranceCorridorDeadEnd;
     // Start is called before the first frame update
     void Start()
     {
         spawnRoom = GameObject.FindGameObjectWithTag("SpawnPoint");
-        spawnDirection1 =  Random.Range(0, 4);
         spawnDirection1 = Random.Range(0, 4);
+        spawnDirection2 = Random.Range(0, 4);
+
+
         Debug.Log(spawnDirection1);
         spawnCorridor1Amount = Random.Range(3, 7);
         spawnCorridor2Amount = Random.Range(3, 7);
@@ -229,7 +235,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - i, 1) == false)
                     {
                         Instantiate(TestRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
+                        assignRoomType(t_id - (i + 1), "Invalid Room");
                         break;
                     }
                     else
@@ -243,7 +249,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id + i, 3) == false)
                     {
                         Instantiate(TestRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
+                        assignRoomType(t_id + (i + 1), "Invalid Room");
                         break;
                     }
                     else
@@ -259,8 +265,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
                     {
                         Instantiate(TestRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
-                        Debug.Log("Bababaooey4");
+                        assignRoomType(t_id + ((i + 1) * 50), "Invalid Room");
                         break;
                     }
                     else
@@ -274,8 +279,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
                     {
                         Instantiate(TestRoom, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
-                        Debug.Log("Bababaooey");
+                        assignRoomType(t_id - ((i + 1) * 50), "Invalid Room");
                         break;
                     }
                     else
@@ -291,7 +295,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - i, 1) == false)
                     {
                         Instantiate(TestRoom, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
+                        assignRoomType(t_id - (i + 1), "Invalid Room");
                         break;
                     }
                     else
@@ -305,7 +309,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id + i, 3) == false)
                     {
                         Instantiate(TestRoom, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
+                        assignRoomType(t_id + (i + 1), "Invalid Room");
                         break;
                     }
                     else
@@ -321,8 +325,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
                     {
                         Instantiate(TestRoom, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
-                        Debug.Log("Bababaooey");
+                        assignRoomType(t_id - ((i + 1) * 50), "Invalid Room");
                         break;
                     }
                     else
@@ -336,8 +339,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
                     {
                         Instantiate(TestRoom, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
-                        Debug.Log("Bababaooey4");
+                        assignRoomType(t_id + ((i + 1) * 50), "Invalid Room");
                         break;
                     }
                     else
@@ -378,12 +380,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 1: // Right Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id - 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
                         Debug.Log("Right Previous Room");
                         return false;
                     }
-                    else if (cells[t_id - 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
                         Debug.Log("Right Previous Room");
                         return false;
@@ -399,7 +401,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                         Debug.Log("Bottom Previous Room");
                         return false;
                     }
-                    else if (cells[t_id + 48 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
                         Debug.Log("Previous Room");
                         return false;
@@ -410,12 +412,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 3: // Left Previous Room
                 for (int i = 0; i < 3; i++)
                 {
-                    if (cells[t_id + 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
                         Debug.Log("Previous Room");
                         return false;
                     }
-                    else if (cells[t_id + 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
+                    else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
                         Debug.Log("Previous Room");
                         return false;
