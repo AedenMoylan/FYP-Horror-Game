@@ -369,7 +369,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     }
                     else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Top Previous Room");
+                        Debug.Log("Top Previous Room");
                         return false;
                     }
                 }
@@ -380,12 +380,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Right Previous Room");
+                        Debug.Log("Right Previous Room");
                         return false;
                     }
                     else if (cells[t_id - 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Right Previous Room");
+                        Debug.Log("Right Previous Room");
                         return false;
                     }
                 }
@@ -396,12 +396,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Bottom Previous Room");
+                        Debug.Log("Bottom Previous Room");
                         return false;
                     }
                     else if (cells[t_id + 48 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Bottom Previous Room");
+                        Debug.Log("Previous Room");
                         return false;
                     }
                 }
@@ -412,12 +412,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 1 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Left Previous Room");
+                        Debug.Log("Previous Room");
                         return false;
                     }
                     else if (cells[t_id + 2 - (50 * (i + 1))].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Retard Left Previous Room");
+                        Debug.Log("Previous Room");
                         return false;
                     }
                 }
