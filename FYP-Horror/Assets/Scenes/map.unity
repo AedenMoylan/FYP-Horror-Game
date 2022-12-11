@@ -2998,6 +2998,22 @@ MonoBehaviour:
     type: 3}
   TestRoom: {fileID: 4199380927403139610, guid: df20ec0d115989446931ca67107083b4,
     type: 3}
+  topEntranceCorridorDeadEnd: {fileID: 6437921264363077208, guid: 420b4349e1484f249891c3d6a388c10f,
+    type: 3}
+  rightEntranceCorridorDeadEnd: {fileID: 1874742457474763679, guid: 2118ec5f04ba21349b9c6f270d54b067,
+    type: 3}
+  bottomEntranceCorridorDeadEnd: {fileID: 3825947769412678811, guid: 7311316f573d804438dbcbf9950a573a,
+    type: 3}
+  leftEntranceCorridorDeadEnd: {fileID: 5846993229744391840, guid: 76a93cd7bef860942bf5ba6119eb0986,
+    type: 3}
+  twoBLCorridor: {fileID: 3890086564733477772, guid: d6cedfe6e6ba70e48ba30bf743614a50,
+    type: 3}
+  twoBRCorridor: {fileID: 7062800771254769811, guid: 4318090935696ac439c522e736b3778b,
+    type: 3}
+  twoTRCorridor: {fileID: 6729357309550947417, guid: 5b3a8916c437efc49ae3fb1ef1af2dc4,
+    type: 3}
+  twoTLCorridor: {fileID: 4743358253921536950, guid: 69b7893e6612ec445a7f92a77f9de695,
+    type: 3}
 --- !u!114 &1852795686
 MonoBehaviour:
   m_ObjectHideFlags: 0
