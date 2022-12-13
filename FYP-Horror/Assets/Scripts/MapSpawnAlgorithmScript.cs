@@ -233,237 +233,25 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         switch (t_previousRoomDirection)
         {
             case 0:
-                for (int i = 0; i < randHallAmount; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id - i, 1) == false)
-                    {
-                        placeCorridorEnd(t_id - i, 1);
-                        assignRoomType(t_id - (i + 1), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(horizontalCorridor, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
-
-                        if (i == randHallAmount - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id - (randHallAmount +  1), 1) == false)
-                            {
-                                placeCorridorEnd(t_id - randHallAmount, 1);
-                                assignRoomType(t_id - (randHallAmount + 1), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id - randHallAmount - 1, 1);
-                                assignRoomType(t_id - (randHallAmount + 1), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < randHallAmount2; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id + i, 3) == false)
-                    {
-                        placeCorridorEnd(t_id + i, 3);
-                        assignRoomType(t_id + (i + 1), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(horizontalCorridor, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
-
-                        if (i == randHallAmount2 - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id + (randHallAmount2 + 1), 3) == false)
-                            {
-                                placeCorridorEnd(t_id - randHallAmount2, 1);
-                                assignRoomType(t_id - (randHallAmount2 + 1), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id + randHallAmount2 + 1, 3);
-                                assignRoomType(t_id + randHallAmount2 + 1, "Curved Corridor");
-                            }
-                        }
-                    }
-                }
+                spawnCorridorsLeft(t_id, randHallAmount);
+                spawnCorridorsRight(t_id, randHallAmount2);
                 break;
+
             case 1:
-                for (int i = 0; i < randHallAmount; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
-                    {
-                        placeCorridorEnd(t_id + (i * 50), 2);
-                        assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(verticalCorridor, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
-
-                        if (i == randHallAmount - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id + ((randHallAmount + 1) * 50), 2) == false)
-                            {
-                                placeCorridorEnd(t_id + ((randHallAmount + 1) * 50), 2);
-                                assignRoomType(t_id + ((randHallAmount + 1) * 50), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id + ((randHallAmount + 1) * 50), 2);
-                                assignRoomType(t_id + ((randHallAmount + 1) * 50), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < randHallAmount2; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
-                    {
-                        placeCorridorEnd(t_id - (i * 50), 0);
-                        assignRoomType(t_id - ((i + 1) * 50), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
-
-                        if (i == randHallAmount2 - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id - ((randHallAmount2 + 1) * 50), 0) == false)
-                            {
-                                placeCorridorEnd(t_id - ((randHallAmount2 + 1) * 50), 0);
-                                assignRoomType(t_id - ((randHallAmount2 + 1) * 50), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id - ((randHallAmount2 + 1) * 50), 0);
-                                assignRoomType(t_id - ((randHallAmount2 + 1) * 50), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
+                spawnCorridorsDown(t_id, randHallAmount);
+                spawnCorridorsUp(t_id, randHallAmount2);
                 break;
+
             case 2:
-                for (int i = 0; i < randHallAmount; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id - i, 1) == false)
-                    {
-                        placeCorridorEnd(t_id - i, 1);
-                        assignRoomType(t_id - (i + 1), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(horizontalCorridor, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - (i + 1), "Horizontal Corridor");
-
-                        if (i == randHallAmount - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id - (randHallAmount + 1), 1) == false)
-                            {
-                                placeCorridorEnd(t_id - (randHallAmount + 1), 1);
-                                assignRoomType(t_id - (randHallAmount + 1), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id - (randHallAmount + 1), 1);
-                                assignRoomType(t_id - (randHallAmount + 1), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < randHallAmount2; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id + i, 3) == false)
-                    {
-                        placeCorridorEnd(t_id + i, 3);
-                        assignRoomType(t_id + (i + 1), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(horizontalCorridor, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + (i + 1), "Horizontal Corridor");
-
-                        if (i == randHallAmount2 - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id + (randHallAmount2 + 1), 3) == false)
-                            {
-                                placeCorridorEnd(t_id - randHallAmount2, 1);
-                                assignRoomType(t_id - (randHallAmount2 + 1), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id + randHallAmount2 + 1, 3);
-                                assignRoomType(t_id + randHallAmount2 + 1, "Curved Corridor");
-                            }
-                        }
-                    }
-                }
+                spawnCorridorsLeft(t_id, randHallAmount);
+                spawnCorridorsRight(t_id, randHallAmount2);
                 break;
+
             case 3:
-                for (int i = 0; i < randHallAmount; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
-                    {
-                        placeCorridorEnd(t_id - (i * 50), 0);
-                        assignRoomType(t_id - ((i + 1) * 50), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
-
-                        if (i == randHallAmount - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id - ((randHallAmount + 1) * 50), 0) == false)
-                            {
-                                placeCorridorEnd(t_id - ((randHallAmount + 1) * 50), 0);
-                                assignRoomType(t_id - ((randHallAmount + 1) * 50), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id - ((randHallAmount + 1) * 50), 0);
-                                assignRoomType(t_id - ((randHallAmount + 1) * 50), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < randHallAmount2; i++)
-                {
-                    if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
-                    {
-                        placeCorridorEnd(t_id + (i * 50), 2);
-                        assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
-                        break;
-                    }
-                    else
-                    {
-                        Instantiate(verticalCorridor, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
-                        assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
-
-                        if (i == randHallAmount2 - 1)
-                        {
-                            if (checkIsRoomPlaceValid(t_id + ((randHallAmount2 + 1) * 50), 2) == false)
-                            {
-                                placeCorridorEnd(t_id + ((randHallAmount2 + 1) * 50), 2);
-                                assignRoomType(t_id + ((randHallAmount2 + 1) * 50), "End Corridor");
-                            }
-                            else
-                            {
-                                placeCurvedCorridor(t_id + ((randHallAmount2 + 1) * 50), 2);
-                                assignRoomType(t_id + ((randHallAmount2 + 1) * 50), "Curved Corridor");
-                            }
-                        }
-                    }
-                }
+                spawnCorridorsUp(t_id, randHallAmount);
+                spawnCorridorsDown(t_id, randHallAmount2);
                 break;
+
         }
     }
 
@@ -608,6 +396,134 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     Instantiate(twoBLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                 }
                 break;
+        }
+    }
+
+    void spawnCorridorsUp(int t_id, int t_numberOfRooms)
+    {
+        for (int i = 0; i < t_numberOfRooms; i++)
+        {
+            if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
+            {
+                placeCorridorEnd(t_id - (i * 50), 0);
+                assignRoomType(t_id - ((i + 1) * 50), "End Corridor");
+                break;
+            }
+            else
+            {
+                Instantiate(verticalCorridor, cells[t_id - ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id - ((i + 1) * 50), "Vertical Corridor");
+
+                if (i == t_numberOfRooms - 1)
+                {
+                    if (checkIsRoomPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == false)
+                    {
+                        placeCorridorEnd(t_id - ((t_numberOfRooms + 1) * 50), 0);
+                        assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "End Corridor");
+                    }
+                    else
+                    {
+                        placeCurvedCorridor(t_id - ((t_numberOfRooms + 1) * 50), 0);
+                        assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "Curved Corridor");
+                    }
+                }
+            }
+        }
+    }
+
+    void spawnCorridorsDown(int t_id, int t_numberOfRooms)
+    {
+        for (int i = 0; i < t_numberOfRooms; i++)
+        {
+            if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
+            {
+                placeCorridorEnd(t_id + (i * 50), 2);
+                assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
+                break;
+            }
+            else
+            {
+                Instantiate(verticalCorridor, cells[t_id + ((i + 1) * 50)].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id + ((i + 1) * 50), "Vertical Corridor");
+
+                if (i == t_numberOfRooms - 1)
+                {
+                    if (checkIsRoomPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == false)
+                    {
+                        placeCorridorEnd(t_id + ((t_numberOfRooms + 1) * 50), 2);
+                        assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "End Corridor");
+                    }
+                    else
+                    {
+                        placeCurvedCorridor(t_id + ((t_numberOfRooms + 1) * 50), 2);
+                        assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "Curved Corridor");
+                    }
+                }
+            }
+        }
+    }
+
+    void spawnCorridorsRight(int t_id, int t_numberOfRooms)
+    {
+        for (int i = 0; i < t_numberOfRooms; i++)
+        {
+            if (checkIsRoomPlaceValid(t_id + i, 3) == false)
+            {
+                placeCorridorEnd(t_id + i, 3);
+                assignRoomType(t_id + (i + 1), "End Corridor");
+                break;
+            }
+            else
+            {
+                Instantiate(horizontalCorridor, cells[t_id + (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id + (i + 1), "Horizontal Corridor");
+
+                if (i == t_numberOfRooms - 1)
+                {
+                    if (checkIsRoomPlaceValid(t_id + (t_numberOfRooms + 1), 3) == false)
+                    {
+                        placeCorridorEnd(t_id - t_numberOfRooms, 1);
+                        assignRoomType(t_id - (t_numberOfRooms + 1), "End Corridor");
+                    }
+                    else
+                    {
+                        placeCurvedCorridor(t_id + t_numberOfRooms + 1, 3);
+                        assignRoomType(t_id + t_numberOfRooms + 1, "Curved Corridor");
+                    }
+                }
+            }
+        }
+    }
+
+    void spawnCorridorsLeft(int t_id, int t_numberOfRooms)
+    {
+        for (int i = 0; i < t_numberOfRooms; i++)
+        {
+            if (checkIsRoomPlaceValid(t_id - i, 1) == false)
+            {
+                placeCorridorEnd(t_id - i, 1);
+                assignRoomType(t_id - (i + 1), "End Corridor");
+                break;
+            }
+            else
+            {
+                Instantiate(horizontalCorridor, cells[t_id - (i + 1)].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id - (i + 1), "Horizontal Corridor");
+
+                if (i == t_numberOfRooms - 1)
+                {
+                    if (checkIsRoomPlaceValid(t_id - (t_numberOfRooms + 1), 1) == false)
+                    {
+                        placeCorridorEnd(t_id - t_numberOfRooms, 1);
+                        assignRoomType(t_id - (t_numberOfRooms + 1), "End Corridor");
+                    }
+                    else
+                    {
+                        placeCurvedCorridor(t_id - t_numberOfRooms - 1, 1);
+                        assignRoomType(t_id - (t_numberOfRooms + 1), "Curved Corridor");
+                    }
+                }
+            }
         }
     }
 }
