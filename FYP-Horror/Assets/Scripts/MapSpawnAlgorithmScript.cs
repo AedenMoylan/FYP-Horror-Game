@@ -46,8 +46,6 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         spawnDirection1 = Random.Range(0, 4);
         spawnDirection2 = Random.Range(0, 4);
 
-
-        Debug.Log(spawnDirection1);
         spawnCorridor1Amount = Random.Range(3, 7);
         spawnCorridor2Amount = Random.Range(3, 7);
 
@@ -230,17 +228,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        //Debug.Log("NOT VALID " + 1 + " id: " + t_id);
                         return false;
                     }
                     else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        //Debug.Log("NOT VALID " + 1 + " id: " + t_id);
                         return false;
                     }
                     else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        //Debug.Log("NOT VALID " + 1 + " id: " + t_id);
                         return false;
                     }
                 }
@@ -270,17 +265,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Cringe");
                         return false;
                     }
                     else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Cringe2");
                         return false;
                     }
                     else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        Debug.Log("Cringe2");
                         return false;
                     }
                 }
@@ -451,7 +443,6 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                         placeCorridorEnd(t_id, 1);
                     }
                 }
-                Debug.Log("oh hell nah");
                 break;
 
         }
@@ -661,8 +652,6 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 if (counter == 1)
                 {
                     roomCoordinates.Add(i);
-                    //Instantiate(TestRoom2, cells[i].GetComponent<CellScript>().position, Quaternion.identity);
-                    Debug.Log("Jaysus " + i);
                 }
             }
         }
