@@ -481,6 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e9c529c961ae4499add22977e5f817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomCoordinates: 
+  roomsToAdd: 
   cells:
   - {fileID: 0}
   - {fileID: 0}
@@ -3013,6 +3015,8 @@ MonoBehaviour:
   twoTRCorridor: {fileID: 6729357309550947417, guid: 5b3a8916c437efc49ae3fb1ef1af2dc4,
     type: 3}
   twoTLCorridor: {fileID: 4743358253921536950, guid: 69b7893e6612ec445a7f92a77f9de695,
+    type: 3}
+  TestRoom2: {fileID: 6285458262705237219, guid: 02f37a844f7665648adc4874c702ce70,
     type: 3}
 --- !u!114 &1852795686
 MonoBehaviour:

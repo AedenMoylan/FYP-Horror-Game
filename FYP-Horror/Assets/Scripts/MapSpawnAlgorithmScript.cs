@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,9 +14,13 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
     int spawnCellID = 1275;
 
+    public List<int> roomCoordinates = new List<int>();
+    public List<int> roomsToAdd = new List<int>();
 
     const int MAX_CELLS = 50 * 50;
     public GameObject[] cells = new GameObject[MAX_CELLS];
+
+    private int roomSpawnAmount = 10;
 
     public GameObject spawnRoom;
     public GameObject horizontalCorridor;
@@ -33,6 +38,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject twoBRCorridor;
     public GameObject twoTRCorridor;
     public GameObject twoTLCorridor;
+    public GameObject TestRoom2;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +60,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         assignRoomType(spawnCellID, "Spawn");
 
         SpawnStartCorridors();
+        findValidIdsForRoomPlacement();
+        spawnImportantRooms();
         //spawnCorridorsDown(2130, 7); // looks good on border check spawns an extra corridor
         //spawnCorridorsUp(2499 - 2130, 7); // works but spawns TB corridor onto the end corrodor cell
         //spawnCorridorsRight(2144, 7); // same as up
@@ -305,19 +313,23 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         {
             case 0:
                 Instantiate(topEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
-                
+                assignRoomType(t_id , "End Corridor");
+
                 break;
 
             case 1:
                 Instantiate(rightEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id , "End Corridor");
                 break;
 
             case 2:
                 Instantiate(bottomEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id , "End Corridor");
                 break;
 
             case 3:              
                 Instantiate(leftEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
+                assignRoomType(t_id , "End Corridor");
                 break;
         }
     }
@@ -465,7 +477,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == false)
                     {
                         placeCorridorEnd(t_id - ((t_numberOfRooms + 1) * 50), 2);
-                        assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "End Corridor");
+                        //assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "End Corridor");
                     }
                     else
                     {
@@ -614,6 +626,71 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             cells[50 * i].GetComponent<CellScript>().roomTypeName = "BORDER";
             cells[2499 - i].GetComponent<CellScript>().roomTypeName = "BORDER";
             cells[2499 - (50 * i)].GetComponent<CellScript>().roomTypeName = "BORDER";
+        }
+    }
+
+    void findValidIdsForRoomPlacement()
+    {
+        for (int i = 0; i < MAX_CELLS; i++)
+        {
+            int counter = 0;
+
+            if (cells[i].GetComponent<CellScript>().roomTypeName != "BORDER")
+            {
+                if (cells[i + 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
+                    && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room")
+                {
+                    counter++;
+                }
+                if (cells[i - 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
+                    && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room")
+                {
+                    counter++;
+                }
+                if (cells[i + 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
+                    && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room")
+                {
+                    counter++;
+                }
+                if (cells[i - 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
+                    && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room")
+                {
+                    counter++;
+                }
+
+                if (counter == 1)
+                {
+                    roomCoordinates.Add(i);
+                    //Instantiate(TestRoom2, cells[i].GetComponent<CellScript>().position, Quaternion.identity);
+                    Debug.Log("Jaysus " + i);
+                }
+            }
+        }
+    }
+
+    void spawnImportantRooms()
+    {
+        int count = roomCoordinates.Count;
+
+        for (int i = 0; i < roomSpawnAmount; i++)
+        {
+            int randNum = Random.Range(1, count + 1);
+
+            if (roomsToAdd.Contains(roomCoordinates.ElementAt<int>(randNum)) == false)
+            {
+                roomsToAdd.Add(roomCoordinates.ElementAt<int>(randNum));
+            }
+            else
+            {
+                if (i != 0)
+                i--;
+            }
+        }
+
+        for (int i = 0; i < roomSpawnAmount; i++)
+        {
+            Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
+            assignRoomType(roomsToAdd.ElementAt<int>(i), "Room");
         }
     }
 }
