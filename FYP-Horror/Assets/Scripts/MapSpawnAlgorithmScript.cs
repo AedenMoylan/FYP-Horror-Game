@@ -231,7 +231,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         cells[t_id].GetComponent<CellScript>().roomTypeName = t_roomType;
     }
 
-    bool checkIsRoomPlaceValid(int t_id, int t_direction)
+    bool checkIfCorridorPlaceValid(int t_id, int t_direction)
     {
         switch (t_direction)
         {
@@ -348,7 +348,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 0:
                 if (randNum == 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id, 3) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 3) == true)
                     {
                         Instantiate(twoBLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsLeft(t_id, randHallAmount, false);
@@ -360,7 +360,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIsRoomPlaceValid(t_id, 1) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 1) == true)
                     {
                         Instantiate(twoBRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsRight(t_id, randHallAmount, false);
@@ -377,7 +377,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (randNum == 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id, 0) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 0) == true)
                     {
                         Instantiate(twoTLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsUp(t_id, randHallAmount, false);
@@ -389,7 +389,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIsRoomPlaceValid(t_id, 2) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 2) == true)
                     {
                         Instantiate(twoBLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsDown(t_id, randHallAmount, false);
@@ -407,7 +407,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (randNum == 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id, 1) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 1) == true)
                     {
                         Instantiate(twoTRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsRight(t_id, randHallAmount, false);
@@ -419,7 +419,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIsRoomPlaceValid(t_id, 3) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 3) == true)
                     {
                         Instantiate(twoTLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsLeft(t_id, randHallAmount, false);
@@ -434,7 +434,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 3:
                 if (randNum == 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id, 0) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 0) == true)
                     {
                         Instantiate(twoTRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsUp(t_id, randHallAmount, false);
@@ -446,7 +446,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIsRoomPlaceValid(t_id, 2) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 2) == true)
                     {
                         Instantiate(twoBRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsDown(t_id, randHallAmount, false);
@@ -465,7 +465,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
+            if (checkIfCorridorPlaceValid(t_id - (i * 50), 0) == false)
             {
                 placeCorridorEnd(t_id - (i * 50), 2);
                 assignRoomType(t_id - (i * 50), "End Corridor");
@@ -478,7 +478,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == false)
+                    if (checkIfCorridorPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == false)
                     {
                         placeCorridorEnd(t_id - ((t_numberOfRooms + 1) * 50), 2);
                         //assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "End Corridor");
@@ -504,7 +504,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
+            if (checkIfCorridorPlaceValid(t_id + (i * 50), 2) == false)
             {
                 placeCorridorEnd(t_id + (i * 50), 0);
                 assignRoomType(t_id + (i * 50), "End Corridor");
@@ -517,7 +517,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == false)
+                    if (checkIfCorridorPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == false)
                     {
                         placeCorridorEnd(t_id + ((t_numberOfRooms + 1) * 50), 0);
                         assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "End Corridor");
@@ -544,7 +544,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIsRoomPlaceValid(t_id + i, 1) == false)
+            if (checkIfCorridorPlaceValid(t_id + i, 1) == false)
             {
                 placeCorridorEnd(t_id + i, 3);
                 assignRoomType(t_id + i, "End Corridor");
@@ -557,7 +557,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id + (t_numberOfRooms + 1), 1) == false)
+                    if (checkIfCorridorPlaceValid(t_id + (t_numberOfRooms + 1), 1) == false)
                     {
                         placeCorridorEnd(t_id + (t_numberOfRooms + 1), 3);
                         assignRoomType(t_id + (t_numberOfRooms + 1), "End Corridor");
@@ -585,7 +585,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIsRoomPlaceValid(t_id - i, 3) == false)
+            if (checkIfCorridorPlaceValid(t_id - i, 3) == false)
             {
                 placeCorridorEnd(t_id - (i + 1), 1);
                 assignRoomType(t_id - (i + 1), "End Corridor");
@@ -598,7 +598,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIsRoomPlaceValid(t_id - (t_numberOfRooms + 1), 3) == false)
+                    if (checkIfCorridorPlaceValid(t_id - (t_numberOfRooms + 1), 3) == false)
                     {
                         placeCorridorEnd(t_id - t_numberOfRooms, 1);
                         assignRoomType(t_id - t_numberOfRooms, "End Corridor");
@@ -678,9 +678,10 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         {
             int randNum = Random.Range(1, count + 1);
 
-            if (roomsToAdd.Contains(roomCoordinates.ElementAt<int>(randNum)) == false)
+            if (roomsToAdd.Contains(roomCoordinates.ElementAt<int>(randNum)) == false && isRoomPlaceValid(roomCoordinates.ElementAt<int>(randNum)) == true)
             {
                 roomsToAdd.Add(roomCoordinates.ElementAt<int>(randNum));
+                assignRoomType(roomsToAdd.ElementAt<int>(i), "Room");
             }
             else
             {
@@ -692,7 +693,19 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         for (int i = 0; i < roomSpawnAmount; i++)
         {
             Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
-            assignRoomType(roomsToAdd.ElementAt<int>(i), "Room");
+        }
+    }
+
+    bool isRoomPlaceValid(int t_id)
+    {
+        if (roomsToAdd.Contains(t_id - 50) || roomsToAdd.Contains(t_id + 50)
+            || roomsToAdd.Contains(t_id + 1) || roomsToAdd.Contains((t_id - 1)))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 }
