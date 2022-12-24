@@ -99,21 +99,30 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     }
     void SpawnStartCorridors()
     {
+        Transform spawnTopWall = spawnRoom.transform.Find("Top Wall");
+        Transform spawnBottomWall = spawnRoom.transform.Find("Bottom Wall");
+        Transform spawnLeftWall = spawnRoom.transform.Find("Left Wall");
+        Transform spawnRightWall = spawnRoom.transform.Find("Right Wall");
         switch (spawnDirection1)
         {
             case 0: // up
+                spawnTopWall.gameObject.SetActive(false);
                 spawnCorridorsUp(spawnCellID, spawnCorridor1Amount, true);
+
                 break;
 
             case 1: // RIGHT
+                spawnRightWall.gameObject.SetActive(false);
                 spawnCorridorsRight(spawnCellID, spawnCorridor1Amount, true);
                 break;
 
             case 2: // Down
+                spawnBottomWall.gameObject.SetActive(false);
                 spawnCorridorsDown(spawnCellID, spawnCorridor1Amount, true);
                 break;
 
             case 3: // Left
+                spawnLeftWall.gameObject.SetActive(false);
                 spawnCorridorsLeft(spawnCellID, spawnCorridor1Amount, true);
                 break;
 
@@ -125,18 +134,22 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         switch (spawnDirection2)
         {
             case 0: // TOP
+                spawnTopWall.gameObject.SetActive(false);
                 spawnCorridorsUp(spawnCellID, spawnCorridor2Amount, true);
                 break;
 
             case 1: // RIGHT
+                spawnRightWall.gameObject.SetActive(false);
                 spawnCorridorsRight(spawnCellID, spawnCorridor2Amount, true);
                 break;
 
             case 2: // Down
+                spawnBottomWall.gameObject.SetActive(false);
                 spawnCorridorsDown(spawnCellID, spawnCorridor2Amount, true);
                 break;
 
             case 3: // Left
+                spawnLeftWall.gameObject.SetActive(false);
                 spawnCorridorsLeft(spawnCellID, spawnCorridor2Amount, true);
                 break;
 
@@ -455,7 +468,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIsRoomPlaceValid(t_id - (i * 50), 0) == false)
             {
                 placeCorridorEnd(t_id - (i * 50), 2);
-                assignRoomType(t_id - ((i + 1) * 50), "End Corridor");
+                assignRoomType(t_id - (i * 50), "End Corridor");
                 break;
             }
             else
@@ -494,7 +507,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIsRoomPlaceValid(t_id + (i * 50), 2) == false)
             {
                 placeCorridorEnd(t_id + (i * 50), 0);
-                assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
+                assignRoomType(t_id + (i * 50), "End Corridor");
                 break;
             }
             else
@@ -574,7 +587,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         {
             if (checkIsRoomPlaceValid(t_id - i, 3) == false)
             {
-                placeCorridorEnd(t_id - i, 1);
+                placeCorridorEnd(t_id - (i + 1), 1);
                 assignRoomType(t_id - (i + 1), "End Corridor");
                 break;
             }
@@ -588,14 +601,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIsRoomPlaceValid(t_id - (t_numberOfRooms + 1), 3) == false)
                     {
                         placeCorridorEnd(t_id - t_numberOfRooms, 1);
-                        assignRoomType(t_id - (t_numberOfRooms + 1), "End Corridor");
+                        assignRoomType(t_id - t_numberOfRooms, "End Corridor");
                     }
                     else
                     {
                         if (t_isCorridorMultidirectional == false)
                         {
                             placeCurvedCorridor(t_id - t_numberOfRooms - 1, 3);
-                            assignRoomType(t_id - (t_numberOfRooms + 1), "Curved Corridor");
+                            assignRoomType(t_id - t_numberOfRooms - 1, "Curved Corridor");
                         }
                         else
                         {

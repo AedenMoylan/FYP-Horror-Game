@@ -10,6 +10,10 @@ TagManager:
   - CellTag
   - Cell
   - 2 L R Corridor
+  - Top Wall
+  - Bottom Wall
+  - Left Wall
+  - Right Wall
   layers:
   - Default
   - TransparentFX
