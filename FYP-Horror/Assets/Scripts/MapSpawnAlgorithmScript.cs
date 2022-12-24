@@ -638,33 +638,39 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         for (int i = 0; i < MAX_CELLS; i++)
         {
             int counter = 0;
+            int entranceDirection = -1;
 
             if (cells[i].GetComponent<CellScript>().roomTypeName != "BORDER")
             {
                 if (cells[i + 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
                     && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room")
                 {
+                    entranceDirection = 1;
                     counter++;
                 }
                 if (cells[i - 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
                     && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room")
                 {
+                    entranceDirection = 3;
                     counter++;
                 }
                 if (cells[i + 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
                     && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room")
                 {
+                    entranceDirection = 2;
                     counter++;
                 }
                 if (cells[i - 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
                     && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room")
                 {
+                    entranceDirection = 0;
                     counter++;
                 }
 
                 if (counter == 1)
                 {
                     roomCoordinates.Add(i);
+                    cells[i].GetComponent<CellScript>().specialRoomEntranceDirection = entranceDirection;
                 }
             }
         }
@@ -692,7 +698,29 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         for (int i = 0; i < roomSpawnAmount; i++)
         {
-            Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
+            int rotation = -90 * cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection;
+            Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, new Quaternion(0,rotation,0,0));
+
+
+            //if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
+            //{
+            //    int rotation = ;
+            //}
+            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
+            //{
+            //    int rotation = ;
+            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
+            //}
+            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
+            //{
+            //    int rotation = 0;
+            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
+            //}
+            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
+            //{
+            //    int rotation = 0;
+            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
+            //}
         }
     }
 

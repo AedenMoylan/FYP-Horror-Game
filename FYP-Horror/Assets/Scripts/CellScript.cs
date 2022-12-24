@@ -8,6 +8,7 @@ public class CellScript : MonoBehaviour
     public string roomTypeName = "EMPTY";
     public bool canCurvedCorridorBePlaced = false;
     public Vector3 position;
+    public int specialRoomEntranceDirection = -1;
     // Start is called before the first frame update
     void Start()
     {
