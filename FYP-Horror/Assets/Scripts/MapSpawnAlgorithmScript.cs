@@ -698,29 +698,28 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         for (int i = 0; i < roomSpawnAmount; i++)
         {
-            int rotation = -90 * cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection;
-            Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, new Quaternion(0,rotation,0,0));
+            int rotation = 90 * cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection;
+            float rotationPositionXCorrecter = 0;
+            float rotationPositionZCorrecter = 0;
+            Vector3 position = cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position;
 
-
-            //if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
-            //{
-            //    int rotation = ;
-            //}
-            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
-            //{
-            //    int rotation = ;
-            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
-            //}
-            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
-            //{
-            //    int rotation = 0;
-            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
-            //}
-            //else if (cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection == 0)
-            //{
-            //    int rotation = 0;
-            //    Instantiate(TestRoom2, cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().position, Quaternion.identity);
-            //}
+            if (rotation == 0)
+            {
+            }
+            else if (rotation == 90)
+            {
+                rotationPositionXCorrecter = -10;
+            }
+            else if (rotation == 180)
+            {
+                rotationPositionXCorrecter = -10;
+                rotationPositionZCorrecter = 10;
+            }
+            else if (rotation == 270)
+            {
+                rotationPositionZCorrecter = 10;
+            }
+            Instantiate(TestRoom2, new Vector3(position.x + rotationPositionXCorrecter, position.y,  position.z + rotationPositionZCorrecter), Quaternion.Euler(0,rotation,0));
         }
     }
 
