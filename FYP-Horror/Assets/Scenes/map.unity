@@ -218,7 +218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &23975627
 PrefabInstance:
@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 1735798845748332186, guid: 6fbcd365298b52545b96e8a7810b9f2d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1735798845748332186, guid: 6fbcd365298b52545b96e8a7810b9f2d,
         type: 3}
@@ -404,6 +404,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+--- !u!1001 &1588006688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6944812096826537870, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_Name
+      value: Pig_Carcass
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -150.92574
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.47999573
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.656265
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722333477535624500, guid: 32af444bd59aaa64eb3979aa5b44629c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32af444bd59aaa64eb3979aa5b44629c, type: 3}
 --- !u!1 &1616496517
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &1616496520
 MonoBehaviour:
@@ -614,7 +683,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1680822171
 PrefabInstance:
@@ -736,7 +805,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1852795685
 MonoBehaviour:
@@ -3285,7 +3354,7 @@ MonoBehaviour:
     type: 3}
   twoTLCorridor: {fileID: 4743358253921536950, guid: 69b7893e6612ec445a7f92a77f9de695,
     type: 3}
-  TestRoom2: {fileID: 6285458262705237219, guid: 02f37a844f7665648adc4874c702ce70,
+  TestRoom2: {fileID: 6285458262705237219, guid: 688a59066db929f488171a2e46119841,
     type: 3}
 --- !u!114 &1852795686
 MonoBehaviour:

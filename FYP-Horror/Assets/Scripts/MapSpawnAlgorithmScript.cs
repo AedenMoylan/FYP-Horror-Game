@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapSpawnAlgorithmScript : MonoBehaviour
@@ -698,6 +696,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         for (int i = 0; i < roomSpawnAmount; i++)
         {
+            int roomCoordinate = cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().id;
             int rotation = 90 * cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection;
             float rotationPositionXCorrecter = 0;
             float rotationPositionZCorrecter = 0;
@@ -705,6 +704,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
             if (rotation == 0)
             {
+                //removeCorridorWalls(cells[roomCoordinate - 50].GetComponent<CellScript>().id, 2);
             }
             else if (rotation == 90)
             {
@@ -719,7 +719,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             {
                 rotationPositionZCorrecter = 10;
             }
-            Instantiate(TestRoom2, new Vector3(position.x + rotationPositionXCorrecter, position.y,  position.z + rotationPositionZCorrecter), Quaternion.Euler(0,rotation,0));
+            GameObject room = Instantiate(TestRoom2, new Vector3(position.x + rotationPositionXCorrecter, position.y,  position.z + rotationPositionZCorrecter), Quaternion.Euler(0,rotation,0));
+            //room.transform.Find("Collision Cube").transform.position
         }
     }
 
@@ -735,4 +736,26 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             return true;
         }
     }
+
+    void removeCorridorWalls(int t_id, int t_wallDirection)
+    {
+
+        //Transform spawnBottomWall = spawnRoom.transform.Find("Bottom Wall");
+        //Transform spawnLeftWall = spawnRoom.transform.Find("Left Wall");
+        //Transform spawnRightWall = spawnRoom.transform.Find("Right Wall");
+
+        //if (t_wallDirection == 0)
+        //{
+        //    //Transform topWall = spawnRoom.transform.Find("Top Wall");
+        //    Transform topWall = cells[t_id].transform.Find("Top Wall");
+        //    topWall.gameObject.SetActive(false);
+        //}
+        //else if (t_wallDirection == 2)
+        //{
+        //    Transform bottomWall = cells[t_id].transform.Find("Top Wall");
+        //    bottomWall.gameObject.SetActive(false);
+        //}
+    }
+
+
 }
