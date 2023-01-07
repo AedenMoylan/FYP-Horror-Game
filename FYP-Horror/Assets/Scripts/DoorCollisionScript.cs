@@ -24,6 +24,4 @@ public class DoorCollisionScript : MonoBehaviour
             other.gameObject.SetActive(false);
         //}
     }
-
-
 }
