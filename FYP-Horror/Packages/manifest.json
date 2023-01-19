@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.tobii.gaming.sdk": "file:C:/Users/Áine/Desktop/TobiiUnitySDK_5.0.0.3",
+    "com.tobii.gaming.sdk": "file:C:/TobiiUnitySDK_5.0.0.3",
     "com.unity.cinemachine": "2.8.6",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.development": "1.0.1",
