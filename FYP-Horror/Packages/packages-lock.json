@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.tobii.gaming.sdk": {
+      "version": "file:C:/TobiiUnitySDK_5.0.0.3",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.7.3",
       "depth": 1,
