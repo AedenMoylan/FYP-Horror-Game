@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MapSpawnAlgorithmScript : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject twoTRCorridor;
     public GameObject twoTLCorridor;
     public GameObject TestRoom2;
+
+    public NavMeshSurface navSurface;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         SpawnStartCorridors();
         findValidIdsForRoomPlacement();
         spawnImportantRooms();
+
+        navSurface.BuildNavMesh();
         //spawnCorridorsDown(2130, 7); // looks good on border check spawns an extra corridor
         //spawnCorridorsUp(2499 - 2130, 7); // works but spawns TB corridor onto the end corrodor cell
         //spawnCorridorsRight(2144, 7); // same as up
