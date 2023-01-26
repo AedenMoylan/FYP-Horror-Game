@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEditor.Progress;
 
 public class KillerScript : MonoBehaviour
 {
     private Animator m_Animator;
+
+    public NavMeshAgent navAgent;
+
+    public GameObject moveDestination;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +28,8 @@ public class KillerScript : MonoBehaviour
             newPosition.z += m_Animator.GetFloat("Runspeed") * Time.deltaTime;
             transform.position = newPosition;
         }
+
+        navAgent.SetDestination(moveDestination.transform.position);
     }
 
     private void handleInput()
