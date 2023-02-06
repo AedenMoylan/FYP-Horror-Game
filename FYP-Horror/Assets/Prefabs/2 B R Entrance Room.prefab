@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3561523946481325099}
   - component: {fileID: 5311039993312212305}
   - component: {fileID: 5397424460687534711}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1975919820642915650}
   - component: {fileID: 8215702732121063700}
   - component: {fileID: 8821779602916797818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 4129988160595444924}
   - component: {fileID: 2722349149356743030}
   - component: {fileID: 274435918523083997}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 4142003438768977320}
   - component: {fileID: 5014884837342473015}
   - component: {fileID: 7641951797106107848}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 4241498273414951839}
   - component: {fileID: 1774886481303132009}
   - component: {fileID: 583246972315828591}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 6370408195438910700}
   - component: {fileID: 3850849789420354656}
   - component: {fileID: 3677370560734131261}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 2 B R Entrance Room
   m_TagString: Corridor
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 8598431218145714367}
   - component: {fileID: 1237773328371613707}
   - component: {fileID: 6422937682687686262}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,6 +721,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -808,6 +813,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn Circle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}

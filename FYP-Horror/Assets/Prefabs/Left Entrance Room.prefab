@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 752102122260388495}
   - component: {fileID: 1650306051712960325}
   - component: {fileID: 3525848737657434862}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 746454673732201371}
   - component: {fileID: 8554826687671694596}
   - component: {fileID: 6425792343182638075}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottom Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 2903495916821056369}
   - component: {fileID: 4694053353946210087}
   - component: {fileID: 5282136819551302473}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 165992808063732248}
   - component: {fileID: 8832737548217215842}
   - component: {fileID: 8775028921229997124}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 4193672015546130481}
   - component: {fileID: 7701924553262301838}
   - component: {fileID: 4952515520741026983}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left Entrance Room
   m_TagString: Corridor
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 719589169506889132}
   - component: {fileID: 3134790549367605594}
   - component: {fileID: 4267361563218583388}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,6 +632,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3867369461813226813}
   - component: {fileID: 8749065008420403358}
   - component: {fileID: -7901568151636584404}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bottom Entrance Room
   m_TagString: Corridor
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 9208605740167150717}
   - component: {fileID: 7983957704531605435}
   - component: {fileID: 1985402579876087324}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 7381813141038282787}
   - component: {fileID: 2209295323509086553}
   - component: {fileID: 2160571321430066815}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 7947954498434558132}
   - component: {fileID: 8276453899591382398}
   - component: {fileID: 6112117912399085781}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 7955396495315949984}
   - component: {fileID: 1334217677689767743}
   - component: {fileID: 4400525306882836928}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 5510018094739208522}
   - component: {fileID: 2673008163124210972}
   - component: {fileID: 3274439185633689970}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,6 +632,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4180886520217827000, guid: c7825e36c1ce5f8478d3e32d63289989,
         type: 3}
