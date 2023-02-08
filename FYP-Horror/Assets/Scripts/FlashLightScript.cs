@@ -79,8 +79,15 @@ public class FlashLightScript : MonoBehaviour
 
     void setFlashlightMeterColor()
     {
-        redRGBValue = flashLightTimer / maxFlashlightTimer;
-        redRGBValue = MAX_RGB_VALUE * redRGBValue;
+        if (isBatteryDepleted == false)
+        {
+            redRGBValue = flashLightTimer / maxFlashlightTimer;
+            redRGBValue = MAX_RGB_VALUE * redRGBValue;
+        }
+        else
+        {
+            redRGBValue = 0;
+        }
         flashlightUI.color = new UnityEngine.Color(MAX_RGB_VALUE, redRGBValue, redRGBValue);
     }
 }
