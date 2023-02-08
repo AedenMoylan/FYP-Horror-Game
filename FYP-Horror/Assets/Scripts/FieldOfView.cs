@@ -61,6 +61,4 @@ public class FieldOfView : MonoBehaviour
         VisionConeMesh.triangles = triangles;
         meshFilter.mesh = VisionConeMesh;
     }
-
-
 }
