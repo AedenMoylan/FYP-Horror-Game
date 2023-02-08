@@ -11,8 +11,10 @@ public class FieldOfView : MonoBehaviour
     public int NumOfTriangles = 120;
     Mesh VisionConeMesh;
     MeshFilter meshFilter;
+    public Material VisionConeMaterial;
     void Start()
     {
+        transform.AddComponent<MeshRenderer>().material = VisionConeMaterial;
         meshFilter = transform.AddComponent<MeshFilter>();
         VisionConeMesh = new Mesh();
         Angle *= Mathf.Deg2Rad;
