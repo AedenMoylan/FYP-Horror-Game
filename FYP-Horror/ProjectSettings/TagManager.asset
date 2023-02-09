@@ -15,6 +15,7 @@ TagManager:
   - Left Wall
   - Right Wall
   - Corridor
+  - Wardrobe
   layers:
   - Default
   - TransparentFX

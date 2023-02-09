@@ -5,7 +5,6 @@ using UnityEngine;
 public class FlashLightDirection : MonoBehaviour
 {
     public Camera camera;
-    public GameObject lookObject;
 
     // Update is called once per frame
     void Update()
@@ -16,7 +15,6 @@ public class FlashLightDirection : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            lookObject.transform.position = hit.point;
             transform.LookAt(hit.point);
         }
 
