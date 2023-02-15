@@ -10,92 +10,87 @@ namespace Tobii.Research.Unity
 {
     public class EyeTrackerBase : MonoBehaviour
     {
-        #region Public Properties
-
         /// <summary>
         /// Get the IEyeTracker instance.
         /// </summary>
-        public IEyeTracker EyeTrackerInterface { get { return _eyeTracker; } }
+        //public IEyeTracker EyeTrackerInterface { get { return _eyeTracker; } }
 
         /// <summary>
         /// Get the number of gaze data items left in the queue.
         /// </summary>
-        public virtual int GazeDataCount { get { return -1; } }
+        //public virtual int GazeDataCount { get { return -1; } }
 
         /// <summary>
         /// Get how many unprocessed gaze data objects that are queued.
         /// </summary>
-        public virtual int UnprocessedGazeDataCount { get { return -1; } }
+        //public virtual int UnprocessedGazeDataCount { get { return -1; } }
 
         /// <summary>
         /// Is the eye tracker connected?
         /// </summary>
-        public bool Connected { get { return _eyeTracker != null; } }
+        //public bool Connected { get { return _eyeTracker != null; } }
 
         /// <summary>
         /// Get the latest user position guide data.
         /// </summary>
-        public IUserPositionGuideData LatestUserPositionGuideData
-        {
-            get
-            {
-                lock (_userPositionGuideLock)
-                {
-                    return _latestUserPositionGuideData;
-                }
-            }
-        }
+        //public IUserPositionGuideData LatestUserPositionGuideData
+        //{
+        //    get
+        //    {
+        //        lock (_userPositionGuideLock)
+        //        {
+        //            return _latestUserPositionGuideData;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Connect or disconnect the gaze stream.
         /// </summary>
-        public virtual bool SubscribeToGazeData
-        {
-            get
-            {
-                return false;
-            }
+        //public virtual bool SubscribeToGazeData
+        //{
+        //    get
+        //    {
+        //        return false;
+        //    }
 
-            set
-            {
-                UpdateSubscriptions();
-            }
-        }
+        //    set
+        //    {
+        //        UpdateSubscriptions();
+        //    }
+        //}
 
         /// <summary>
         /// Connect or disconnect the user position guide stream. Requires that the eyetracker is connected.
         /// </summary>
-        public bool SubscribeToUserPositionGuide
-        {
-            get
-            {
-                return _subscribingToUserPositionGuide;
-            }
+        //public bool SubscribeToUserPositionGuide
+        //{
+        //    get
+        //    {
+        //        return _subscribingToUserPositionGuide;
+        //    }
 
-            set
-            {
-                if (Connected)
-                {
-                    if (value)
-                    {
-                        if (!_subscribingToUserPositionGuide)
-                        {
-                            _eyeTracker.UserPositionGuideReceived += OnUserPositionGuideReceived;
-                            _subscribingToUserPositionGuide = true;
-                        }
-                    }
-                    else
-                    {
-                        _eyeTracker.UserPositionGuideReceived -= OnUserPositionGuideReceived;
-                        _subscribingToUserPositionGuide = false;
-                    }
-                }
-            }
-        }
+        //    set
+        //    {
+        //        if (Connected)
+        //        {
+        //            if (value)
+        //            {
+        //                if (!_subscribingToUserPositionGuide)
+        //                {
+        //                    _eyeTracker.UserPositionGuideReceived += OnUserPositionGuideReceived;
+        //                    _subscribingToUserPositionGuide = true;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                _eyeTracker.UserPositionGuideReceived -= OnUserPositionGuideReceived;
+        //                _subscribingToUserPositionGuide = false;
+        //            }
+        //        }
+        //    }
+        //}
 
-        #endregion Public Properties
-
-        #region Protected Fields
 
         /// <summary>
         /// The IEyeTracker instance.
@@ -136,45 +131,45 @@ namespace Tobii.Research.Unity
         /// <summary>
         /// Locked access to the thread-runnign flag.
         /// </summary>
-        protected bool AutoConnectThreadRunning
-        {
-            get
-            {
-                lock (_autoConnectLock)
-                {
-                    return _autoConnectThreadRunning;
-                }
-            }
+        //protected bool AutoConnectThreadRunning
+        //{
+        //    get
+        //    {
+        //        lock (_autoConnectLock)
+        //        {
+        //            return _autoConnectThreadRunning;
+        //        }
+        //    }
 
-            set
-            {
-                lock (_autoConnectLock)
-                {
-                    _autoConnectThreadRunning = value;
-                }
-            }
-        }
+        //    set
+        //    {
+        //        lock (_autoConnectLock)
+        //        {
+        //            _autoConnectThreadRunning = value;
+        //        }
+        //    }
+        //}
 
         protected IEyeTracker _foundEyeTracker;
 
-        protected IEyeTracker FoundEyeTracker
-        {
-            get
-            {
-                lock (_autoConnectLock)
-                {
-                    return _foundEyeTracker;
-                }
-            }
+        //protected IEyeTracker FoundEyeTracker
+        //{
+        //    get
+        //    {
+        //        lock (_autoConnectLock)
+        //        {
+        //            return _foundEyeTracker;
+        //        }
+        //    }
 
-            set
-            {
-                lock (_autoConnectLock)
-                {
-                    _foundEyeTracker = value;
-                }
-            }
-        }
+        //    set
+        //    {
+        //        lock (_autoConnectLock)
+        //        {
+        //            _foundEyeTracker = value;
+        //        }
+        //    }
+        //}
 
         private bool _tooManyEyeTrackerInstances;
 
@@ -185,10 +180,6 @@ namespace Tobii.Research.Unity
         /// </summary>
         private IUserPositionGuideData _latestUserPositionGuideData = new UserPositionGuideData();
 
-        #endregion Protected Fields
-
-        #region Inspector Properties
-
         /// <summary>
         /// Flag to indicate if we want to subscribe to gaze data.
         /// </summary>
@@ -196,130 +187,129 @@ namespace Tobii.Research.Unity
         [SerializeField]
         protected bool _subscribeToGaze = true;
 
-        #endregion Inspector Properties
 
         #region Unity Methods
 
-        private void Awake()
-        {
-            if (FindObjectsOfType<EyeTrackerBase>().Length > 1)
-            {
-                _tooManyEyeTrackerInstances = true;
-                Debug.LogError("Too many eye EyeTrackerBase instances. Please use only one [EyeTracker] or [VREyeTracker] in a scene.");
-                return;
-            }
+        //private void Awake()
+        //{
+        //    if (FindObjectsOfType<EyeTrackerBase>().Length > 1)
+        //    {
+        //        _tooManyEyeTrackerInstances = true;
+        //        Debug.LogError("Too many eye EyeTrackerBase instances. Please use only one [EyeTracker] or [VREyeTracker] in a scene.");
+        //        return;
+        //    }
 
-            OnAwake();
-        }
+        //    //OnAwake();
+        //}
 
-        private void Start()
-        {
-            if (_tooManyEyeTrackerInstances)
-            {
-                return;
-            }
+        //private void Start()
+        //{
+        //    if (_tooManyEyeTrackerInstances)
+        //    {
+        //        return;
+        //    }
 
-            OnStart();
-        }
+        //    //OnStart();
+        //}
 
-        private void Update()
-        {
-            OnUpdate();
-        }
+        //private void Update()
+        //{
+        //    OnUpdate();
+        //}
 
-        protected virtual void OnAwake()
-        {
-        }
+        //protected virtual void OnAwake()
+        //{
+        //}
 
-        protected virtual void OnStart()
-        {
-            // Init autoconnect
-            StartCoroutine(AutoConnectMonitoring());
-        }
+        //protected virtual void OnStart()
+        //{
+        //    // Init autoconnect
+        //    StartCoroutine(AutoConnectMonitoring());
+        //}
 
-        protected virtual void OnUpdate()
-        {
-            // Check for state transitions to or from subscribing.
-            UpdateSubscriptions();
+        //protected virtual void OnUpdate()
+        //{
+        //    // Check for state transitions to or from subscribing.
+        //    UpdateSubscriptions();
 
-            if (SubscribeToGazeData)
-            {
-                ProcessGazeEvents();
-            }
-        }
+        //    if (SubscribeToGazeData)
+        //    {
+        //        ProcessGazeEvents();
+        //    }
+        //}
 
-        private void OnDestroy()
-        {
-            StopAutoConnectThread();
-        }
+        //private void OnDestroy()
+        //{
+        //    StopAutoConnectThread();
+        //}
 
-        private void OnApplicationQuit()
-        {
-            if (_tooManyEyeTrackerInstances)
-            {
-                return;
-            }
+        //private void OnApplicationQuit()
+        //{
+        //    if (_tooManyEyeTrackerInstances)
+        //    {
+        //        return;
+        //    }
 
-            SubscribeToUserPositionGuide = false;
+        //    SubscribeToUserPositionGuide = false;
 
-            EyeTrackingOperations.Terminate();
-        }
+        //    EyeTrackingOperations.Terminate();
+        //}
 
         #endregion Unity Methods
 
         #region Protected and private Eye Tracking Methods
 
-        protected virtual void ProcessGazeEvents()
-        {
-        }
+        //protected virtual void ProcessGazeEvents()
+        //{
+        //}
 
-        protected IEnumerator AutoConnectMonitoring()
-        {
-            yield return new WaitForEndOfFrame();
+        //protected IEnumerator AutoConnectMonitoring()
+        //{
+        //    yield return new WaitForEndOfFrame();
 
-            StartAutoConnectThread();
+        //    StartAutoConnectThread();
 
-            while (true)
-            {
-                if (_eyeTracker == null && FoundEyeTracker != null)
-                {
-                    _eyeTracker = FoundEyeTracker;
-                    FoundEyeTracker = null;
-                    UpdateSubscriptions();
-                    StopAutoConnectThread();
-                    Debug.Log("Connected to Eye Tracker: " + _eyeTracker.SerialNumber);
-                    yield break;
-                }
+        //    while (true)
+        //    {
+        //        if (_eyeTracker == null && FoundEyeTracker != null)
+        //        {
+        //            _eyeTracker = FoundEyeTracker;
+        //            FoundEyeTracker = null;
+        //            UpdateSubscriptions();
+        //            StopAutoConnectThread();
+        //            Debug.Log("Connected to Eye Tracker: " + _eyeTracker.SerialNumber);
+        //            yield break;
+        //        }
 
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
+        //        yield return new WaitForSeconds(0.1f);
+        //    }
+        //}
 
-        protected virtual void StartAutoConnectThread()
-        {
-        }
+        //protected virtual void StartAutoConnectThread()
+        //{
+        //}
 
-        protected void StopAutoConnectThread()
-        {
-            if (_autoConnectThread != null)
-            {
-                AutoConnectThreadRunning = false;
-                _autoConnectThread.Join(1000);
-                _autoConnectThread = null;
-            }
-        }
+        //protected void StopAutoConnectThread()
+        //{
+        //    if (_autoConnectThread != null)
+        //    {
+        //        AutoConnectThreadRunning = false;
+        //        _autoConnectThread.Join(1000);
+        //        _autoConnectThread = null;
+        //    }
+        //}
 
-        protected virtual void UpdateSubscriptions()
-        {
-        }
+        //protected virtual void UpdateSubscriptions()
+        //{
+        //}
 
-        private void OnUserPositionGuideReceived(object sender, UserPositionGuideEventArgs e)
-        {
-            lock (_userPositionGuideLock)
-            {
-                _latestUserPositionGuideData = new UserPositionGuideData(e);
-            }
-        }
+        //private void OnUserPositionGuideReceived(object sender, UserPositionGuideEventArgs e)
+        //{
+        //    lock (_userPositionGuideLock)
+        //    {
+        //        _latestUserPositionGuideData = new UserPositionGuideData(e);
+        //    }
+        //}
 
         #endregion Protected and private Eye Tracking Methods
     }

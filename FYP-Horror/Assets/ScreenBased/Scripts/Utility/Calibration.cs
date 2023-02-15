@@ -145,7 +145,7 @@ namespace Tobii.Research.Unity
             }
 
             // Create and start the calibration thread.
-            _calibrationThread = new CalibrationThread(EyeTracker.Instance.EyeTrackerInterface, screenBased: true);
+            //_calibrationThread = new CalibrationThread(FindEyeTracker.Instance.EyeTrackerInterface, screenBased: true);
 
             // Only continue if the calibration thread is running.
             for (int i = 0; i < 10; i++)
