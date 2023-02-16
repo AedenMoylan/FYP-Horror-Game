@@ -33,16 +33,20 @@ public class PlayerScript : MonoBehaviour
                     playerCamera.enabled = false;
                     WardrobeCamera.enabled = true;
                     preWardrobePosition = this.transform.position;
-                    this.transform.position = new Vector3(5000,5000,5000);
+                    this.transform.position = new Vector3(5000, 5000, 5000);
                 }
                 //this.transform.position = wardrobePosition;
+                //if (isPlayerInWardrobe == true || Input.GetKeyDown("e"))
+                //{
+                else
+                {
+                    isPlayerInWardrobe = false;
+                    playerCamera.enabled = true;
+                    WardrobeCamera.enabled = false;
+                }
+                
+            //}
             }
-        }
-        if (isPlayerInWardrobe == true || Input.GetKeyDown("e"))
-        {
-            isPlayerInWardrobe = false;
-            playerCamera.enabled = true;
-            WardrobeCamera.enabled = false;
         }
     }
 
