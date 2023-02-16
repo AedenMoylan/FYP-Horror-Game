@@ -9,6 +9,7 @@ public class CellScript : MonoBehaviour
     public bool canCurvedCorridorBePlaced = false;
     public Vector3 position;
     public int specialRoomEntranceDirection = -1;
+    public bool doesRoomHaveWardrobe = false;
     // Start is called before the first frame update
     void Start()
     {

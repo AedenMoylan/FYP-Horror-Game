@@ -9,6 +9,11 @@ public class PlayerScript : MonoBehaviour
     private bool hasWardrobeCollisionHappened;
     private GameObject wardrobe;
     private Vector3 wardrobePosition;
+    private bool isPlayerInWardrobe = false;
+    private Vector3 preWardrobePosition;
+
+    public Camera playerCamera;
+    public Camera WardrobeCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +27,22 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown("e"))
             {
-                Debug.Log("Wassup blud");
-                this.transform.position = wardrobePosition;
+                if (isPlayerInWardrobe == false)
+                {
+                    isPlayerInWardrobe = true;
+                    playerCamera.enabled = false;
+                    WardrobeCamera.enabled = true;
+                    preWardrobePosition = this.transform.position;
+                    this.transform.position = new Vector3(5000,5000,5000);
+                }
+                //this.transform.position = wardrobePosition;
             }
+        }
+        if (isPlayerInWardrobe == true || Input.GetKeyDown("e"))
+        {
+            isPlayerInWardrobe = false;
+            playerCamera.enabled = true;
+            WardrobeCamera.enabled = false;
         }
     }
 

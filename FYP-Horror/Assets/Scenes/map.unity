@@ -888,6 +888,12 @@ Transform:
   m_Father: {fileID: 151644847}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &336262152 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4645609946278209594, guid: d184f7a5212da78488685ac6176f27c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 977404688}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &740324831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,6 +1072,16 @@ PrefabInstance:
     - target: {fileID: 2946572271351458880, guid: d184f7a5212da78488685ac6176f27c4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954223651061437970, guid: d184f7a5212da78488685ac6176f27c4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645609946278209594, guid: d184f7a5212da78488685ac6176f27c4,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7497981730474028394, guid: d184f7a5212da78488685ac6176f27c4,
@@ -1902,7 +1918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2216d480042d49a69c7e92ef6a902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFlashlightTimer: 2500
+  maxFlashlightTimer: 25
   flashlightDecreaseAmount: 0.15
   flashlightIncreaseAmount: 0.075
   depletedBatteryIncreaseAmount: 0.05
@@ -4520,6 +4536,7 @@ MonoBehaviour:
   canCurvedCorridorBePlaced: 0
   position: {x: 0, y: 0, z: 0}
   specialRoomEntranceDirection: 0
+  doesRoomHaveWardrobe: 0
 --- !u!1 &1864489583
 GameObject:
   m_ObjectHideFlags: 0
@@ -4577,6 +4594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wardrobeText: {fileID: 66097438}
+  playerCamera: {fileID: 1944997906}
+  WardrobeCamera: {fileID: 336262152}
 --- !u!136 &1912841338
 CapsuleCollider:
   m_ObjectHideFlags: 0
