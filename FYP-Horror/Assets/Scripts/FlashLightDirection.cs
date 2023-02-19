@@ -15,10 +15,6 @@ public class FlashLightDirection : MonoBehaviour
 
         Ray ray = camera.ScreenPointToRay(mousePos);       
         RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    transform.LookAt(hit.point);
-        //}
 
         transform.LookAt(testRay.point);
     }
