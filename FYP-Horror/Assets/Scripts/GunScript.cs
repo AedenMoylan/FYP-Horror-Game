@@ -9,11 +9,15 @@ public class GunScript : MonoBehaviour
     private float gunAimSpeed = 3f;
     private bool isGunRaising = true;
     private double moveCounter = 0;
+    private const int MAX_AMMO = 6;
+    private int ammo = MAX_AMMO;
     public Camera weaponCamera;
+    private ParticleSystem particleSystem;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(moveGunOnScreen());
+        particleSystem = this.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -28,6 +32,13 @@ public class GunScript : MonoBehaviour
 
         //aimGun();
 
+        aimAtMiddleOfScreen();
+        shootGun();
+
+        if (Input.GetButtonDown("R"))
+        {
+            StartCoroutine(reloadGun());
+        }
     }
 
     IEnumerator moveGunOnScreen()
@@ -54,5 +65,32 @@ public class GunScript : MonoBehaviour
             transform.position = transform.position + weaponCamera.transform.right * gunAimSpeed * Time.deltaTime;
             moveCounter = moveCounter - Time.deltaTime;
         }
+    }
+
+    private void aimAtMiddleOfScreen()
+    {
+        Ray ray = weaponCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+        }
+
+        Debug.DrawRay(this.transform.position, hit.point, Color.green, 1);
+    }
+
+    private void shootGun()
+    {
+        if (Input.GetMouseButtonDown(0) && ammo > 0)
+        {
+            ammo--;
+            particleSystem.Play();
+            Debug.Log(ammo);
+        }
+    }
+    IEnumerator reloadGun()
+    {
+        yield return new WaitForSeconds(3);
+        ammo = MAX_AMMO;
     }
 }
