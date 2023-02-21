@@ -8,7 +8,7 @@ public class GunScript : MonoBehaviour
     private float gunRaiseSpeed = 1f;
     private float gunAimSpeed = 3f;
     private bool isGunRaising = true;
-    private float moveCounter = 0;
+    private double moveCounter = 0;
     public Camera weaponCamera;
     // Start is called before the first frame update
     void Start()
@@ -38,10 +38,11 @@ public class GunScript : MonoBehaviour
 
     public void aimGun()
     {
-        if (moveCounter !< 27)
+        if (moveCounter !< 0.27)
         {
             transform.position = transform.position - weaponCamera.transform.right * gunAimSpeed * Time.deltaTime;
-            moveCounter++;
+            moveCounter = moveCounter + Time.deltaTime;
+            Debug.Log(moveCounter);
         }
 
     }
@@ -51,7 +52,7 @@ public class GunScript : MonoBehaviour
         if (moveCounter > 0)
         {
             transform.position = transform.position + weaponCamera.transform.right * gunAimSpeed * Time.deltaTime;
-            moveCounter--;
+            moveCounter = moveCounter - Time.deltaTime;
         }
     }
 }
