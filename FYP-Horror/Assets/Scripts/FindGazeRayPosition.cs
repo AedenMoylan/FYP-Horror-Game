@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using UnityEngine;
 
 namespace Tobii.Research.Unity
@@ -8,6 +9,8 @@ namespace Tobii.Research.Unity
         public FlashLightDirection flashLightDirection;
 
         private FindEyeTracker eyeTracker;
+
+        public GameObject gun;
 
         // used to tell if an eye tracker has been connected or not
         private bool hasTrackerBeenFound = false;
@@ -32,6 +35,7 @@ namespace Tobii.Research.Unity
             if (hasTrackerBeenFound == true)
             {
                 shootRay();
+                detectWhenEyeIsClosed();
             }
         }
         protected bool GetRay(out Ray ray)
@@ -66,6 +70,20 @@ namespace Tobii.Research.Unity
                 {
                     LatestHitObject = null;
                 }
+            }
+        }
+
+        private void detectWhenEyeIsClosed()
+        {
+            IGazeData gazeData = eyeTracker.LatestGazeData;
+            if (gazeData.Left.GazePointValid == true && gazeData.Right.GazePointValid == false ||
+                gazeData.Left.GazePointValid == false && gazeData.Right.GazePointValid == true)
+            {
+                gun.GetComponent<GunScript>().aimGun();
+            }
+            else
+            {
+                gun.GetComponent<GunScript>().resetGun();
             }
         }
     }
