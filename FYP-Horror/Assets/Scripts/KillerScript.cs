@@ -25,7 +25,6 @@ public class KillerScript : MonoBehaviour
         if (m_Animator)
         {
             Vector3 newPosition = transform.position;
-            newPosition.z += m_Animator.GetFloat("Runspeed") * Time.deltaTime;
             transform.position = newPosition;
         }
 
@@ -47,5 +46,18 @@ public class KillerScript : MonoBehaviour
             m_Animator.SetBool("Walking", true);
             m_Animator.SetBool("Alert", false);
         }
+    }
+
+    public void setToDie()
+    {
+        
+        //m_Animator.
+
+        foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+        {
+            m_Animator.SetBool(parameter.name, false);
+        }
+
+        m_Animator.SetBool("Dead", true);
     }
 }

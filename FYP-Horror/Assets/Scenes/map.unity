@@ -842,7 +842,7 @@ PrefabInstance:
     - target: {fileID: 732678819226335576, guid: eb726c286a890984395432cd20db242b,
         type: 3}
       propertyPath: m_Name
-      value: Prefab_CrazyDoctor
+      value: Killer
       objectReference: {fileID: 0}
     - target: {fileID: 6305325321507682712, guid: eb726c286a890984395432cd20db242b,
         type: 3}
@@ -1045,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCamera: {fileID: 600365086}
+  killer: {fileID: 151644838}
 --- !u!199 &782406734
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9758,7 +9759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894481864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.479, y: 2.159, z: 3.841}
+  m_LocalPosition: {x: -4.479, y: 0.46, z: 3.841}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

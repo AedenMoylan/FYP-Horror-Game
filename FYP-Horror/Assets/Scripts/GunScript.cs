@@ -13,6 +13,7 @@ public class GunScript : MonoBehaviour
     private int ammo = MAX_AMMO;
     public Camera weaponCamera;
     private ParticleSystem particleSystem;
+    public GameObject killer;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +36,10 @@ public class GunScript : MonoBehaviour
         aimAtMiddleOfScreen();
         shootGun();
 
-        if (Input.GetButtonDown("R"))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(reloadGun());
+            //StartCoroutine(reloadGun());
+            ammo = 6;
         }
     }
 
@@ -67,16 +69,20 @@ public class GunScript : MonoBehaviour
         }
     }
 
-    private void aimAtMiddleOfScreen()
+    private Transform aimAtMiddleOfScreen()
     {
         Ray ray = weaponCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        Transform hitTarget = null;
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
+            hitTarget = hit.transform;
         }
 
         Debug.DrawRay(this.transform.position, hit.point, Color.green, 1);
+
+        return hitTarget;
     }
 
     private void shootGun()
@@ -85,7 +91,11 @@ public class GunScript : MonoBehaviour
         {
             ammo--;
             particleSystem.Play();
-            Debug.Log(ammo);
+
+            if (aimAtMiddleOfScreen().IsChildOf(killer.transform) == true)
+            {
+                killer.GetComponent<KillerScript>().setToDie();
+            }
         }
     }
     IEnumerator reloadGun()
