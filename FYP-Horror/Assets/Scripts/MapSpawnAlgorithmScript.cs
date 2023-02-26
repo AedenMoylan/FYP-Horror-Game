@@ -40,6 +40,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject TestRoom2;
 
     public NavMeshSurface navSurface;
+
+    public KillerSpawnScript killerSpawnScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +72,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         //placeCurvedCorridor(1942, 0);
 
+        killerSpawnScript.spawnKiller();
     }
 
     // Update is called once per frame
@@ -500,22 +503,26 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 0:
                 Instantiate(topEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                 assignRoomType(t_id , "End Corridor");
+                killerSpawnScript.addSpawnCell(cells[t_id]);
 
                 break;
 
             case 1:
                 Instantiate(rightEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                 assignRoomType(t_id , "End Corridor");
+                killerSpawnScript.addSpawnCell(cells[t_id]);
                 break;
 
             case 2:
                 Instantiate(bottomEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                 assignRoomType(t_id , "End Corridor");
+                killerSpawnScript.addSpawnCell(cells[t_id]);
                 break;
 
             case 3:              
                 Instantiate(leftEntranceCorridorDeadEnd, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                 assignRoomType(t_id , "End Corridor");
+                killerSpawnScript.addSpawnCell(cells[t_id]);
                 break;
         }
     }

@@ -12,6 +12,8 @@ public class FieldOfView : MonoBehaviour
     Mesh VisionConeMesh;
     MeshFilter meshFilter;
     public Material VisionConeMaterial;
+    private Transform hitTarget;
+    public GameObject player;
     void Start()
     {
         transform.AddComponent<MeshRenderer>().material = VisionConeMaterial;
@@ -42,6 +44,8 @@ public class FieldOfView : MonoBehaviour
             Vector3 VertForward = (Vector3.forward * cos) + (Vector3.right * sin);
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Range, ObstacleLayer))
             {
+                //hitTarget = hit.transform;
+                checkifPlayer(hit.transform);
                 Vertices[i + 1] = (VertForward / 2) * hit.distance;
             }
             else
@@ -62,5 +66,13 @@ public class FieldOfView : MonoBehaviour
         VisionConeMesh.vertices = Vertices;
         VisionConeMesh.triangles = triangles;
         meshFilter.mesh = VisionConeMesh;
+    }
+
+    void checkifPlayer(Transform hitTransform)
+    {
+        if (hitTransform.IsChildOf(player.transform) == true)
+        {
+            this.GetComponentInParent<KillerScript>().setToHunt();
+        }
     }
 }

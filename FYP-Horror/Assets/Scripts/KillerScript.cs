@@ -11,6 +11,8 @@ public class KillerScript : MonoBehaviour
     public NavMeshAgent navAgent;
 
     public GameObject moveDestination;
+
+    bool testBool = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,5 +61,21 @@ public class KillerScript : MonoBehaviour
         }
 
         m_Animator.SetBool("Dead", true);
+    }
+
+    public void setToHunt()
+    {
+        //foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+        //{
+        //    m_Animator.SetBool(parameter.name, false);
+        //}
+
+        //m_Animator.SetBool("Alert", true);
+        //if (testBool == false)
+        //{
+        //    testBool = true;
+            m_Animator.SetBool("Alert", true);
+            m_Animator.SetBool("Walking", false);
+        //}
     }
 }
