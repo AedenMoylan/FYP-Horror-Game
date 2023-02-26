@@ -234,7 +234,175 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         cells[t_id].GetComponent<CellScript>().roomTypeName = t_roomType;
     }
 
-    bool checkIfCorridorPlaceValid(int t_id, int t_direction)
+    //bool checkIfCorridorPlaceValid(int t_id, int t_direction)
+    //{
+    //    switch (t_direction)
+    //    {
+    //        case 0: // Top Previous Room
+
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //            }
+    //            break;
+
+    //        case 1: // Right Previous Room
+
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 47 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //            }
+    //            break;
+
+    //        case 2: // Bottom Previous Room
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //            }
+    //            break;
+
+    //        case 3: // Left Previous Room
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //                else if (cells[t_id - 53 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return false;
+    //                }
+    //            }
+    //            break;
+    //    }
+    //    return true;
+    //}
+
+
+
+
+    //int checkIfCorridorPlaceValid(int t_id, int t_direction)
+    //{
+    //    switch (t_direction)
+    //    {
+    //        case 0: // Top Previous Room
+
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return -1;
+    //                }
+    //                else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //                else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //            }
+    //            break;
+
+    //        case 1: // Right Previous Room
+
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return -1;
+    //                }
+    //                else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //                else if (cells[t_id - 47 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //            }
+    //            break;
+
+    //        case 2: // Bottom Previous Room
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return -1;
+    //                }
+    //                else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //                else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //            }
+    //            break;
+
+    //        case 3: // Left Previous Room
+    //            for (int i = 0; i < 3; i++)
+    //            {
+    //                if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return -1;
+    //                }
+    //                else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //                else if (cells[t_id - 53 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
+    //                {
+    //                    return 0;
+    //                }
+    //            }
+    //            break;
+    //    }
+    //    return 1;
+    //}
+
+
+
+
+    int checkIfCorridorPlaceValid(int t_id, int t_direction)
     {
         switch (t_direction)
         {
@@ -244,15 +412,15 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return -1;
                     }
                     else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                     else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                 }
                 break;
@@ -263,15 +431,15 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return -1;
                     }
                     else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                     else if (cells[t_id - 47 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                 }
                 break;
@@ -281,15 +449,15 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return -1;
                     }
                     else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                     else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                 }
                 break;
@@ -299,21 +467,31 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 {
                     if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return -1;
                     }
                     else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                     else if (cells[t_id - 53 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
                     {
-                        return false;
+                        return 0;
                     }
                 }
                 break;
         }
-        return true;
+        return 1;
     }
+
+
+
+
+
+
+
+
+
+
 
     void placeCorridorEnd(int t_id, int t_direction)
     {
@@ -351,7 +529,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 0:
                 if (randNum == 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 3) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 3) == 1)
                     {
                         Instantiate(twoBLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsLeft(t_id, randHallAmount, false);
@@ -363,7 +541,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 1) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 1) == 1)
                     {
                         Instantiate(twoBRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsRight(t_id, randHallAmount, false);
@@ -380,7 +558,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (randNum == 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 0) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 0) == 1)
                     {
                         Instantiate(twoTLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsUp(t_id, randHallAmount, false);
@@ -392,7 +570,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 2) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 2) == 1)
                     {
                         Instantiate(twoBLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsDown(t_id, randHallAmount, false);
@@ -410,7 +588,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (randNum == 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 1) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 1) == 1)
                     {
                         Instantiate(twoTRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsRight(t_id, randHallAmount, false);
@@ -422,7 +600,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 3) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 3) == 1)
                     {
                         Instantiate(twoTLCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsLeft(t_id, randHallAmount, false);
@@ -437,7 +615,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             case 3:
                 if (randNum == 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 0) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 0) == 1)
                     {
                         Instantiate(twoTRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsUp(t_id, randHallAmount, false);
@@ -449,7 +627,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 }
                 else
                 {
-                    if (checkIfCorridorPlaceValid(t_id, 2) == true)
+                    if (checkIfCorridorPlaceValid(t_id, 2) == 1)
                     {
                         Instantiate(twoBRCorridor, cells[t_id].GetComponent<CellScript>().position, Quaternion.identity);
                         spawnCorridorsDown(t_id, randHallAmount, false);
@@ -463,15 +641,15 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         }
     }
-
+    // changed
     void spawnCorridorsUp(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIfCorridorPlaceValid(t_id - (i * 50), 0) == false)
+            if (checkIfCorridorPlaceValid(t_id - (i * 50), 0) == 0)
             {
-                placeCorridorEnd(t_id - (i * 50), 2);
-                assignRoomType(t_id - (i * 50), "End Corridor");
+                placeCorridorEnd((t_id - 50) - (i * 50), 2);
+                assignRoomType((t_id - 50) - (i * 50), "End Corridor");
                 break;
             }
             else
@@ -481,7 +659,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == false)
+                    if (checkIfCorridorPlaceValid(t_id - ((t_numberOfRooms + 1) * 50), 0) == 0)
                     {
                         placeCorridorEnd(t_id - ((t_numberOfRooms + 1) * 50), 2);
                         //assignRoomType(t_id - ((t_numberOfRooms + 1) * 50), "End Corridor");
@@ -502,15 +680,15 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             }
         }
     }
-
+    // changing
     void spawnCorridorsDown(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIfCorridorPlaceValid(t_id + (i * 50), 2) == false)
+            if (checkIfCorridorPlaceValid(t_id + (i * 50), 2) == 0)
             {
-                placeCorridorEnd(t_id + (i * 50), 0);
-                assignRoomType(t_id + (i * 50), "End Corridor");
+                placeCorridorEnd(t_id + ((i + 1) * 50), 0);
+                assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
                 break;
             }
             else
@@ -520,7 +698,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == false)
+                    if (checkIfCorridorPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == 0)
                     {
                         placeCorridorEnd(t_id + ((t_numberOfRooms + 1) * 50), 0);
                         assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "End Corridor");
@@ -547,7 +725,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIfCorridorPlaceValid(t_id + i, 1) == false)
+            if (checkIfCorridorPlaceValid(t_id + i, 1) == 0)
             {
                 placeCorridorEnd(t_id + i, 3);
                 assignRoomType(t_id + i, "End Corridor");
@@ -560,7 +738,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id + (t_numberOfRooms + 1), 1) == false)
+                    if (checkIfCorridorPlaceValid(t_id + (t_numberOfRooms + 1), 1) == 0)
                     {
                         placeCorridorEnd(t_id + (t_numberOfRooms + 1), 3);
                         assignRoomType(t_id + (t_numberOfRooms + 1), "End Corridor");
@@ -588,7 +766,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     {
         for (int i = 0; i < t_numberOfRooms; i++)
         {
-            if (checkIfCorridorPlaceValid(t_id - i, 3) == false)
+            if (checkIfCorridorPlaceValid(t_id - i, 3) == 0)
             {
                 placeCorridorEnd(t_id - (i + 1), 1);
                 assignRoomType(t_id - (i + 1), "End Corridor");
@@ -601,7 +779,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
                 if (i == t_numberOfRooms - 1)
                 {
-                    if (checkIfCorridorPlaceValid(t_id - (t_numberOfRooms + 1), 3) == false)
+                    if (checkIfCorridorPlaceValid(t_id - (t_numberOfRooms + 1), 3) == 0)
                     {
                         placeCorridorEnd(t_id - t_numberOfRooms, 1);
                         assignRoomType(t_id - t_numberOfRooms, "End Corridor");
@@ -646,25 +824,25 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (cells[i].GetComponent<CellScript>().roomTypeName != "BORDER")
             {
                 if (cells[i + 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room")
+                    /*&& cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room")
                 {
                     entranceDirection = 1;
                     counter++;
                 }
                 if (cells[i - 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room")
+                    && /*cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room")
                 {
                     entranceDirection = 3;
                     counter++;
                 }
                 if (cells[i + 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room")
+                    && /*cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room")
                 {
                     entranceDirection = 2;
                     counter++;
                 }
                 if (cells[i - 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room")
+                    /*&& cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room")
                 {
                     entranceDirection = 0;
                     counter++;
@@ -741,26 +919,4 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             return true;
         }
     }
-
-    void removeCorridorWalls(int t_id, int t_wallDirection)
-    {
-
-        //Transform spawnBottomWall = spawnRoom.transform.Find("Bottom Wall");
-        //Transform spawnLeftWall = spawnRoom.transform.Find("Left Wall");
-        //Transform spawnRightWall = spawnRoom.transform.Find("Right Wall");
-
-        //if (t_wallDirection == 0)
-        //{
-        //    //Transform topWall = spawnRoom.transform.Find("Top Wall");
-        //    Transform topWall = cells[t_id].transform.Find("Top Wall");
-        //    topWall.gameObject.SetActive(false);
-        //}
-        //else if (t_wallDirection == 2)
-        //{
-        //    Transform bottomWall = cells[t_id].transform.Find("Top Wall");
-        //    bottomWall.gameObject.SetActive(false);
-        //}
-    }
-
-
 }
