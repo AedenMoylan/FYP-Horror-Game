@@ -7,13 +7,17 @@ public class PlayerScript : MonoBehaviour
 {
     public TextMeshProUGUI wardrobeText;
     private bool hasWardrobeCollisionHappened;
+    private bool hasDoorCollisionHappened = false;
     private GameObject wardrobe;
     private Vector3 wardrobePosition;
     private bool isPlayerInWardrobe = false;
     private Vector3 preWardrobePosition;
+    private GameObject doorObject;
 
     public Camera playerCamera;
     public Camera WardrobeCamera;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,17 +39,22 @@ public class PlayerScript : MonoBehaviour
                     preWardrobePosition = this.transform.position;
                     this.transform.position = new Vector3(5000, 5000, 5000);
                 }
-                //this.transform.position = wardrobePosition;
-                //if (isPlayerInWardrobe == true || Input.GetKeyDown("e"))
-                //{
                 else
                 {
                     isPlayerInWardrobe = false;
                     playerCamera.enabled = true;
                     WardrobeCamera.enabled = false;
                 }
-                
-            //}
+            }
+        }
+
+        if (hasDoorCollisionHappened == true)
+        {
+            if (Input.GetKeyDown("e"))
+            {
+                doorObject.GetComponentInParent<DoorScript>().isDoorOpen = true;
+
+                Debug.Log("Terset");
             }
         }
     }
@@ -63,7 +72,24 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        else if (other.tag == "DoorCollider")
+        {
+            wardrobeText.enabled = false;
+            Debug.Log("Door Collision");
+
+            doorObject = other.gameObject;
+
+            hasDoorCollisionHappened = true;
+
+            //if (Input.GetKeyDown("e"))
+            //{
+            //    other.GetComponentInParent<DoorScript>().isDoorOpen = true;
+            //}
+
+        }
+
     }
+
 
     private void OnTriggerExit(Collider other)
     {
