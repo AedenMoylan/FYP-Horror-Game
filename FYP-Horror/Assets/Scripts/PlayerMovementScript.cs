@@ -7,6 +7,7 @@ public class PlayerMovementScript : MonoBehaviour
     public CharacterController characterController;
     private float horizontalInput;
     private float verticalInput;
+    private bool canPlayerMove = true;
 
     public float speed;
 
@@ -22,8 +23,11 @@ public class PlayerMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MyInput();
-        movePlayer();
+        if (canPlayerMove == true)
+        {
+            MyInput();
+            movePlayer();
+        }
     }
 
     private void MyInput()
@@ -37,5 +41,10 @@ public class PlayerMovementScript : MonoBehaviour
         moveDirection = transform.right * horizontalInput + transform.forward * verticalInput;
 
         characterController.Move(moveDirection * speed * Time.deltaTime);
+    }
+
+    public void changeCanPlayerMove(bool _moveBool)
+    {
+        canPlayerMove = _moveBool;
     }
 }

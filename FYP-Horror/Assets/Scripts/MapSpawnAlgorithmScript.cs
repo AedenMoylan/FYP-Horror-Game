@@ -202,207 +202,10 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
-    void placedCurvedCorridorPathways(int t_id, int t_direction)
-    {
-        int randHallAmount = Random.Range(1, 7);
-        int randHallAmount2 = Random.Range(1, 7);
-
-        switch (t_direction)
-        {
-            case 0:
-                spawnCorridorsLeft(t_id, randHallAmount, false);
-                spawnCorridorsRight(t_id, randHallAmount2, false);
-                break;
-
-            case 1:
-                spawnCorridorsDown(t_id, randHallAmount, false);
-                spawnCorridorsUp(t_id, randHallAmount2, false);
-                break;
-
-            case 2:
-                spawnCorridorsLeft(t_id, randHallAmount, false);
-                spawnCorridorsRight(t_id, randHallAmount2, false);
-                break;
-
-            case 3:
-                spawnCorridorsUp(t_id, randHallAmount, false);
-                spawnCorridorsDown(t_id, randHallAmount2, false);
-                break;
-
-        }
-    }
-
     void assignRoomType(int t_id, string t_roomType)
     {
         cells[t_id].GetComponent<CellScript>().roomTypeName = t_roomType;
     }
-
-    //bool checkIfCorridorPlaceValid(int t_id, int t_direction)
-    //{
-    //    switch (t_direction)
-    //    {
-    //        case 0: // Top Previous Room
-
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //            }
-    //            break;
-
-    //        case 1: // Right Previous Room
-
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 47 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //            }
-    //            break;
-
-    //        case 2: // Bottom Previous Room
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //            }
-    //            break;
-
-    //        case 3: // Left Previous Room
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //                else if (cells[t_id - 53 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return false;
-    //                }
-    //            }
-    //            break;
-    //    }
-    //    return true;
-    //}
-
-
-
-
-    //int checkIfCorridorPlaceValid(int t_id, int t_direction)
-    //{
-    //    switch (t_direction)
-    //    {
-    //        case 0: // Top Previous Room
-
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 51 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return -1;
-    //                }
-    //                else if (cells[t_id - 101 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //                else if (cells[t_id - 151 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //            }
-    //            break;
-
-    //        case 1: // Right Previous Room
-
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 49 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return -1;
-    //                }
-    //                else if (cells[t_id - 48 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //                else if (cells[t_id - 47 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //            }
-    //            break;
-
-    //        case 2: // Bottom Previous Room
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id + 49 + 50 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return -1;
-    //                }
-    //                else if (cells[t_id + 49 + 100 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //                else if (cells[t_id + 49 + i].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //            }
-    //            break;
-
-    //        case 3: // Left Previous Room
-    //            for (int i = 0; i < 3; i++)
-    //            {
-    //                if (cells[t_id - 51 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return -1;
-    //                }
-    //                else if (cells[t_id - 52 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //                else if (cells[t_id - 53 + (50 * i)].GetComponent<CellScript>().roomTypeName != "EMPTY")
-    //                {
-    //                    return 0;
-    //                }
-    //            }
-    //            break;
-    //    }
-    //    return 1;
-    //}
-
-
 
 
     int checkIfCorridorPlaceValid(int t_id, int t_direction)
@@ -485,15 +288,6 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
         return 1;
     }
-
-
-
-
-
-
-
-
-
 
 
     void placeCorridorEnd(int t_id, int t_direction)
@@ -909,7 +703,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             {
                 rotationPositionZCorrecter = 10;
             }
-            GameObject room = Instantiate(TestRoom2, new Vector3(position.x + rotationPositionXCorrecter, position.y,  position.z + rotationPositionZCorrecter), Quaternion.Euler(0,rotation,0));
+            GameObject room = Instantiate(TestRoom2, new Vector3(position.x + rotationPositionXCorrecter, position.y - 0.5f,  position.z + rotationPositionZCorrecter), Quaternion.Euler(0,rotation,0));
             //room.transform.Find("Collision Cube").transform.position
         }
     }

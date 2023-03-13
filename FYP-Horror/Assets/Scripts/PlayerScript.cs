@@ -13,15 +13,17 @@ public class PlayerScript : MonoBehaviour
     private bool isPlayerInWardrobe = false;
     private Vector3 preWardrobePosition;
     private GameObject doorObject;
+    private PlayerMovementScript playerMovementScript;
 
     public Camera playerCamera;
     public Camera WardrobeCamera;
+    private bool isPlayerTrapped = false;
 
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerMovementScript = GetComponentInParent<PlayerMovementScript>();
     }
 
     // Update is called once per frame
@@ -53,8 +55,6 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKeyDown("e"))
             {
                 doorObject.GetComponentInParent<DoorScript>().isDoorOpen = true;
-
-                Debug.Log("Terset");
             }
         }
     }
@@ -80,12 +80,13 @@ public class PlayerScript : MonoBehaviour
             doorObject = other.gameObject;
 
             hasDoorCollisionHappened = true;
+        }
 
-            //if (Input.GetKeyDown("e"))
-            //{
-            //    other.GetComponentInParent<DoorScript>().isDoorOpen = true;
-            //}
-
+        else if (other.tag == "BearTrap")
+        {
+            other.GetComponent<BearTrapScript>().setTrapBoolToTrue();
+            isPlayerTrapped = true;
+            playerMovementScript.changeCanPlayerMove(false);
         }
 
     }

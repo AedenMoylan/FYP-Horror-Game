@@ -18,7 +18,6 @@ public class DoorCollisionScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision");
         if (other.gameObject.tag != "DoorWall")
         {
             other.gameObject.SetActive(false);

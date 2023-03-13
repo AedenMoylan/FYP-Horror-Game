@@ -18,6 +18,7 @@ TagManager:
   - Wardrobe
   - DoorWall
   - DoorCollider
+  - BearTrap
   layers:
   - Default
   - TransparentFX

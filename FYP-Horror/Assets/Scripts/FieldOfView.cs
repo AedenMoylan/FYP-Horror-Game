@@ -14,6 +14,7 @@ public class FieldOfView : MonoBehaviour
     public Material VisionConeMaterial;
     private Transform hitTarget;
     public GameObject player;
+    public GameObject killerMoveObject;
     void Start()
     {
         transform.AddComponent<MeshRenderer>().material = VisionConeMaterial;
@@ -72,7 +73,9 @@ public class FieldOfView : MonoBehaviour
     {
         if (hitTransform.IsChildOf(player.transform) == true)
         {
-            this.GetComponentInParent<KillerScript>().setToHunt();
+            KillerScript killer = this.GetComponentInParent<KillerScript>()/*.setToHunt()*/;
+            killer.setToHunt();
+            killerMoveObject.transform.position = hitTransform.position;
         }
     }
 }

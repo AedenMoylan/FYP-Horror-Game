@@ -12,6 +12,8 @@ public class KillerScript : MonoBehaviour
 
     public GameObject moveDestination;
 
+    public bool hasPlayerBeenSeen = false;
+
     bool testBool = false;
     // Start is called before the first frame update
     void Start()
