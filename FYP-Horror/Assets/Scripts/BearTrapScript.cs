@@ -33,6 +33,7 @@ public class BearTrapScript : MonoBehaviour
         if (isPlayerTrapped == true)
         {
             trapPlayer();
+            if ()
             disarmTrap();
         }      
     }
