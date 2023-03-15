@@ -40,12 +40,14 @@ public class PlayerScript : MonoBehaviour
                     WardrobeCamera.enabled = true;
                     preWardrobePosition = this.transform.position;
                     this.transform.position = new Vector3(5000, 5000, 5000);
+                    wardrobe.GetComponent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
                 }
                 else
                 {
                     isPlayerInWardrobe = false;
                     playerCamera.enabled = true;
                     WardrobeCamera.enabled = false;
+                    wardrobe.GetComponent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
                 }
             }
         }
@@ -99,5 +101,10 @@ public class PlayerScript : MonoBehaviour
             wardrobeText.enabled = false;
             hasWardrobeCollisionHappened = false;
         }
+    }
+
+    public bool getIsPlayerInWardrobe()
+    {
+        return isPlayerInWardrobe;
     }
 }

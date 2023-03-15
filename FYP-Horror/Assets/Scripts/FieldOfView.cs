@@ -15,6 +15,7 @@ public class FieldOfView : MonoBehaviour
     private Transform hitTarget;
     public GameObject player;
     public GameObject killerMoveObject;
+    bool isPlayerInVision = false;
     void Start()
     {
         transform.AddComponent<MeshRenderer>().material = VisionConeMaterial;
@@ -63,6 +64,7 @@ public class FieldOfView : MonoBehaviour
             triangles[i + 1] = j + 1;
             triangles[i + 2] = j + 2;
         }
+        checkIfPlayerEnteredWardrobeInRange();
         VisionConeMesh.Clear();
         VisionConeMesh.vertices = Vertices;
         VisionConeMesh.triangles = triangles;
@@ -75,7 +77,30 @@ public class FieldOfView : MonoBehaviour
         {
             KillerScript killer = this.GetComponentInParent<KillerScript>()/*.setToHunt()*/;
             killer.setToHunt();
+            isPlayerInVision = true;
             killerMoveObject.transform.position = hitTransform.position;
+        }
+        else
+        {
+            isPlayerInVision = false;
+        }
+    }
+
+    void checkIfPlayerEnteredWardrobeInRange()
+    {
+        if (player.GetComponent<PlayerScript>().getIsPlayerInWardrobe() == true && isPlayerInVision == true)
+        {
+            GameObject[] wardrobes = GameObject.FindGameObjectsWithTag("Wardrobe");
+
+            for (int i = 0; i < wardrobes.Length; i++)
+            {
+                if (wardrobes[i].GetComponent<WardrobeScript>().getIsPlayerInside() == true)
+                {
+                    killerMoveObject.transform.position = wardrobes[i].transform.FindChild("PlayerLeavePosition").transform.position;
+
+                    this.GetComponent<KillerScript>().willBearTrapBePlacedAtDestination = true;
+                }
+            }
         }
     }
 }

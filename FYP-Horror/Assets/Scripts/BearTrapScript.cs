@@ -33,8 +33,10 @@ public class BearTrapScript : MonoBehaviour
         if (isPlayerTrapped == true)
         {
             trapPlayer();
-            if ()
-            disarmTrap();
+            if (Input.GetKey("e"))
+            {
+                disarmTrap();              
+            }
         }      
     }
 
@@ -56,6 +58,7 @@ public class BearTrapScript : MonoBehaviour
     {
         trapResetProgress += Time.deltaTime;
 
+        Debug.Log("Disarming");
         if (trapResetProgress >= maxTrapResetDuration)
         {
             destroyTrap();

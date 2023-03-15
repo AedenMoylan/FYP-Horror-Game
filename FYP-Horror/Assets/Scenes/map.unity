@@ -10066,6 +10066,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6698323910602602421, guid: adfd300e994850345b1e01a935e94139,
         type: 3}
+      propertyPath: bearTrap
+      value: 
+      objectReference: {fileID: 8101176153276972995, guid: 90b82e31d5b1417459894319a24a6b96,
+        type: 3}
+    - target: {fileID: 6698323910602602421, guid: adfd300e994850345b1e01a935e94139,
+        type: 3}
       propertyPath: moveDestination
       value: 
       objectReference: {fileID: 1154535249}

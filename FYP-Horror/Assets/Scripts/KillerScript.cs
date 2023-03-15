@@ -12,9 +12,12 @@ public class KillerScript : MonoBehaviour
 
     public GameObject moveDestination;
 
+    public GameObject bearTrap;
+
     public bool hasPlayerBeenSeen = false;
 
-    bool testBool = false;
+    public bool willBearTrapBePlacedAtDestination = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,11 @@ public class KillerScript : MonoBehaviour
         }
 
         navAgent.SetDestination(moveDestination.transform.position);
+
+        if (checkIfInFrontOfWardrobe() == true && willBearTrapBePlacedAtDestination == true)
+        {
+            placeTrap();
+        }
     }
 
     private void handleInput()
@@ -49,6 +57,11 @@ public class KillerScript : MonoBehaviour
             print("2 key was pressed");
             m_Animator.SetBool("Walking", true);
             m_Animator.SetBool("Alert", false);
+        }
+
+        if (Input.GetKeyDown("3"))
+        {
+            placeTrap();
         }
     }
 
@@ -79,5 +92,21 @@ public class KillerScript : MonoBehaviour
             m_Animator.SetBool("Alert", true);
             m_Animator.SetBool("Walking", false);
         //}
+    }
+
+    public void placeTrap()
+    {
+        Instantiate(bearTrap, this.transform.position, Quaternion.identity);
+    }
+
+    public bool checkIfInFrontOfWardrobe()
+    {
+        if (this.transform.position.x >= moveDestination.transform.position.x - 1 || this.transform.position.x <= moveDestination.transform.position.x + 1
+            || this.transform.position.z >= moveDestination.transform.position.z - 1 || this.transform.position.z <= moveDestination.transform.position.z + 1)
+        {
+            return true;
+        }
+
+            return false;
     }
 }
