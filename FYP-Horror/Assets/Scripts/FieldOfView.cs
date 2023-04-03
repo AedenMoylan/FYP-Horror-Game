@@ -14,6 +14,7 @@ public class FieldOfView : MonoBehaviour
     public Material VisionConeMaterial;
     private Transform hitTarget;
     public GameObject player;
+    public PlayerScript playerScript;
     public GameObject killerMoveObject;
     bool isPlayerInVision = false;
     void Start()
@@ -64,7 +65,7 @@ public class FieldOfView : MonoBehaviour
             triangles[i + 1] = j + 1;
             triangles[i + 2] = j + 2;
         }
-        checkIfPlayerEnteredWardrobeInRange();
+        //checkIfPlayerEnteredWardrobeInRange();
         VisionConeMesh.Clear();
         VisionConeMesh.vertices = Vertices;
         VisionConeMesh.triangles = triangles;
@@ -73,12 +74,12 @@ public class FieldOfView : MonoBehaviour
 
     void checkifPlayer(Transform hitTransform)
     {
-        if (hitTransform.IsChildOf(player.transform) == true)
+        if (hitTransform.IsChildOf(player.transform) == true && playerScript.getIsPlayerInWardrobe() == false)
         {
             KillerScript killer = this.GetComponentInParent<KillerScript>()/*.setToHunt()*/;
             killer.setToHunt();
             isPlayerInVision = true;
-            killerMoveObject.transform.position = hitTransform.position;
+            killerMoveObject.transform.position = new Vector3(hitTransform.position.x, killerMoveObject.transform.position.y, hitTransform.position.z);
         }
         else
         {
@@ -86,21 +87,25 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    void checkIfPlayerEnteredWardrobeInRange()
+    public bool getIsPlayerInVision()
     {
-        if (player.GetComponent<PlayerScript>().getIsPlayerInWardrobe() == true && isPlayerInVision == true)
-        {
-            GameObject[] wardrobes = GameObject.FindGameObjectsWithTag("Wardrobe");
-
-            for (int i = 0; i < wardrobes.Length; i++)
-            {
-                if (wardrobes[i].GetComponent<WardrobeScript>().getIsPlayerInside() == true)
-                {
-                    killerMoveObject.transform.position = wardrobes[i].transform.FindChild("PlayerLeavePosition").transform.position;
-
-                    this.GetComponent<KillerScript>().willBearTrapBePlacedAtDestination = true;
-                }
-            }
-        }
+        return isPlayerInVision;
     }
+    //void checkIfPlayerEnteredWardrobeInRange()
+    //{
+    //    if (player.GetComponent<PlayerScript>().getIsPlayerInWardrobe() == true && isPlayerInVision == true)
+    //    {
+    //        GameObject[] wardrobes = GameObject.FindGameObjectsWithTag("Wardrobe");
+
+    //        for (int i = 0; i < wardrobes.Length; i++)
+    //        {
+    //            if (wardrobes[i].GetComponent<WardrobeScript>().getIsPlayerInside() == true)
+    //            {
+    //                killerMoveObject.transform.position = wardrobes[i].transform.FindChild("PlayerLeavePosition").transform.position;
+
+    //                this.GetComponent<KillerScript>().willBearTrapBePlacedAtDestination = true;
+    //            }
+    //        }
+    //    }
+    //}
 }

@@ -8,7 +8,8 @@ public class PlayerScript : MonoBehaviour
     public TextMeshProUGUI wardrobeText;
     private bool hasWardrobeCollisionHappened;
     private bool hasDoorCollisionHappened = false;
-    private GameObject wardrobe;
+    public GameObject wardrobe;
+    private GameManagerScript gameManagerScript;
     private Vector3 wardrobePosition;
     private bool isPlayerInWardrobe = false;
     private Vector3 preWardrobePosition;
@@ -24,6 +25,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         playerMovementScript = GetComponentInParent<PlayerMovementScript>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -35,24 +37,25 @@ public class PlayerScript : MonoBehaviour
             {
                 if (isPlayerInWardrobe == false)
                 {
+                    gameManagerScript.playerEnteredWardrobe();
                     isPlayerInWardrobe = true;
                     playerCamera.enabled = false;
                     WardrobeCamera.enabled = true;
                     preWardrobePosition = this.transform.position;
                     this.transform.position = new Vector3(5000, 5000, 5000);
-                    wardrobe.GetComponent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
+                    
                 }
                 else
                 {
                     isPlayerInWardrobe = false;
                     playerCamera.enabled = true;
                     WardrobeCamera.enabled = false;
-                    wardrobe.GetComponent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
+                    wardrobe.GetComponentInParent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
                 }
             }
         }
 
-        if (hasDoorCollisionHappened == true)
+        else if (hasDoorCollisionHappened == true)
         {
             if (Input.GetKeyDown("e"))
             {

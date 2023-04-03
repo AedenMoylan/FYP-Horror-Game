@@ -14,6 +14,8 @@ public class KillerScript : MonoBehaviour
 
     public GameObject bearTrap;
 
+    private GameManagerScript gameManagerScript;
+
     public bool hasPlayerBeenSeen = false;
 
     public bool willBearTrapBePlacedAtDestination = false;
@@ -22,6 +24,7 @@ public class KillerScript : MonoBehaviour
     void Start()
     {
         m_Animator = GetComponent<Animator>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -37,10 +40,10 @@ public class KillerScript : MonoBehaviour
 
         navAgent.SetDestination(moveDestination.transform.position);
 
-        if (checkIfInFrontOfWardrobe() == true && willBearTrapBePlacedAtDestination == true)
-        {
-            placeTrap();
-        }
+        //if (checkIfInFrontOfWardrobe() == true && willBearTrapBePlacedAtDestination == true)
+        //{
+        //    placeTrap();
+        //}
     }
 
     private void handleInput()
@@ -108,5 +111,17 @@ public class KillerScript : MonoBehaviour
         }
 
             return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "MovePosition" )
+        {
+            if (willBearTrapBePlacedAtDestination == true)
+            {
+                Debug.Log("Placing Trap");
+                placeTrap();
+            }
+        }
     }
 }
