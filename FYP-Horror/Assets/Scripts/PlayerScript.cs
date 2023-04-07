@@ -12,9 +12,10 @@ public class PlayerScript : MonoBehaviour
     private GameManagerScript gameManagerScript;
     private Vector3 wardrobePosition;
     private bool isPlayerInWardrobe = false;
-    private Vector3 preWardrobePosition;
+    //private Vector3 preWardrobePosition;
     private GameObject doorObject;
     private PlayerMovementScript playerMovementScript;
+    private CharacterController characterController;
 
     public Camera playerCamera;
     public Camera WardrobeCamera;
@@ -26,36 +27,40 @@ public class PlayerScript : MonoBehaviour
     {
         playerMovementScript = GetComponentInParent<PlayerMovementScript>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (hasWardrobeCollisionHappened == true)
+        if (Input.GetKeyDown("e"))
         {
-            if (Input.GetKeyDown("e"))
+            if (isPlayerInWardrobe == false && hasWardrobeCollisionHappened == true)
             {
-                if (isPlayerInWardrobe == false)
-                {
-                    gameManagerScript.playerEnteredWardrobe();
-                    isPlayerInWardrobe = true;
-                    playerCamera.enabled = false;
-                    WardrobeCamera.enabled = true;
-                    preWardrobePosition = this.transform.position;
-                    this.transform.position = new Vector3(5000, 5000, 5000);
-                    
-                }
-                else
-                {
-                    isPlayerInWardrobe = false;
-                    playerCamera.enabled = true;
-                    WardrobeCamera.enabled = false;
-                    wardrobe.GetComponentInParent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
-                }
+                gameManagerScript.playerEnteredWardrobe();
+                isPlayerInWardrobe = true;
+                playerCamera.enabled = false;
+                WardrobeCamera.enabled = true;
+                //preWardrobePosition = this.transform.position;
+                //this.transform.position = new Vector3(5000, 5000, 5000);
+                characterController.enabled = false;
+                transform.position = new Vector3(5000, 5000, 5000);
+                characterController.enabled = true;
+            }
+            else if (isPlayerInWardrobe == true)
+            {
+                isPlayerInWardrobe = false;
+                playerCamera.enabled = true;
+                WardrobeCamera.enabled = false;
+                characterController.enabled = false;
+                Transform leavePosition = wardrobe.transform.Find("PlayerLeavePosition").transform;
+                this.transform.position = new Vector3(leavePosition.position.x, 0.5f, leavePosition.position.z);
+                characterController.enabled = true;
+                wardrobe.GetComponentInParent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
             }
         }
 
-        else if (hasDoorCollisionHappened == true)
+        if (hasDoorCollisionHappened == true)
         {
             if (Input.GetKeyDown("e"))
             {
@@ -70,7 +75,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (hasWardrobeCollisionHappened == false)
             {
-                wardrobe = other.gameObject;
+                wardrobe = other.transform.parent.gameObject;
                 wardrobePosition = wardrobe.transform.position;
                 wardrobeText.enabled = true;
                 hasWardrobeCollisionHappened = true;

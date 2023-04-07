@@ -20,11 +20,18 @@ public class KillerScript : MonoBehaviour
 
     public bool willBearTrapBePlacedAtDestination = false;
 
+    private Vector3 groundPosition;
+
+    private Vector3 previousGroundPosition;
+
+    private int groundCounter;
+
     // Start is called before the first frame update
     void Start()
     {
         m_Animator = GetComponent<Animator>();
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        groundCounter = 0;
     }
 
     // Update is called once per frame
@@ -121,7 +128,70 @@ public class KillerScript : MonoBehaviour
             {
                 Debug.Log("Placing Trap");
                 placeTrap();
+
+                string moveDirection = checkMovementDirection();
+
+                switch (moveDirection)
+                {
+                    case "East":
+                        Debug.Log("Heading East");
+                        break;
+
+                    case "West":
+                        Debug.Log("Heading West");
+                        break;
+                    case "North":
+                        Debug.Log("Heading North");
+                        break;
+                    case "South":
+                        Debug.Log("Heading South");
+                        break;
+                }
             }
         }
+
+        //Debug.Log(other.name);
+        if (other.tag == "Ground")
+        {
+            Debug.Log("Floor collision");
+            other.GetComponentInParent<MeshRenderer>().material.color = Color.red;
+
+            if (groundCounter == 0)
+            {
+
+            }
+            else if (groundCounter > 0)
+            {
+                previousGroundPosition = groundPosition;
+            }
+
+            groundCounter++;
+            groundPosition = other.transform.position;
+
+            checkMovementDirection();
+            Debug.Log("");
+        }
+    }
+
+    public string checkMovementDirection()
+    {
+        string direction = "NULL";
+        if (previousGroundPosition.x < groundPosition.x)
+        {
+            direction = "East";
+        }
+        else if (previousGroundPosition.x > groundPosition.x)
+        {
+            direction = "West";
+        }
+        else if (previousGroundPosition.z < groundPosition.z)
+        {
+            direction = "North";
+        }
+        else if (previousGroundPosition.z > groundPosition.z)
+        {
+            direction = "South";
+        }
+        return direction;
     }
 }

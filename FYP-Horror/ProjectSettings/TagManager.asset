@@ -20,6 +20,7 @@ TagManager:
   - DoorCollider
   - BearTrap
   - MovePosition
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,8 @@ public class CellScript : MonoBehaviour
     public Vector3 position;
     public int specialRoomEntranceDirection = -1;
     public bool doesRoomHaveWardrobe = false;
+    public bool hasKillerWalkedInRoom = false;
+    public GameObject roomObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +22,10 @@ public class CellScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void setRoomObject(GameObject _roomObject)
+    {
+        roomObject = _roomObject;
     }
 }
