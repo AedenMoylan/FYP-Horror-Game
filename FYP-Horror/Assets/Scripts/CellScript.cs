@@ -27,5 +27,7 @@ public class CellScript : MonoBehaviour
     public void setRoomObject(GameObject _roomObject)
     {
         roomObject = _roomObject;
+
+        roomObject.transform.parent = this.transform;
     }
 }

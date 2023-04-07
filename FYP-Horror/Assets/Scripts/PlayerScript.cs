@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         playerMovementScript = GetComponentInParent<PlayerMovementScript>();
-        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
         characterController = GetComponent<CharacterController>();
     }
 

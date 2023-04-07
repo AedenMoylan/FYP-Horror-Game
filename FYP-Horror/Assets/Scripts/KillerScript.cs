@@ -22,6 +22,8 @@ public class KillerScript : MonoBehaviour
 
     private Vector3 groundPosition;
 
+    private GameObject currentRoom;
+
     private Vector3 previousGroundPosition;
 
     private int groundCounter;
@@ -30,7 +32,7 @@ public class KillerScript : MonoBehaviour
     void Start()
     {
         m_Animator = GetComponent<Animator>();
-        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
         groundCounter = 0;
     }
 
@@ -130,6 +132,7 @@ public class KillerScript : MonoBehaviour
                 placeTrap();
 
                 string moveDirection = checkMovementDirection();
+                gameManagerScript.setKillerMoveLocationToEndOfCorridor(moveDirection, currentRoom);
 
                 switch (moveDirection)
                 {
@@ -167,6 +170,7 @@ public class KillerScript : MonoBehaviour
 
             groundCounter++;
             groundPosition = other.transform.position;
+            currentRoom = other.transform.parent.gameObject;
 
             checkMovementDirection();
             Debug.Log("");

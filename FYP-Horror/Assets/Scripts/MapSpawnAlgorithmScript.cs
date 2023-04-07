@@ -75,6 +75,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         //placeCurvedCorridor(1942, 0);
 
+        //deleteUnusedCells();
+
         killerSpawnScript.spawnKiller();
     }
 
@@ -743,6 +745,17 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    private void deleteUnusedCells()
+    {
+        for (int i = 0; i < MAX_CELLS; i++)
+        {
+            if (cells[i].GetComponent<CellScript>().roomTypeName == "EMPTY" || cells[i].GetComponent<CellScript>().roomTypeName == "BORDER")
+            {
+                Destroy(cells[i]);
+            }
         }
     }
 }
