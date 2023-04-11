@@ -28,6 +28,12 @@ public class KillerScript : MonoBehaviour
 
     private int groundCounter;
 
+    private bool hasPlayerBeenKilled = false;
+
+    public bool isKillerMovePositionCollisionActive = false;
+
+    public bool hasMovePositionBeenPlacedAtEndOfCorridor = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,33 +59,35 @@ public class KillerScript : MonoBehaviour
         //{
         //    placeTrap();
         //}
+
+
+
+        if (m_Animator.GetBool("Attack") == true)
+        {
+            Debug.Log("ATTACKING!!!");
+        }
+
+        if (hasPlayerBeenKilled == true)
+        {
+            foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+            {
+                m_Animator.SetBool(parameter.name, false);
+            }
+
+        //m_Animator.SetBool("SpeedWalk", false);
+        m_Animator.SetBool("Attack", true);
+        }
+
     }
 
     private void handleInput()
     {
-        if (Input.GetKeyDown("1"))
-        {
-            print("1 key was pressed");
-            m_Animator.SetBool("Alert", true);
-            m_Animator.SetBool("Walking", false);
-        }
 
-        if (Input.GetKeyDown("2"))
-        {
-            print("2 key was pressed");
-            m_Animator.SetBool("Walking", true);
-            m_Animator.SetBool("Alert", false);
-        }
-
-        if (Input.GetKeyDown("3"))
-        {
-            placeTrap();
-        }
     }
 
     public void setToDie()
     {
-        
+
         //m_Animator.
 
         foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
@@ -92,18 +100,22 @@ public class KillerScript : MonoBehaviour
 
     public void setToHunt()
     {
-        //foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
-        //{
-        //    m_Animator.SetBool(parameter.name, false);
-        //}
+        foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+        {
+            m_Animator.SetBool(parameter.name, false);
+        }
 
-        //m_Animator.SetBool("Alert", true);
-        //if (testBool == false)
-        //{
-        //    testBool = true;
-            m_Animator.SetBool("Alert", true);
-            m_Animator.SetBool("Walking", false);
-        //}
+        m_Animator.SetBool("Alert", true);
+    }
+
+    public void setToWalk()
+    {
+        foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+        {
+            m_Animator.SetBool(parameter.name, false);
+        }
+
+        m_Animator.SetBool("Walking", true);
     }
 
     public void placeTrap()
@@ -111,45 +123,64 @@ public class KillerScript : MonoBehaviour
         Instantiate(bearTrap, this.transform.position, Quaternion.identity);
     }
 
-    public bool checkIfInFrontOfWardrobe()
-    {
-        if (this.transform.position.x >= moveDestination.transform.position.x - 1 || this.transform.position.x <= moveDestination.transform.position.x + 1
-            || this.transform.position.z >= moveDestination.transform.position.z - 1 || this.transform.position.z <= moveDestination.transform.position.z + 1)
-        {
-            return true;
-        }
-
-            return false;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "MovePosition" )
         {
-            if (willBearTrapBePlacedAtDestination == true)
+            if (isKillerMovePositionCollisionActive == true)
             {
-                Debug.Log("Placing Trap");
-                placeTrap();
+                if (willBearTrapBePlacedAtDestination == true)
+                {
+                    Debug.Log("Placing Trap");
+                    willBearTrapBePlacedAtDestination = false;
+                    placeTrap();
 
+                    string moveDirection = checkMovementDirection();
+                    gameManagerScript.setKillerMoveLocationToEndOfCorridor(moveDirection, currentRoom);
+
+                    switch (moveDirection)
+                    {
+                        case "East":
+                            Debug.Log("Heading East");
+                            break;
+                        case "West":
+                            Debug.Log("Heading West");
+                            break;
+                        case "North":
+                            Debug.Log("Heading North");
+                            break;
+                        case "South":
+                            Debug.Log("Heading South");
+                            break;
+                    }
+
+                }
+                else
+                {
+                    isKillerMovePositionCollisionActive = false;
+                    foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+                    {
+                        m_Animator.SetBool(parameter.name, false);
+                    }
+                    m_Animator.SetBool("Look", true);
+                    StartCoroutine(lookAnimation());
+                }
+            }
+            else if (hasMovePositionBeenPlacedAtEndOfCorridor == false)
+            {
+                
                 string moveDirection = checkMovementDirection();
                 gameManagerScript.setKillerMoveLocationToEndOfCorridor(moveDirection, currentRoom);
-
-                switch (moveDirection)
+                hasMovePositionBeenPlacedAtEndOfCorridor = true;
+            }
+            else if (hasMovePositionBeenPlacedAtEndOfCorridor == true)
+            {
+                foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
                 {
-                    case "East":
-                        Debug.Log("Heading East");
-                        break;
-
-                    case "West":
-                        Debug.Log("Heading West");
-                        break;
-                    case "North":
-                        Debug.Log("Heading North");
-                        break;
-                    case "South":
-                        Debug.Log("Heading South");
-                        break;
+                    m_Animator.SetBool(parameter.name, false);
                 }
+                m_Animator.SetBool("Look", true);
+                StartCoroutine(lookAnimation());
             }
         }
 
@@ -175,6 +206,16 @@ public class KillerScript : MonoBehaviour
             checkMovementDirection();
             Debug.Log("");
         }
+
+        if (other.tag == "Player")
+        {
+            if ( hasPlayerBeenKilled == false)
+            {
+                hasPlayerBeenKilled = true;
+            }
+
+
+        }
     }
 
     public string checkMovementDirection()
@@ -197,5 +238,16 @@ public class KillerScript : MonoBehaviour
             direction = "South";
         }
         return direction;
+    }
+
+    IEnumerator lookAnimation()
+    {
+        yield return new WaitForSeconds(8);
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("LookAround"))
+        {
+            gameManagerScript.setMovePositionToRandomRoom();
+            hasMovePositionBeenPlacedAtEndOfCorridor = false;
+            setToWalk();
+        }
     }
 }

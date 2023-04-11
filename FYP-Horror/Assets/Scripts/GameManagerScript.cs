@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     private GameObject wardrobeWithPlayer;
     private KillerScript killerScript;
     public MapSpawnAlgorithmScript mapSpawnAlgorithmScript;
+    public bool hasPlayerBeenKilled = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class GameManagerScript : MonoBehaviour
     {
         bool inVision = killer.GetComponent<FieldOfView>().getIsPlayerInVision();
         killerScript.willBearTrapBePlacedAtDestination = true;
+        killerScript.isKillerMovePositionCollisionActive = true;
         wardrobeWithPlayer = player.GetComponent<PlayerScript>().wardrobe;
         wardrobeWithPlayer.GetComponentInParent<WardrobeScript>().setIsPlayerInside(true);
         if (inVision == true)
@@ -154,5 +156,13 @@ public class GameManagerScript : MonoBehaviour
                 killerMovePosition.transform.position = mapSpawnAlgorithmScript.cells[roomID + (counter * 50)].gameObject.transform.position + moveLocationDisplacement;
                 break;
         }
+    }
+
+    public void setMovePositionToRandomRoom()
+    {
+        int randRoom = Random.Range(1, mapSpawnAlgorithmScript.straightCorridors.Count);
+
+        Vector3 moveLocationDisplacement = new Vector3(-5, killerMovePosition.transform.position.y, 5);
+        killerMovePosition.transform.position = mapSpawnAlgorithmScript.cells[mapSpawnAlgorithmScript.straightCorridors[randRoom]].gameObject.transform.position + moveLocationDisplacement;
     }
 }
