@@ -106,6 +106,8 @@ public class KillerScript : MonoBehaviour
         }
 
         m_Animator.SetBool("Alert", true);
+
+        hasMovePositionBeenPlacedAtEndOfCorridor = false;
     }
 
     public void setToWalk()
@@ -187,7 +189,6 @@ public class KillerScript : MonoBehaviour
         //Debug.Log(other.name);
         if (other.tag == "Ground")
         {
-            Debug.Log("Floor collision");
             other.GetComponentInParent<MeshRenderer>().material.color = Color.red;
 
             if (groundCounter == 0)
@@ -204,7 +205,6 @@ public class KillerScript : MonoBehaviour
             currentRoom = other.transform.parent.gameObject;
 
             checkMovementDirection();
-            Debug.Log("");
         }
 
         if (other.tag == "Player")
@@ -213,8 +213,6 @@ public class KillerScript : MonoBehaviour
             {
                 hasPlayerBeenKilled = true;
             }
-
-
         }
     }
 

@@ -77,7 +77,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
         //placeCurvedCorridor(1942, 0);
 
-        //deleteUnusedCells();
+        deleteUnusedCells();
 
         killerSpawnScript.spawnKiller();
     }

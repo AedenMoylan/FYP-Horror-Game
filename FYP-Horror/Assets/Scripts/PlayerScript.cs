@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     public Camera playerCamera;
     public Camera WardrobeCamera;
     private bool isPlayerTrapped = false;
+    private bool isPlayerInRoom = false;
 
     
     // Start is called before the first frame update
@@ -67,6 +68,11 @@ public class PlayerScript : MonoBehaviour
                 doorObject.GetComponentInParent<DoorScript>().isDoorOpen = true;
             }
         }
+
+        if (isPlayerInRoom == true)
+        {
+            Debug.Log(isPlayerInRoom);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -99,6 +105,11 @@ public class PlayerScript : MonoBehaviour
             playerMovementScript.changeCanPlayerMove(false);
         }
 
+        else if (other.tag == "RoomFloor")
+        {
+            isPlayerInRoom = true;
+        }
+
     }
 
 
@@ -108,6 +119,11 @@ public class PlayerScript : MonoBehaviour
         {
             wardrobeText.enabled = false;
             hasWardrobeCollisionHappened = false;
+        }
+
+        if (other.tag == "RoomFloor")
+        {
+            isPlayerInRoom = false;
         }
     }
 

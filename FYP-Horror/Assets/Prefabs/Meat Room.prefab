@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1722015601382035918}
   - component: {fileID: 7325608375763990537}
   - component: {fileID: 8103629862714707789}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoorWall (2)
   m_TagString: DoorWall
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2273157162208831258}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RotatePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 7469012890872965906}
   - component: {fileID: 346106656280027657}
   - component: {fileID: 5809637351064115225}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoorCollider
   m_TagString: DoorCollider
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 1597182296084371056}
   - component: {fileID: 9194738714434922668}
   - component: {fileID: 6387374290915871521}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoorWall (1)
   m_TagString: DoorWall
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 7862106281731322630}
   - component: {fileID: 6047171982110349847}
   - component: {fileID: 5965472876031683301}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoorWall
   m_TagString: DoorWall
   m_Icon: {fileID: 0}
@@ -1436,18 +1436,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3647422072241694066, guid: e27712fe7cb1b2842860b8e6a630c0f9,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647422072241694066, guid: e27712fe7cb1b2842860b8e6a630c0f9,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 3647422072241694066, guid: e27712fe7cb1b2842860b8e6a630c0f9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3647422072241694066, guid: e27712fe7cb1b2842860b8e6a630c0f9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 4.875
       objectReference: {fileID: 0}
     - target: {fileID: 3647422072241694066, guid: e27712fe7cb1b2842860b8e6a630c0f9,
         type: 3}
@@ -1489,6 +1494,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomGround
       objectReference: {fileID: 0}
+    - target: {fileID: 4207913043606056528, guid: e27712fe7cb1b2842860b8e6a630c0f9,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoomFloor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e27712fe7cb1b2842860b8e6a630c0f9, type: 3}
 --- !u!4 &7333669485669754818 stripped
@@ -1497,6 +1507,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6293871216618177200}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7871676525501361376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4207913043606056528, guid: e27712fe7cb1b2842860b8e6a630c0f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6293871216618177200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1261412416886493777
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871676525501361376}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &2394973801400680697
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871676525501361376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6669936152254786014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1508,6 +1553,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: jj_door_2_white_weathered
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021313622781764848, guid: da13b9423ea80f846921dc6318370c20,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021612642327285434, guid: da13b9423ea80f846921dc6318370c20,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021776662236243658, guid: da13b9423ea80f846921dc6318370c20,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7024179390055637736, guid: da13b9423ea80f846921dc6318370c20,
         type: 3}
@@ -1599,6 +1659,19 @@ MonoBehaviour:
   doorOpenSpeed: 90
   doorOpenDuration: 1
   rotationPoint: {fileID: 2273157162208831258}
+--- !u!65 &1502442867657769355
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459013230251075428}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.91890264, y: 1.9499999, z: 0.040926464}
+  m_Center: {x: -0.44891572, y: 0.97499996, z: -0.011339351}
 --- !u!4 &4461583336490158902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7024179390055637736, guid: da13b9423ea80f846921dc6318370c20,

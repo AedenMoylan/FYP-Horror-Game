@@ -6996,7 +6996,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.8
-  m_Height: 2
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1852795683
@@ -10035,6 +10035,16 @@ PrefabInstance:
     - target: {fileID: 6698323910602602416, guid: adfd300e994850345b1e01a935e94139,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698323910602602416, guid: adfd300e994850345b1e01a935e94139,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698323910602602416, guid: adfd300e994850345b1e01a935e94139,
+        type: 3}
+      propertyPath: m_WalkableMask
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6698323910602602421, guid: adfd300e994850345b1e01a935e94139,

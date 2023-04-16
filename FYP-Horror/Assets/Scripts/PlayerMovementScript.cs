@@ -13,6 +13,10 @@ public class PlayerMovementScript : MonoBehaviour
 
     Vector3 moveDirection;
 
+    Vector3 velocity;
+
+    private float gravity = -9.81f;
+
 
 
     void Start()
@@ -27,6 +31,10 @@ public class PlayerMovementScript : MonoBehaviour
         {
             MyInput();
             movePlayer();
+
+            velocity.y += gravity * Time.deltaTime;
+
+            characterController.Move(velocity * Time.deltaTime);
         }
     }
 

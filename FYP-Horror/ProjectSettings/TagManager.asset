@@ -21,6 +21,7 @@ TagManager:
   - BearTrap
   - MovePosition
   - Ground
+  - RoomFloor
   layers:
   - Default
   - TransparentFX

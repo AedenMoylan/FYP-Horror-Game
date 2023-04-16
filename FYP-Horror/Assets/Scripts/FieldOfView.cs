@@ -74,12 +74,13 @@ public class FieldOfView : MonoBehaviour
 
     void checkifPlayer(Transform hitTransform)
     {
-        if (hitTransform.IsChildOf(player.transform) == true && playerScript.getIsPlayerInWardrobe() == false)
+        if (hitTransform.tag == "Player" && playerScript.getIsPlayerInWardrobe() == false)
         {
             KillerScript killer = this.GetComponentInParent<KillerScript>()/*.setToHunt()*/;
             killer.setToHunt();
             isPlayerInVision = true;
             killerMoveObject.transform.position = new Vector3(hitTransform.position.x, killerMoveObject.transform.position.y, hitTransform.position.z);
+            
         }
         else
         {
