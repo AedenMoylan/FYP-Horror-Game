@@ -82,6 +82,8 @@ public class PlayerScript : MonoBehaviour
             if (hasWardrobeCollisionHappened == false)
             {
                 wardrobe = other.transform.parent.gameObject;
+                wardrobe.transform.Find("WardrobeCamera").gameObject.SetActive(true);
+                WardrobeCamera = wardrobe.transform.Find("WardrobeCamera").gameObject.GetComponent<Camera>();
                 wardrobePosition = wardrobe.transform.position;
                 wardrobeText.enabled = true;
                 hasWardrobeCollisionHappened = true;
@@ -118,6 +120,7 @@ public class PlayerScript : MonoBehaviour
         if (other.tag == "Wardrobe")
         {
             wardrobeText.enabled = false;
+            wardrobe.transform.Find("WardrobeCamera").gameObject.SetActive(false);
             hasWardrobeCollisionHappened = false;
         }
 

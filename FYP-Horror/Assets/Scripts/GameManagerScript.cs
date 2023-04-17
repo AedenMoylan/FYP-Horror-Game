@@ -15,10 +15,14 @@ public class GameManagerScript : MonoBehaviour
     public bool hasPlayerBeenKilled = false;
 
     public int maxWardrobeSpawnChance;
+    public int max1TileWallObstacleSpawnChance;
+    public int max2x1TileWallObstacleSpawnChance;
 
     public GameObject tileObstacle1x1;
     public GameObject tileObstacle2x1;
     public GameObject tileObstacle2x2;
+
+    public GameObject deadBody;
     // Start is called before the first frame update
     void Start()
     {

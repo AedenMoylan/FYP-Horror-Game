@@ -15,12 +15,16 @@ public class RoomDecorationScript : MonoBehaviour
     const int MAX_COLUMNS = 10;
 
     public int wardrobeCounter = 0;
+    private int tile1x1Counter = 0;
     public int wardrobeRotationOffset = 0;
     private float wardrobePositionOffset = 0.5f;
 
     private List<int> nonPlaceableTiles = new List<int>();
     private List<int> wallTiles = new List<int>();
     private List<int> filledTiles = new List<int>();
+
+    public List<int> oneTileWallObstacles = new List<int>();
+    
 
     private GameObject roomTiles;
 
@@ -176,11 +180,33 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
                             wardrobeCounter++;
+                        }
+
+                        if (random2x1TileChance() == true && tile2x1Checks(currentTile, _wallDirection) == true /*&& wardrobeCounter < 1*/)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile + 1);
+                        }
+
+                        if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
+                            GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile - 10);
+
+                            tile1x1Counter++;
                         }
                     }
                 }
@@ -197,11 +223,31 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
                             wardrobeCounter++;
+                        }
+
+                        if (random2x1TileChance() == true && tile2x1Checks(currentTile, _wallDirection) == true /*&& wardrobeCounter < 1*/)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile - 1);
+                        }
+
+                        if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
+                            GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile - 10);
                         }
                     }
                 }
@@ -218,11 +264,31 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
                             wardrobeCounter++;
+                        }
+
+                        if (random2x1TileChance() == true && tile2x1Checks(currentTile, _wallDirection) == true /*&& wardrobeCounter < 1*/)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile + 10);
+                        }
+
+                        if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
+                            GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile - 10);
                         }
                     }
                 }
@@ -239,11 +305,35 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
+                           // GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
                             wardrobeCounter++;
+                        }
+
+                        if (random2x1TileChance() == true && tile2x1Checks(currentTile, _wallDirection) == true /*&& wardrobeCounter < 1*/)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            filledTiles.Add(currentTile);
+                            filledTiles.Add(currentTile - 10);
+                        }
+
+                        if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
+                        {
+                            Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
+                            //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
+                            GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            
+                            filledTiles.Add(currentTile);
+
+                            ///
+                            /// probably wrong underneath
+                            ///
+                            filledTiles.Add(currentTile - 10);
                         }
                     }
                 }
@@ -254,6 +344,32 @@ public class RoomDecorationScript : MonoBehaviour
     private bool randomWardrobeChance()
     {
         int randNum = Random.Range(0, gameManagerScript.maxWardrobeSpawnChance);
+        bool willBePlaced = false;
+
+        if (randNum == 1)
+        {
+            willBePlaced = true;
+        }
+
+        return willBePlaced;
+    }
+
+    private bool random1TileChance()
+    {
+        int randNum = Random.Range(0, gameManagerScript.max1TileWallObstacleSpawnChance);
+        bool willBePlaced = false;
+
+        if (randNum == 1)
+        {
+            willBePlaced = true;
+        }
+
+        return willBePlaced;
+    }
+
+    private bool random2x1TileChance()
+    {
+        int randNum = Random.Range(0, gameManagerScript.max2x1TileWallObstacleSpawnChance);
         bool willBePlaced = false;
 
         if (randNum == 1)
@@ -388,4 +504,37 @@ public class RoomDecorationScript : MonoBehaviour
 
         return false;
     }
+
+    private bool tile2x1Checks(int _id, string _wallDirection)
+    {
+        int directionOffset = 0;
+
+        switch (_wallDirection)
+        {
+            case "Right":
+                directionOffset = -1;
+                break;
+
+            case "Left":
+                directionOffset = +1;
+                break;
+
+            case "Top":
+                directionOffset = 10;
+                break;
+
+            case "Bottom":
+                directionOffset = -10;
+                break;
+        }
+
+        if (checkIfObstacleAdjacent(_id) == false && checkIfObstacleAdjacent(_id + directionOffset) == false)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
