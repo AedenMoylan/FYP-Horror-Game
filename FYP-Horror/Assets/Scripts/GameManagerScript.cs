@@ -8,10 +8,17 @@ public class GameManagerScript : MonoBehaviour
     public GameObject killer;
     public GameObject killerMovePosition;
     public GameObject player;
+    public GameObject wardrobe;
     private GameObject wardrobeWithPlayer;
     private KillerScript killerScript;
     public MapSpawnAlgorithmScript mapSpawnAlgorithmScript;
     public bool hasPlayerBeenKilled = false;
+
+    public int maxWardrobeSpawnChance;
+
+    public GameObject tileObstacle1x1;
+    public GameObject tileObstacle2x1;
+    public GameObject tileObstacle2x2;
     // Start is called before the first frame update
     void Start()
     {

@@ -9636,8 +9636,16 @@ MonoBehaviour:
   killer: {fileID: 732678819434844010}
   killerMovePosition: {fileID: 1154535249}
   player: {fileID: 1894481864}
+  wardrobe: {fileID: 273249203614038469, guid: d184f7a5212da78488685ac6176f27c4, type: 3}
   mapSpawnAlgorithmScript: {fileID: 1852795685}
   hasPlayerBeenKilled: 0
+  maxWardrobeSpawnChance: 30
+  tileObstacle1x1: {fileID: 7613694612608745225, guid: 0684c262d31783d49b966ff874d43c44,
+    type: 3}
+  tileObstacle2x1: {fileID: 8086854103036467516, guid: e8aac92a1ecb95947bf2604e64f405b1,
+    type: 3}
+  tileObstacle2x2: {fileID: 744776062514161008, guid: 9526e1fcd469ac74db1dda9efe8a52af,
+    type: 3}
 --- !u!1 &1864489583
 GameObject:
   m_ObjectHideFlags: 0

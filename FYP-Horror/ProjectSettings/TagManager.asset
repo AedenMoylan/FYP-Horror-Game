@@ -22,6 +22,9 @@ TagManager:
   - MovePosition
   - Ground
   - RoomFloor
+  - 2x1
+  - 1x1
+  - 2x2
   layers:
   - Default
   - TransparentFX
