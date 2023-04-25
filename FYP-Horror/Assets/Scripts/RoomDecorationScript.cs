@@ -96,7 +96,7 @@ public class RoomDecorationScript : MonoBehaviour
         {
             wallTiles.Add(_id);
             GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-            tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
+            //tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 
@@ -140,7 +140,7 @@ public class RoomDecorationScript : MonoBehaviour
         roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
         nonPlaceableTiles.Add(_id);
         GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-        tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
+        //tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
     }
 
     private void setCenterTiles()
@@ -150,7 +150,7 @@ public class RoomDecorationScript : MonoBehaviour
             if (nonPlaceableTiles.Contains(i) == false && wallTiles.Contains(i) == false)
             {
                 GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + i + ")").gameObject;
-                tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
+                //tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
             }
         }
     }

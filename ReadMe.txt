@@ -1,0 +1,1 @@
+In this release there is no build of the game it only works in editor mode for the time being.
