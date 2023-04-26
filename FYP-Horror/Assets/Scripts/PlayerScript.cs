@@ -103,6 +103,7 @@ public class PlayerScript : MonoBehaviour
         else if (other.tag == "BearTrap")
         {
             other.GetComponent<BearTrapScript>().setTrapBoolToTrue();
+            other.GetComponent<AudioSource>().Play();
             isPlayerTrapped = true;
             playerMovementScript.changeCanPlayerMove(false);
         }

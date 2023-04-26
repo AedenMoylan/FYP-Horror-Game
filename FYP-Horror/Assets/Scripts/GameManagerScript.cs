@@ -21,6 +21,11 @@ public class GameManagerScript : MonoBehaviour
     public GameObject tileObstacle1x1;
     public GameObject tileObstacle2x1;
     public GameObject tileObstacle2x2;
+    public GameObject JumpscareObject;
+    public AudioSource jumpscareAudio;
+    private AudioManagerScript audioManagerScript;
+    private MusicManagerScript musicManagerScript;
+    public Canvas canvas;
 
     public GameObject deadBody;
     // Start is called before the first frame update
@@ -28,7 +33,8 @@ public class GameManagerScript : MonoBehaviour
     {
         killerScript = killer.GetComponent<KillerScript>();
         //mapSpawnAlgorithmScript = this.gameObject.GetComponent<MapSpawnAlgorithmScript>();
-
+        audioManagerScript = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        musicManagerScript = GameObject.Find("MusicManager").GetComponent<MusicManagerScript>();
     }
 
     // Update is called once per frame
@@ -144,5 +150,24 @@ public class GameManagerScript : MonoBehaviour
 
         Vector3 moveLocationDisplacement = new Vector3(-5, killerMovePosition.transform.position.y, 5);
         killerMovePosition.transform.position = mapSpawnAlgorithmScript.cells[mapSpawnAlgorithmScript.straightCorridors[randRoom]].gameObject.transform.position + moveLocationDisplacement;
+    }
+
+    public void playerHasBeenKilled()
+    {
+        player.SetActive(false);
+        JumpscareObject.SetActive(true);
+        canvas.enabled = false;
+        audioManagerScript.playJumpscare();
+        musicManagerScript.stopAllMusic();
+    }
+
+    public void playerHasBeenSeen()
+    {
+        musicManagerScript.playChaseMusic();
+    }
+
+    public void resetFromChase()
+    {
+        musicManagerScript.startFadeOut();
     }
 }

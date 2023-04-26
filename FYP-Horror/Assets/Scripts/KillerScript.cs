@@ -34,6 +34,10 @@ public class KillerScript : MonoBehaviour
 
     public bool hasMovePositionBeenPlacedAtEndOfCorridor = false;
 
+    public AudioSource trapPlaceAudio;
+
+    private bool isChaseOccuring = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +91,7 @@ public class KillerScript : MonoBehaviour
 
     public void setToDie()
     {
-
+        chaseCheck();
         //m_Animator.
 
         foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
@@ -100,18 +104,24 @@ public class KillerScript : MonoBehaviour
 
     public void setToHunt()
     {
-        foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+        if (isChaseOccuring == false)
         {
-            m_Animator.SetBool(parameter.name, false);
+            isChaseOccuring = true;
+            gameManagerScript.playerHasBeenSeen();
         }
+            foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
+            {
+                m_Animator.SetBool(parameter.name, false);
+            }
 
-        m_Animator.SetBool("Alert", true);
+            m_Animator.SetBool("Alert", true);
 
-        hasMovePositionBeenPlacedAtEndOfCorridor = false;
+            hasMovePositionBeenPlacedAtEndOfCorridor = false;
     }
 
     public void setToWalk()
     {
+        chaseCheck();
         foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
         {
             m_Animator.SetBool(parameter.name, false);
@@ -123,6 +133,7 @@ public class KillerScript : MonoBehaviour
     public void placeTrap()
     {
         Instantiate(bearTrap, this.transform.position, Quaternion.identity);
+        trapPlaceAudio.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -212,6 +223,8 @@ public class KillerScript : MonoBehaviour
             if ( hasPlayerBeenKilled == false)
             {
                 hasPlayerBeenKilled = true;
+
+                gameManagerScript.playerHasBeenKilled();
             }
         }
     }
@@ -240,6 +253,14 @@ public class KillerScript : MonoBehaviour
 
     IEnumerator lookAnimation()
     {
+        if (isChaseOccuring == true)
+        {
+
+        }
+        else
+        {
+            chaseCheck();
+        }
         yield return new WaitForSeconds(8);
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("LookAround"))
         {
@@ -248,4 +269,14 @@ public class KillerScript : MonoBehaviour
             setToWalk();
         }
     }
+
+    public void chaseCheck()
+    {
+        if (isChaseOccuring == true)
+        {
+            isChaseOccuring = false;
+            gameManagerScript.resetFromChase();
+        }
+    }
+
 }

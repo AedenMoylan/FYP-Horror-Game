@@ -33,10 +33,8 @@ public class BearTrapScript : MonoBehaviour
         if (isPlayerTrapped == true)
         {
             trapPlayer();
-            if (Input.GetKey("e"))
-            {
-                disarmTrap();              
-            }
+
+            disarmTrap();              
         }      
     }
 
