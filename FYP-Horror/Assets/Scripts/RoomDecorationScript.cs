@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,14 +15,20 @@ public class RoomDecorationScript : MonoBehaviour
 
     public int wardrobeCounter = 0;
     private int tile1x1Counter = 0;
+    private int max2x2Obstacles = 2;
+    private int obstacles2x2Counter = 0;
     public int wardrobeRotationOffset = 0;
     private float wardrobePositionOffset = 0.5f;
+    private Vector3 obstacle2x2PositionOffset = new Vector3 (0.5f, 0, -0.5f);
 
     private List<int> nonPlaceableTiles = new List<int>();
     private List<int> wallTiles = new List<int>();
     private List<int> filledTiles = new List<int>();
+    private List<int> centerTiles = new List<int>();
 
     public List<int> oneTileWallObstacles = new List<int>();
+
+    public List<int> testObstaclesPlaced = new List<int> ();
     
 
     private GameObject roomTiles;
@@ -35,12 +40,7 @@ public class RoomDecorationScript : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
         roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
 
-        //tileObstacle1x1 = GameObject.FindWithTag("1x1");
-        //tileObstacle2x1 = GameObject.FindWithTag("2x1");
-        //tileObstacle2x2 = GameObject.FindWithTag("2x2");
-
         findWallTiles();
-        setCenterTiles();
         setCornersAsNonPlaceable();
 
         if (rightWall == true)
@@ -59,6 +59,9 @@ public class RoomDecorationScript : MonoBehaviour
         {
             spawnWallObstacles("Bottom");
         }
+        setCenterTiles();
+        spawnObstacles();
+        spawnDecorations();
     }
 
     // Update is called once per frame
@@ -96,7 +99,7 @@ public class RoomDecorationScript : MonoBehaviour
         {
             wallTiles.Add(_id);
             GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-            //tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
+            tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 
@@ -108,6 +111,7 @@ public class RoomDecorationScript : MonoBehaviour
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     setTileAsNonPlaceable(i * 10);
+                    setTileAsNonPlaceable(i * 10 - 1);
                 }
                     break;
 
@@ -115,6 +119,7 @@ public class RoomDecorationScript : MonoBehaviour
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     setTileAsNonPlaceable(1 + ((i - 1) * 10));
+                    setTileAsNonPlaceable(1 + ((i - 1) * 10) + 1);
                 }
                 break;
 
@@ -122,6 +127,7 @@ public class RoomDecorationScript : MonoBehaviour
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     setTileAsNonPlaceable(i);
+                    setTileAsNonPlaceable(i + 10);
                 }
                 break;
 
@@ -129,6 +135,7 @@ public class RoomDecorationScript : MonoBehaviour
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     setTileAsNonPlaceable(i + 90);
+                    setTileAsNonPlaceable(i + 80);
                 }
                 break;
         }
@@ -140,7 +147,15 @@ public class RoomDecorationScript : MonoBehaviour
         roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
         nonPlaceableTiles.Add(_id);
         GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-        //tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
+        tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
+    }
+
+    private void setMultipleTilesAsNonPlaceable(int[] _ids)
+    {
+        for (int i = 0; i < _ids.Length; i++)
+        {
+            setTileAsNonPlaceable(_ids.ElementAt(i));
+        }
     }
 
     private void setCenterTiles()
@@ -150,7 +165,8 @@ public class RoomDecorationScript : MonoBehaviour
             if (nonPlaceableTiles.Contains(i) == false && wallTiles.Contains(i) == false)
             {
                 GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + i + ")").gameObject;
-                //tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
+                tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
+                centerTiles.Add(i);
             }
         }
     }
@@ -171,6 +187,7 @@ public class RoomDecorationScript : MonoBehaviour
             
             case "Left":
                 wardrobeRotationOffset = 90;
+                randomPaintingSpawn(gameObject.transform.Find("Left Wall").gameObject);
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     int currentTile = 1 + ((i - 1) * 10);
@@ -184,6 +201,9 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile + 1, currentTile - 10 + 1, currentTile + 10 + 1, currentTile + 20 + 1 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
+
                             wardrobeCounter++;
                         }
 
@@ -195,6 +215,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 + 1, currentTile + 10 + 1, currentTile - 10 + 2, currentTile + 10 + 2, currentTile + 2};
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
 
                         if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
@@ -202,9 +224,12 @@ public class RoomDecorationScript : MonoBehaviour
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
                             GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject tile1x1test = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
-                            filledTiles.Add(currentTile - 10);
+                            //filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 + 1, currentTile + 10 + 1, currentTile + 1, };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
 
                             tile1x1Counter++;
                         }
@@ -214,6 +239,7 @@ public class RoomDecorationScript : MonoBehaviour
 
             case "Right":
                 wardrobeRotationOffset = -90;
+                randomPaintingSpawn(gameObject.transform.Find("Right Wall").gameObject);
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     int currentTile = i * 10;
@@ -227,6 +253,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile - 1, currentTile - 10 - 1, currentTile + 10 - 1, currentTile + 20 - 1 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                             wardrobeCounter++;
                         }
 
@@ -238,6 +266,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 1);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile + 10 - 1, currentTile - 10 - 2, currentTile + 10 - 2, currentTile - 2 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
 
                         if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
@@ -245,9 +275,12 @@ public class RoomDecorationScript : MonoBehaviour
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
                             GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject tile1x1test = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
-                            filledTiles.Add(currentTile - 10);
+                            //filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile + 10 - 1, currentTile - 1 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
                     }
                 }
@@ -255,6 +288,7 @@ public class RoomDecorationScript : MonoBehaviour
 
             case "Top":
                 wardrobeRotationOffset = 180;
+                randomPaintingSpawn(gameObject.transform.Find("Top Wall").gameObject);
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     int currentTile = i;
@@ -268,6 +302,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
+                            int[] idsToMakeNonTraversable = { currentTile + 10, currentTile + 10 - 1, currentTile + 10 + 1, currentTile + 10 + 2 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                             wardrobeCounter++;
                         }
 
@@ -279,6 +315,9 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 10);
+                            int[] idsToMakeNonTraversable = { currentTile + 10 - 1, currentTile + 10 + 1, currentTile + 20 - 1, currentTile + 20 + 1, currentTile + 20 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
+
                         }
 
                         if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
@@ -286,9 +325,13 @@ public class RoomDecorationScript : MonoBehaviour
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
                             GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject tile1x1test = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
-                            filledTiles.Add(currentTile - 10);
+                            //filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile + 10 - 1, currentTile + 10 + 1, currentTile + 10 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
+
                         }
                     }
                 }
@@ -296,6 +339,7 @@ public class RoomDecorationScript : MonoBehaviour
 
             case "Bottom":
                 wardrobeRotationOffset = 0;
+                randomPaintingSpawn(gameObject.transform.Find("Bottom Wall").gameObject);
                 for (int i = 1; i < MAX_ROWS + 1; i++)
                 {
                     int currentTile = i + 90;
@@ -309,6 +353,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
+                            int[] idsToMakeNonTraversable = { currentTile - 10, currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 10 + 2 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                             wardrobeCounter++;
                         }
 
@@ -320,6 +366,8 @@ public class RoomDecorationScript : MonoBehaviour
                             GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 20 - 1, currentTile - 20 + 1, currentTile - 20 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
 
                         if (random1TileChance() == true && checkIfObstacleAdjacent(currentTile) == false && filledTiles.Contains(currentTile) == false && tile1x1Counter < 3)
@@ -327,13 +375,16 @@ public class RoomDecorationScript : MonoBehaviour
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
                             GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            
+                            GameObject tile1x1test = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+
                             filledTiles.Add(currentTile);
 
                             ///
                             /// probably wrong underneath
                             ///
-                            filledTiles.Add(currentTile - 10);
+                            //filledTiles.Add(currentTile - 10);
+                            int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 10 };
+                            setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
                     }
                 }
@@ -341,7 +392,131 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
-    private bool randomWardrobeChance()
+    private void spawnObstacles()
+    {
+        List<int> validIds = new List<int>();
+        for (int i = 0; i < centerTiles.Count(); i++)
+        {
+            int randNum = Random.Range(0, gameManagerScript.max2x2TileObstacleSpawnChance);
+            if (largeObstacleValidationCheck(centerTiles.ElementAt(i)) == true && randNum == 1)
+            {
+                validIds.Add(centerTiles.ElementAt(i));
+                testObstaclesPlaced.Add(centerTiles.ElementAt(i));
+                SetImpassableBorderFor2x2Obstacle(validIds.ElementAt(validIds.Count - 1));
+            }
+        }
+        for (int i = 0; i < validIds.Count;i++)
+        {
+            if (obstacles2x2Counter > max2x2Obstacles)
+            {
+                break;
+            }
+            else
+            {
+                obstacles2x2Counter++;
+                Vector3 position = roomTiles.transform.Find(returnRoomTileName(validIds.ElementAt(i))).transform.position + obstacle2x2PositionOffset;
+                //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x2, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                //GameObject wardrobe2 = Instantiate(gameManagerScript.bed, position + gameManagerScript.bedPositionOffset, Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
+                //GameObject wardrobe2 = Instantiate(gameManagerScript.wheelchair, position , Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
+                GameObject Obstacle = Instantiate(gameManagerScript.getRandomFloorObstacle(), position , Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
+            }
+        }
+        //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+
+
+    }
+
+    private void spawnDecorations()
+    {
+        for (int i = 0; i < centerTiles.Count(); i++)
+        {
+            if (nonPlaceableTiles.Contains(centerTiles.ElementAt(i)) == false && filledTiles.Contains(centerTiles.ElementAt(i)) == false)
+            {
+                if (Random.Range(0, gameManagerScript.maxFloorDecorationChance) == 1)
+                {
+                    Vector3 position = roomTiles.transform.Find(returnRoomTileName(centerTiles.ElementAt(i))).transform.position;
+                    GameObject decoration = Instantiate(gameManagerScript.getRandomFloorDecoration(), position , Quaternion.Euler(0, Random.Range(1, 360) /** 90*/, 0));
+                }
+
+            }
+        }
+    }
+
+    private void SetImpassableBorderFor2x2Obstacle(int t_id)
+    {
+        //int[] impassibleIds = new int[24];
+
+        List<int> validIds = new List<int>();
+
+        int cutShortNumber = 9999;
+        if (t_id % 10 == 9 )
+        {
+            cutShortNumber = 2;
+        }
+        else if (t_id % 10 == 0 )
+        {
+            cutShortNumber = 1;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == cutShortNumber)
+            {
+                break;
+            }
+
+            else if (i == 0)
+            {
+                if (t_id % 10 != 1)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        validIds.Add(t_id - 11 + (j * 10));
+                    }
+                }
+                validIds.Add(t_id - 10);
+                validIds.Add(t_id + 20);
+            }
+            else if (i == 1)
+            {
+                validIds.Add(t_id - 9);
+                validIds.Add(t_id + 21);
+            }
+            else if (i == 2)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    validIds.Add(t_id - 8 + (j * 10));
+                }
+            }
+        }
+        for (int i = 0; i < validIds.Count;i++)
+        {
+            if (validIds.ElementAt(i) > 0 || validIds.ElementAt(i) < 100)
+            {
+                setTileAsNonPlaceable(validIds.ElementAt(i));
+            }
+        }
+
+    }
+
+    private bool largeObstacleValidationCheck(int _id)
+    {
+        int[] validationCheckOffsets = { 1, 10, 11 };
+        if (filledTiles.Contains(_id) == false && nonPlaceableTiles.Contains(_id) == false
+            && filledTiles.Contains(_id + validationCheckOffsets[0]) == false && nonPlaceableTiles.Contains(_id + validationCheckOffsets[0]) == false
+            && filledTiles.Contains(_id + validationCheckOffsets[1]) == false && nonPlaceableTiles.Contains(_id + validationCheckOffsets[1]) == false
+            && filledTiles.Contains(_id + validationCheckOffsets[2]) == false && nonPlaceableTiles.Contains(_id + validationCheckOffsets[2]) == false)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+        private bool randomWardrobeChance()
     {
         int randNum = Random.Range(0, gameManagerScript.maxWardrobeSpawnChance);
         bool willBePlaced = false;
@@ -534,6 +709,18 @@ public class RoomDecorationScript : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void randomPaintingSpawn(GameObject _wall)
+    {
+        int spawnChance = Random.Range(0,gameManagerScript.maxPaintingSpawnChance);
+        GameObject tempGameObject = _wall.gameObject.transform.Find("Painting1").gameObject;
+
+        if (spawnChance == 1)
+        {
+            tempGameObject.SetActive(true);
+        }
+
     }
 
 

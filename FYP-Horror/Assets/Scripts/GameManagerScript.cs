@@ -17,6 +17,9 @@ public class GameManagerScript : MonoBehaviour
     public int maxWardrobeSpawnChance;
     public int max1TileWallObstacleSpawnChance;
     public int max2x1TileWallObstacleSpawnChance;
+    public int max2x2TileObstacleSpawnChance;
+    public int maxFloorDecorationChance;
+    public int maxPaintingSpawnChance;
 
     public GameObject tileObstacle1x1;
     public GameObject tileObstacle2x1;
@@ -28,6 +31,15 @@ public class GameManagerScript : MonoBehaviour
     public Canvas canvas;
 
     public GameObject deadBody;
+
+    public GameObject bed;
+    public Vector3 bedPositionOffset;
+
+    public GameObject wheelchair;
+
+    public List<GameObject> decorations;
+    public List<GameObject> floorObstacles;
+    public List<GameObject> wallObstacles1x1;
     // Start is called before the first frame update
     void Start()
     {
@@ -169,5 +181,26 @@ public class GameManagerScript : MonoBehaviour
     public void resetFromChase()
     {
         musicManagerScript.startFadeOut();
+    }
+
+    public GameObject getRandomFloorDecoration()
+    {
+       int randDecorationNumber =  Random.Range(0, decorations.Count);
+
+        return decorations[randDecorationNumber];
+    }
+
+    public GameObject getRandomFloorObstacle()
+    {
+        int randObstacleNumber = Random.Range(0, floorObstacles.Count);
+
+        return floorObstacles[randObstacleNumber];
+    }
+
+    public GameObject getRandom1x1WallObstacles()
+    {
+        int randObstacleNumber = Random.Range(0, wallObstacles1x1.Count);
+
+        return wallObstacles1x1[randObstacleNumber];
     }
 }
