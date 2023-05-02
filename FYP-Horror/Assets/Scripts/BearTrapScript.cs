@@ -12,7 +12,6 @@ public class BearTrapScript : MonoBehaviour
     private Vector3 endClampRotation;
     public float maxTrapResetDuration;
     private float trapResetProgress;
-    private bool trapDestroyed = false;
     private GameObject killer;
     private GameObject killerMovePosition;
     private PlayerMovementScript playerMovementScript;
@@ -38,6 +37,9 @@ public class BearTrapScript : MonoBehaviour
         }      
     }
 
+    /// <summary>
+    /// makes bear trap claws move to snap, and sets killer position to beartrap
+    /// </summary>
     public void trapPlayer()
     {
         BearTrapSnapRotation = Vector3.Lerp(new Vector3(0,0,0), endClampRotation, 1);
@@ -52,6 +54,9 @@ public class BearTrapScript : MonoBehaviour
         isPlayerTrapped = true;
     }
 
+    /// <summary>
+    /// after a certain period, destroyTrap() is called which destroys this gameobject
+    /// </summary>
     public void disarmTrap()
     {
         trapResetProgress += Time.deltaTime;
@@ -63,6 +68,9 @@ public class BearTrapScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// destroys this gameobject and sets player to be able to move
+    /// </summary>
     private void destroyTrap()
     {
         playerMovementScript.changeCanPlayerMove(true);

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerCameraScript : MonoBehaviour
@@ -23,6 +20,7 @@ public class PlayerCameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // used for mouse and camera movement
         float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * xSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * ySensitivity;
 

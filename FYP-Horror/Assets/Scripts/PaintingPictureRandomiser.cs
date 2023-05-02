@@ -12,17 +12,12 @@ public class PaintingPictureRandomiser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // picks a random texture for the paintings
         int randomSprite = Random.Range(0, sprites.Count);
 
         int randomScale = Random.Range(minScale, maxScale);
 
         this.gameObject.transform.localScale = this.gameObject.transform.localScale * (randomScale / 100);
         renderer.materials[1].mainTexture = sprites[randomSprite].texture;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

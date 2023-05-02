@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // makes sure that gun soesn't move too far
         if (isGunRaising == true)
         {
             //this.transform.position = new Vector3(transform.position.x, transform.position.y * gunRaiseSpeed * Time.deltaTime, transform.position.z);
@@ -35,10 +36,9 @@ public class GunScript : MonoBehaviour
 
         aimAtMiddleOfScreen();
         shootGun();
-
+        // reloads ammo
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //StartCoroutine(reloadGun());
             ammo = 6;
         }
     }
@@ -48,7 +48,9 @@ public class GunScript : MonoBehaviour
         yield return new WaitForSeconds(gunRaiseAmount);
         isGunRaising=false;
     }
-
+    /// <summary>
+    /// bring gun to aim position
+    /// </summary>
     public void aimGun()
     {
         if (moveCounter !< 0.27)
@@ -59,7 +61,9 @@ public class GunScript : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// brings gun back to non aiming position
+    /// </summary>
     public void resetGun()
     {
         if (moveCounter > 0)
@@ -69,6 +73,10 @@ public class GunScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// shoots a ray out from the middle of the screen. returns object ray is hitting
+    /// </summary>
+    /// <returns></returns>
     private Transform aimAtMiddleOfScreen()
     {
         Ray ray = weaponCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
@@ -85,6 +93,9 @@ public class GunScript : MonoBehaviour
         return hitTarget;
     }
 
+    /// <summary>
+    /// shoots gun if left click is pressed. Also kills killer if caught in the ray of the bullet
+    /// </summary>
     private void shootGun()
     {
         if (Input.GetMouseButtonDown(0) && ammo > 0)
@@ -97,10 +108,5 @@ public class GunScript : MonoBehaviour
                 killer.GetComponent<KillerScript>().setToDie();
             }
         }
-    }
-    IEnumerator reloadGun()
-    {
-        yield return new WaitForSeconds(3);
-        ammo = MAX_AMMO;
     }
 }

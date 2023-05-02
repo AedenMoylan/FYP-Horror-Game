@@ -16,13 +16,14 @@ public class PlayerScript : MonoBehaviour
     private GameObject doorObject;
     private PlayerMovementScript playerMovementScript;
     private CharacterController characterController;
+    public GameObject playerGun;
 
     public Camera playerCamera;
     public Camera WardrobeCamera;
     private bool isPlayerTrapped = false;
     private bool isPlayerInRoom = false;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // used to enter and leave player from wardrobe
         if (Input.GetKeyDown("e"))
         {
             if (isPlayerInWardrobe == false && hasWardrobeCollisionHappened == true)
@@ -60,7 +62,7 @@ public class PlayerScript : MonoBehaviour
                 wardrobe.GetComponentInParent<WardrobeScript>().setIsPlayerInside(isPlayerInWardrobe);
             }
         }
-
+        // used to open door
         if (hasDoorCollisionHappened == true)
         {
             if (Input.GetKeyDown("e"))
@@ -68,15 +70,11 @@ public class PlayerScript : MonoBehaviour
                 doorObject.GetComponentInParent<DoorScript>().isDoorOpen = true;
             }
         }
-
-        if (isPlayerInRoom == true)
-        {
-            Debug.Log(isPlayerInRoom);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // lets player enter wardrobe if touching
         if (other.tag == "Wardrobe")
         {
             if (hasWardrobeCollisionHappened == false)
@@ -89,7 +87,7 @@ public class PlayerScript : MonoBehaviour
                 hasWardrobeCollisionHappened = true;
             }
         }
-
+        
         else if (other.tag == "DoorCollider")
         {
             wardrobeText.enabled = false;
@@ -99,7 +97,7 @@ public class PlayerScript : MonoBehaviour
 
             hasDoorCollisionHappened = true;
         }
-
+        // traps player if touching a bear trap
         else if (other.tag == "BearTrap")
         {
             other.GetComponent<BearTrapScript>().setTrapBoolToTrue();
@@ -111,6 +109,12 @@ public class PlayerScript : MonoBehaviour
         else if (other.tag == "RoomFloor")
         {
             isPlayerInRoom = true;
+        }
+
+        else if (other.tag == "pistol")
+        {
+            playerGun.SetActive(true);
+            other.gameObject.SetActive(false);
         }
 
     }

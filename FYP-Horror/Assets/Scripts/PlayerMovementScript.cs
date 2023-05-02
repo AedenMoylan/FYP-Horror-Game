@@ -51,6 +51,10 @@ public class PlayerMovementScript : MonoBehaviour
         characterController.Move(moveDirection * speed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// called when player enters or leaves a bear trap
+    /// </summary>
+    /// <param name="_moveBool"></param>
     public void changeCanPlayerMove(bool _moveBool)
     {
         canPlayerMove = _moveBool;

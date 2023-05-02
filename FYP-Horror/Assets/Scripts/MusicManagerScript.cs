@@ -9,6 +9,9 @@ public class MusicManagerScript : MonoBehaviour
     private bool isBackgroundMusicPlaying = true;
     private bool isChaseMusicPlaying = false;
 
+    /// <summary>
+    /// play background music. also cancels chase music if playing
+    /// </summary>
     public void playBackgroundMusic()
     {
         if (chaseMusic.isPlaying == true)
@@ -20,6 +23,9 @@ public class MusicManagerScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// play chase music. also cancels background music if playing
+    /// </summary>
     public void playChaseMusic()
     {
         if (backgroundMusic.isPlaying == true)
@@ -30,12 +36,17 @@ public class MusicManagerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// stops music
+    /// </summary>
     public void stopAllMusic()
     {
         backgroundMusic.Stop();
         chaseMusic.Stop();
     }
-
+    /// <summary>
+    /// starts fade out of song
+    /// </summary>
     public void startFadeOut()
     {
 
@@ -51,6 +62,11 @@ public class MusicManagerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// fades out song
+    /// </summary>
+    /// <param name="_music"></param>
+    /// <returns></returns>
     IEnumerator fadeOutSong(AudioSource _music)
     {
         float baseVolumeAmount = _music.volume;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6309290245667694403}
   - component: {fileID: 7497981730474028394}
   - component: {fileID: -7417932879671710815}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Vintage_Wardrobe_Dirty
   m_TagString: Wardrobe
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4645609946278209594}
   - component: {fileID: 1563645379615833947}
   - component: {fileID: 4653312762294174650}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WardrobeCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6171491595235738555}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PlayerLeavePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 5686590673679965896}
   - component: {fileID: 901740546536897137}
   - component: {fileID: 6835711015076486508}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 432750577947233288}
   - component: {fileID: 1677296912118542051}
   - component: {fileID: 3840387587391821718}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door_Right
   m_TagString: Wardrobe
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 2381434040838689802}
   - component: {fileID: 1683025981473375861}
   - component: {fileID: 6176412421303475381}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door_Left
   m_TagString: Wardrobe
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 2501060188575832364}
   - component: {fileID: 8904732144125364245}
   - component: {fileID: 4408591736737561777}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 348371884462871282}
   - component: {fileID: 7760840337659375474}
   - component: {fileID: 3862558220045924223}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WardrobeCollisionShape
   m_TagString: Wardrobe
   m_Icon: {fileID: 0}

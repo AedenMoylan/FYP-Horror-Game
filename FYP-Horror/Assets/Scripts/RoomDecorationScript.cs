@@ -5,22 +5,27 @@ using UnityEngine;
 public class RoomDecorationScript : MonoBehaviour
 {
     private GameManagerScript gameManagerScript;
+    // used to determine which walls are active
     public bool rightWall;
     public bool leftWall;
     public bool topWall;
     public bool bottomWall;
 
+    // max rows and columns of the tiles in the room
     const int MAX_ROWS = 10;
     const int MAX_COLUMNS = 10;
 
+    // these are used to limit spawn amounts on some objects
     public int wardrobeCounter = 0;
     private int tile1x1Counter = 0;
     private int max2x2Obstacles = 2;
     private int obstacles2x2Counter = 0;
+    // used to get wardrobe positioned correctly
     public int wardrobeRotationOffset = 0;
     private float wardrobePositionOffset = 0.5f;
     private Vector3 obstacle2x2PositionOffset = new Vector3 (0.5f, 0, -0.5f);
 
+    // different lists for which tiles have an obstacle on it, are not placeable, are against the wall, and are in the middle
     private List<int> nonPlaceableTiles = new List<int>();
     private List<int> wallTiles = new List<int>();
     private List<int> filledTiles = new List<int>();
@@ -28,9 +33,7 @@ public class RoomDecorationScript : MonoBehaviour
 
     public List<int> oneTileWallObstacles = new List<int>();
 
-    public List<int> testObstaclesPlaced = new List<int> ();
-    
-
+    // the tiles in the room
     private GameObject roomTiles;
 
 
@@ -40,6 +43,8 @@ public class RoomDecorationScript : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
         roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
 
+
+        // calls necessary functions for room decoration
         findWallTiles();
         setCornersAsNonPlaceable();
 
@@ -70,6 +75,9 @@ public class RoomDecorationScript : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// when a wall is active, the tiles next to it are se3t to wall tiles
+    /// </summary>
     private void findWallTiles()
     {
         for (int i = 1; i < MAX_ROWS + 1; i++)
@@ -93,16 +101,24 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// used to set tiles as a wall tile
+    /// </summary>
+    /// <param name="_id"></param>
     private void setTileAsWallTile(int _id)
     {
         if (nonPlaceableTiles.Contains(_id) == false)
         {
             wallTiles.Add(_id);
             GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-            tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
+            //tempRoomTile.GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 
+    /// <summary>
+    /// used for special rooms as it does not count as a wall for placing obstacles
+    /// </summary>
+    /// <param name="_wallDirection"></param>
     public void setWallAsNonPlaceable(string _wallDirection)
     {
         switch (_wallDirection)
@@ -113,7 +129,7 @@ public class RoomDecorationScript : MonoBehaviour
                     setTileAsNonPlaceable(i * 10);
                     setTileAsNonPlaceable(i * 10 - 1);
                 }
-                    break;
+                break;
 
             case "Left":
                 for (int i = 1; i < MAX_ROWS + 1; i++)
@@ -139,15 +155,24 @@ public class RoomDecorationScript : MonoBehaviour
                 }
                 break;
         }
-            
+
     }
 
+    /// <summary>
+    /// used to set where an obstacle cannot be placed
+    /// </summary>
+    /// <param name="_id"></param>
     private void setTileAsNonPlaceable(int _id)
     {
-        roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
-        nonPlaceableTiles.Add(_id);
-        GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
-        tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
+        if (_id >= 0 && _id <= 100)
+        {
+            roomTiles = gameObject.transform.Find("RoomTiles").gameObject;
+            nonPlaceableTiles.Add(_id);
+            GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + _id + ")").gameObject;
+        }
+
+
+        //tempRoomTile.GetComponent<Renderer>().material.color = Color.red;
     }
 
     private void setMultipleTilesAsNonPlaceable(int[] _ids)
@@ -158,6 +183,9 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// tiles that are not wall tiles or non placeable tiles are center tiles
+    /// </summary>
     private void setCenterTiles()
     {
         for (int i = 1; i < (MAX_ROWS * MAX_COLUMNS) + 1; i++)
@@ -165,7 +193,7 @@ public class RoomDecorationScript : MonoBehaviour
             if (nonPlaceableTiles.Contains(i) == false && wallTiles.Contains(i) == false)
             {
                 GameObject tempRoomTile = roomTiles.gameObject.transform.Find("RoomTile (" + i + ")").gameObject;
-                tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
+                //tempRoomTile.GetComponent<Renderer>().material.color = Color.green;
                 centerTiles.Add(i);
             }
         }
@@ -179,12 +207,14 @@ public class RoomDecorationScript : MonoBehaviour
         setTileAsNonPlaceable(100);
     }
 
+    /// <summary>
+    /// algorithm for spawning obstacles next to walls
+    /// </summary>
+    /// <param name="_wallDirection"></param>
     private void spawnWallObstacles(string _wallDirection)
-    {
-        
+    {      
         switch (_wallDirection)
-        {
-            
+        {            
             case "Left":
                 wardrobeRotationOffset = 90;
                 randomPaintingSpawn(gameObject.transform.Find("Left Wall").gameObject);
@@ -197,7 +227,7 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
@@ -249,7 +279,7 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
@@ -298,7 +328,7 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
@@ -349,7 +379,7 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                           // GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
+                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
                             GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
@@ -392,6 +422,9 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// algorithm used for spawning obstacles on center tiles
+    /// </summary>
     private void spawnObstacles()
     {
         List<int> validIds = new List<int>();
@@ -401,7 +434,6 @@ public class RoomDecorationScript : MonoBehaviour
             if (largeObstacleValidationCheck(centerTiles.ElementAt(i)) == true && randNum == 1)
             {
                 validIds.Add(centerTiles.ElementAt(i));
-                testObstaclesPlaced.Add(centerTiles.ElementAt(i));
                 SetImpassableBorderFor2x2Obstacle(validIds.ElementAt(validIds.Count - 1));
             }
         }
@@ -415,17 +447,15 @@ public class RoomDecorationScript : MonoBehaviour
             {
                 obstacles2x2Counter++;
                 Vector3 position = roomTiles.transform.Find(returnRoomTileName(validIds.ElementAt(i))).transform.position + obstacle2x2PositionOffset;
-                //GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x2, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                //GameObject wardrobe2 = Instantiate(gameManagerScript.bed, position + gameManagerScript.bedPositionOffset, Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
-                //GameObject wardrobe2 = Instantiate(gameManagerScript.wheelchair, position , Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
+                GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x2, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                 GameObject Obstacle = Instantiate(gameManagerScript.getRandomFloorObstacle(), position , Quaternion.Euler(0, Random.Range(1, 4) * 90, 0));
             }
         }
-        //GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-
-
     }
 
+    /// <summary>
+    /// algorithm used for spawning decorations
+    /// </summary>
     private void spawnDecorations()
     {
         for (int i = 0; i < centerTiles.Count(); i++)
@@ -442,10 +472,9 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
+    // sets the border of obstacles to be a non placeable area 
     private void SetImpassableBorderFor2x2Obstacle(int t_id)
     {
-        //int[] impassibleIds = new int[24];
-
         List<int> validIds = new List<int>();
 
         int cutShortNumber = 9999;
@@ -492,7 +521,7 @@ public class RoomDecorationScript : MonoBehaviour
         }
         for (int i = 0; i < validIds.Count;i++)
         {
-            if (validIds.ElementAt(i) > 0 || validIds.ElementAt(i) < 100)
+            if (validIds.ElementAt(i) > 0 && validIds.ElementAt(i) < 100)
             {
                 setTileAsNonPlaceable(validIds.ElementAt(i));
             }
@@ -500,6 +529,11 @@ public class RoomDecorationScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// checks if placement is valid for large 2x2 obstacles
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool largeObstacleValidationCheck(int _id)
     {
         int[] validationCheckOffsets = { 1, 10, 11 };
@@ -516,6 +550,10 @@ public class RoomDecorationScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ramdomises if a wardrobe will be placed on that tile
+    /// </summary>
+    /// <returns></returns>
         private bool randomWardrobeChance()
     {
         int randNum = Random.Range(0, gameManagerScript.maxWardrobeSpawnChance);
@@ -529,6 +567,10 @@ public class RoomDecorationScript : MonoBehaviour
         return willBePlaced;
     }
 
+    /// <summary>
+    /// ramdomises if a 1x1 tile object will be placed
+    /// </summary>
+    /// <returns></returns>
     private bool random1TileChance()
     {
         int randNum = Random.Range(0, gameManagerScript.max1TileWallObstacleSpawnChance);
@@ -542,6 +584,10 @@ public class RoomDecorationScript : MonoBehaviour
         return willBePlaced;
     }
 
+    /// <summary>
+    /// ramdomises if a 2x1 tile object will be placed
+    /// </summary>
+    /// <returns></returns>
     private bool random2x1TileChance()
     {
         int randNum = Random.Range(0, gameManagerScript.max2x1TileWallObstacleSpawnChance);
@@ -555,11 +601,21 @@ public class RoomDecorationScript : MonoBehaviour
         return willBePlaced;
     }
 
+    /// <summary>
+    /// gets the name of the tile
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private string returnRoomTileName(int _id)
     {
         return "RoomTile (" + _id + ")";
     }
 
+    /// <summary>
+    /// checks if there is already an adjacent obstacle at a certain point
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool checkIfObstacleAdjacent(int _id)
     {
         int moduloAnswer = _id % 10;
@@ -613,6 +669,11 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// used by the CheckIfObstacleAdjacent() function
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool checkIfObstacleOnRight(int _id)
     {
         if (filledTiles.Contains(_id + 1) == true)
@@ -622,6 +683,11 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// used by the CheckIfObstacleAdjacent() function
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool checkIfObstacleOnLeft(int _id)
     {
         if (filledTiles.Contains(_id - 1) == true)
@@ -631,6 +697,11 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// used by the CheckIfObstacleAdjacent() function
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool checkIfObstacleOnTop(int _id)
     {
         if (filledTiles.Contains(_id - 10) == true)
@@ -640,6 +711,11 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// used by the CheckIfObstacleAdjacent() function
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <returns></returns>
     private bool checkIfObstacleOnBottom(int _id)
     {
         if (filledTiles.Contains(_id + 10) == true)
@@ -649,6 +725,12 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// checks if wardrobe placement is valid
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <param name="_wallDirection"></param>
+    /// <returns></returns>
     private bool wardrobeChecks(int _id, string _wallDirection)
     {
         int directionOffset = 0;
@@ -680,6 +762,12 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// checks if 2x2 tile placement is valid
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <param name="_wallDirection"></param>
+    /// <returns></returns>
     private bool tile2x1Checks(int _id, string _wallDirection)
     {
         int directionOffset = 0;
@@ -711,6 +799,10 @@ public class RoomDecorationScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// randomly chooses if a painting becomes active
+    /// </summary>
+    /// <param name="_wall"></param>
     private void randomPaintingSpawn(GameObject _wall)
     {
         int spawnChance = Random.Range(0,gameManagerScript.maxPaintingSpawnChance);

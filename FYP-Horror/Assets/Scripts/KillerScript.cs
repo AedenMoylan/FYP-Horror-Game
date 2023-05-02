@@ -49,7 +49,6 @@ public class KillerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handleInput();
 
         if (m_Animator)
         {
@@ -57,20 +56,10 @@ public class KillerScript : MonoBehaviour
             transform.position = newPosition;
         }
 
+        // sets movement destination
         navAgent.SetDestination(moveDestination.transform.position);
 
-        //if (checkIfInFrontOfWardrobe() == true && willBearTrapBePlacedAtDestination == true)
-        //{
-        //    placeTrap();
-        //}
-
-
-
-        if (m_Animator.GetBool("Attack") == true)
-        {
-            Debug.Log("ATTACKING!!!");
-        }
-
+        // makes killer attack if player has been killed
         if (hasPlayerBeenKilled == true)
         {
             foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
@@ -78,21 +67,17 @@ public class KillerScript : MonoBehaviour
                 m_Animator.SetBool(parameter.name, false);
             }
 
-        //m_Animator.SetBool("SpeedWalk", false);
         m_Animator.SetBool("Attack", true);
         }
 
     }
 
-    private void handleInput()
-    {
-
-    }
-
+    /// <summary>
+    /// sets killer animation to dead
+    /// </summary>
     public void setToDie()
     {
         chaseCheck();
-        //m_Animator.
 
         foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
         {
@@ -102,6 +87,9 @@ public class KillerScript : MonoBehaviour
         m_Animator.SetBool("Dead", true);
     }
 
+    /// <summary>
+    /// sets killer animation to hunt
+    /// </summary>
     public void setToHunt()
     {
         if (isChaseOccuring == false)
@@ -119,6 +107,9 @@ public class KillerScript : MonoBehaviour
             hasMovePositionBeenPlacedAtEndOfCorridor = false;
     }
 
+    /// <summary>
+    /// sets killer animation to walk
+    /// </summary>
     public void setToWalk()
     {
         chaseCheck();
@@ -130,6 +121,9 @@ public class KillerScript : MonoBehaviour
         m_Animator.SetBool("Walking", true);
     }
 
+    /// <summary>
+    /// spawns trap at the killer's location
+    /// </summary>
     public void placeTrap()
     {
         Instantiate(bearTrap, this.transform.position, Quaternion.identity);
@@ -138,6 +132,9 @@ public class KillerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // if killer touches the movePosition object, multiple checks are made.
+        // look animation triggers and then move location changes if player has not been seen
+        // if player has been seen, killer move position will get set to the end of the corridor.
         if (other.tag == "MovePosition" )
         {
             if (isKillerMovePositionCollisionActive == true)
@@ -229,6 +226,10 @@ public class KillerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// checks direction the killer is moving
+    /// </summary>
+    /// <returns></returns>
     public string checkMovementDirection()
     {
         string direction = "NULL";
@@ -251,6 +252,10 @@ public class KillerScript : MonoBehaviour
         return direction;
     }
 
+    /// <summary>
+    /// resets killer animation after looking arounf for 8 seconds
+    /// </summary>
+    /// <returns></returns>
     IEnumerator lookAnimation()
     {
         if (isChaseOccuring == true)
@@ -270,6 +275,9 @@ public class KillerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// checks if a chase is occuring
+    /// </summary>
     public void chaseCheck()
     {
         if (isChaseOccuring == true)

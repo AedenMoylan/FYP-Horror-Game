@@ -1,4 +1,5 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,18 +13,22 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     int spawnCorridor1Amount;
     int spawnCorridor2Amount;
 
+    // id of the spawn poinjt in  the middle of the grid
     int spawnCellID = 1275;
 
+    // lists used to spawn necessary rooms
     public List<int> roomCoordinates = new List<int>();
     public List<int> roomsToAdd = new List<int>();
     public List<int> nonStraightCorridors = new List<int>();
     public List<int> straightCorridors = new List<int>();
 
+    // sets the max cells of the grid, and then makes an array of gameobjects using thyat max size
     const int MAX_CELLS = 50 * 50;
     public GameObject[] cells = new GameObject[MAX_CELLS];
 
     private int roomSpawnAmount = 10;
 
+    // different gameobjects for the different rooms
     public GameObject spawnRoom;
     public GameObject horizontalCorridor;
     public GameObject verticalCorridor;
@@ -42,6 +47,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public GameObject twoTLCorridor;
     public GameObject TestRoom2;
 
+    // used to generate the navigated path used by the killer
     public NavMeshSurface navSurface;
 
     GameObject roomObject = null;
@@ -50,6 +56,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // sets up initial values for the corridors spawning from the spawn room
         spawnRoom = GameObject.FindGameObjectWithTag("SpawnPoint");
         spawnDirection1 = Random.Range(0, 4);
         spawnDirection2 = Random.Range(0, 4);
@@ -57,10 +64,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         spawnCorridor1Amount = Random.Range(3, 7);
         spawnCorridor2Amount = Random.Range(3, 7);
 
+        // checks to make sure that the spawn directions arent the same
         while (spawnDirection2 == spawnDirection1)
         {
             spawnDirection2 = Random.Range(0, 4);
         }
+        // call necessary functions for map generation
         SetupGrid();
         assignBorder();
         assignRoomType(spawnCellID, "Spawn");
@@ -69,17 +78,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         findValidIdsForRoomPlacement();
         spawnImportantRooms();
 
-        navSurface.BuildNavMesh();
-        //spawnCorridorsDown(2130, 7); // looks good on border check spawns an extra corridor
-        //spawnCorridorsUp(2499 - 2130, 7); // works but spawns TB corridor onto the end corrodor cell
-        //spawnCorridorsRight(2144, 7); // same as up
-        //spawnCorridorsLeft(2499 - 2144, 7); // same
+        StartCoroutine(PauseAtStart());
+        
 
-        //placeCurvedCorridor(1942, 0);
-
-        deleteUnusedCells();
-
-        killerSpawnScript.spawnKiller();
     }
 
     // Update is called once per frame
@@ -88,6 +89,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// makes the 50 x 50 grid
+    /// </summary>
     void SetupGrid()
     {
         int xValuedifference = 25 * 10;
@@ -110,6 +114,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             cells[i].GetComponent<CellScript>().position = spawnPosition;
         }
     }
+    /// <summary>
+    /// spawn corridors from spawn room
+    /// </summary>
     void SpawnStartCorridors()
     {
         Transform spawnTopWall = spawnRoom.transform.Find("Top Wall");
@@ -172,6 +179,11 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// spawns curved corridor with multiple corridors branching form it
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_previousRoomDirection"></param>
     void placeMultiDirectionalCurvedCorridor(int t_id, int t_previousRoomDirection)
     {
         int randHallAmount = Random.Range(1, 7);
@@ -215,12 +227,22 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// assigns the type of room spawned in the cell associated with it
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_roomType"></param>
     void assignRoomType(int t_id, string t_roomType)
     {
         cells[t_id].GetComponent<CellScript>().roomTypeName = t_roomType;
     }
 
-
+    /// <summary>
+    /// returns if a corridor can be placed
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_direction"></param>
+    /// <returns></returns>
     int checkIfCorridorPlaceValid(int t_id, int t_direction)
     {
         switch (t_direction)
@@ -302,7 +324,11 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         return 1;
     }
 
-
+    /// <summary>
+    /// places an end corridor at the desired location depending on the previous direction
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_direction"></param>
     void placeCorridorEnd(int t_id, int t_direction)
     {
         switch (t_direction)
@@ -336,6 +362,11 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         nonStraightCorridors.Add(t_id);
     }
 
+    /// <summary>
+    /// places curved corridor. Also places an end corridor if curved corridor placement is not valid
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_direction"></param>
     void placeCurvedCorridor(int t_id, int t_direction)
     {
         int randNum = Random.Range(1, 3);
@@ -472,7 +503,13 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 break;
         }
     }
-    // changed
+
+    /// <summary>
+    /// spawns set of corridors upwards
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_numberOfRooms"></param>
+    /// <param name="t_isCorridorMultidirectional"></param>
     void spawnCorridorsUp(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
@@ -514,7 +551,13 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             }
         }
     }
-    // changing
+
+    /// <summary>
+    /// spawns set of corridors downwards
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_numberOfRooms"></param>
+    /// <param name="t_isCorridorMultidirectional"></param>
     void spawnCorridorsDown(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
@@ -557,6 +600,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// spawns set of corridors right
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_numberOfRooms"></param>
+    /// <param name="t_isCorridorMultidirectional"></param>
     void spawnCorridorsRight(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
@@ -601,6 +650,12 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// spawns set of corridors left
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <param name="t_numberOfRooms"></param>
+    /// <param name="t_isCorridorMultidirectional"></param>
     void spawnCorridorsLeft(int t_id, int t_numberOfRooms, bool t_isCorridorMultidirectional)
     {
         for (int i = 0; i < t_numberOfRooms; i++)
@@ -644,6 +699,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// sets the border of the grid
+    /// </summary>
     void assignBorder()
     {
         for (int i = 0; i < 50; i++)
@@ -655,6 +713,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// after basic map is spawned, check for which areas on the map is valid to place special rooms
+    /// </summary>
     void findValidIdsForRoomPlacement()
     {
         for (int i = 0; i < MAX_CELLS; i++)
@@ -698,6 +759,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// spawn special rooms at valid areas
+    /// </summary>
     void spawnImportantRooms()
     {
         int count = roomCoordinates.Count;
@@ -714,7 +778,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             else
             {
                 if (i != 0)
-                i--;
+                    i--;
             }
         }
 
@@ -747,8 +811,14 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().setRoomObject(roomObject);
             //room.transform.Find("Collision Cube").transform.position
         }
+        cells[roomsToAdd.ElementAt<int>(roomsToAdd.Count - 1)].GetComponent<CellScript>().activateGunSpawnInRoom();
     }
 
+    /// <summary>
+    /// check if room placement is valid
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <returns></returns>
     bool isRoomPlaceValid(int t_id)
     {
         if (roomsToAdd.Contains(t_id - 50) || roomsToAdd.Contains(t_id + 50)
@@ -762,6 +832,9 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// deletes cells that do not have a room associated with it
+    /// </summary>
     private void deleteUnusedCells()
     {
         for (int i = 0; i < MAX_CELLS; i++)
@@ -771,5 +844,19 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                 Destroy(cells[i]);
             }
         }
+    }
+
+    /// <summary>
+    /// used to guarantee all other scripts have completed before running the navMesh builder
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator PauseAtStart()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        navSurface.BuildNavMesh();
+        deleteUnusedCells();
+        killerSpawnScript.spawnKiller();
+
     }
 }

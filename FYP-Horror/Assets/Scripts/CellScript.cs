@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CellScript : MonoBehaviour
 {
+    // cells hold relevant information about the room in that location
     public int id = 0;
     public string roomTypeName = "EMPTY";
     public bool canCurvedCorridorBePlaced = false;
@@ -12,22 +13,20 @@ public class CellScript : MonoBehaviour
     public bool doesRoomHaveWardrobe = false;
     public bool hasKillerWalkedInRoom = false;
     public GameObject roomObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void setRoomObject(GameObject _roomObject)
     {
         roomObject = _roomObject;
 
         roomObject.transform.parent = this.transform;
+    }
+
+    public void activateGunSpawnInRoom()
+    {
+        // this.GetComponentInChildren<GameObject>().transform.Find("pistol1").gameObject.SetActive(true);
+
+        GameObject tempObject = this.gameObject.transform.Find("Meat Room(Clone)").gameObject;
+        tempObject.transform.Find("pistol1").gameObject.SetActive(true);
+        Debug.Log("GunSpawned");
     }
 }

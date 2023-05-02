@@ -6,17 +6,11 @@ public class DoorCollisionScript : MonoBehaviour
 {
 
     private RoomDecorationScript roomDecorationScript;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    //Debug.Log("collision");
-    //}
-
+    /// <summary>
+    /// used to delete walls that are in the way of the door of the special room. 
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "DoorWall")

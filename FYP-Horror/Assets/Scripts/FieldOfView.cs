@@ -12,7 +12,6 @@ public class FieldOfView : MonoBehaviour
     Mesh VisionConeMesh;
     MeshFilter meshFilter;
     public Material VisionConeMaterial;
-    private Transform hitTarget;
     public GameObject player;
     public PlayerScript playerScript;
     public GameObject killerMoveObject;
@@ -92,21 +91,5 @@ public class FieldOfView : MonoBehaviour
     {
         return isPlayerInVision;
     }
-    //void checkIfPlayerEnteredWardrobeInRange()
-    //{
-    //    if (player.GetComponent<PlayerScript>().getIsPlayerInWardrobe() == true && isPlayerInVision == true)
-    //    {
-    //        GameObject[] wardrobes = GameObject.FindGameObjectsWithTag("Wardrobe");
 
-    //        for (int i = 0; i < wardrobes.Length; i++)
-    //        {
-    //            if (wardrobes[i].GetComponent<WardrobeScript>().getIsPlayerInside() == true)
-    //            {
-    //                killerMoveObject.transform.position = wardrobes[i].transform.FindChild("PlayerLeavePosition").transform.position;
-
-    //                this.GetComponent<KillerScript>().willBearTrapBePlacedAtDestination = true;
-    //            }
-    //        }
-    //    }
-    //}
 }

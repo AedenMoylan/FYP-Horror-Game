@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2532311837129032112}
   - component: {fileID: 4867360532874307261}
   - component: {fileID: 1317400315826691667}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: polySurface36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2042433305934251382}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: dirty_bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
