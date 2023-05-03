@@ -21,6 +21,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     public List<int> roomsToAdd = new List<int>();
     public List<int> nonStraightCorridors = new List<int>();
     public List<int> straightCorridors = new List<int>();
+    public List<int> filledCells = new List<int>();
 
     // sets the max cells of the grid, and then makes an array of gameobjects using thyat max size
     const int MAX_CELLS = 50 * 50;
@@ -75,6 +76,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         assignRoomType(spawnCellID, "Spawn");
 
         SpawnStartCorridors();
+        findFilledCells();
         findValidIdsForRoomPlacement();
         spawnImportantRooms();
 
@@ -384,8 +386,8 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                         nonStraightCorridors.Add(t_id);
                     }
                     else
-                    {
-                        placeCorridorEnd(t_id, 2);
+                    { // top, right, bottom, left. these are the entrance directions
+                        placeCorridorEnd(t_id , 2);
                     }
                 }
                 else
@@ -399,7 +401,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     }
                     else
                     {
-                        placeCorridorEnd(t_id, 2);
+                        placeCorridorEnd(t_id , 2);
                     }
                 }
                 break;
@@ -466,7 +468,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     }
                     else
                     {
-                        placeCorridorEnd(t_id, 0);
+                        placeCorridorEnd(t_id , 0);
                     }
                 }
                 break;
@@ -483,7 +485,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     }
                     else
                     {
-                        placeCorridorEnd(t_id, 1);
+                        placeCorridorEnd(t_id , 1);
                     }
                 }
                 else
@@ -497,7 +499,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     }
                     else
                     {
-                        placeCorridorEnd(t_id, 1);
+                        placeCorridorEnd(t_id , 1);
                     }
                 }
                 break;
@@ -517,7 +519,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIfCorridorPlaceValid(t_id - (i * 50), 0) == 0)
             {
                 placeCorridorEnd((t_id - 50) - (i * 50), 2);
-                assignRoomType((t_id - 50) - (i * 50), "End Corridor");
+                //assignRoomType((t_id - 50) - (i * 50), "End Corridor");
                 break;
             }
             else
@@ -565,7 +567,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIfCorridorPlaceValid(t_id + (i * 50), 2) == 0)
             {
                 placeCorridorEnd(t_id + ((i + 1) * 50), 0);
-                assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
+                //assignRoomType(t_id + ((i + 1) * 50), "End Corridor");
                 break;
             }
             else
@@ -580,7 +582,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIfCorridorPlaceValid(t_id + ((t_numberOfRooms + 1) * 50), 2) == 0)
                     {
                         placeCorridorEnd(t_id + ((t_numberOfRooms + 1) * 50), 0);
-                        assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "End Corridor");
+                        //assignRoomType(t_id + ((t_numberOfRooms + 1) * 50), "End Corridor");
                     }
                     else
                     {
@@ -613,7 +615,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIfCorridorPlaceValid(t_id + i, 1) == 0)
             {
                 placeCorridorEnd(t_id + i, 3);
-                assignRoomType(t_id + i, "End Corridor");
+                //assignRoomType(t_id + i, "End Corridor");
                 break;
             }
             else
@@ -628,7 +630,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIfCorridorPlaceValid(t_id + (t_numberOfRooms + 1), 1) == 0)
                     {
                         placeCorridorEnd(t_id + (t_numberOfRooms + 1), 3);
-                        assignRoomType(t_id + (t_numberOfRooms + 1), "End Corridor");
+                        //assignRoomType(t_id + (t_numberOfRooms + 1), "End Corridor");
                     }
                     else
                     {
@@ -663,7 +665,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
             if (checkIfCorridorPlaceValid(t_id - i, 3) == 0)
             {
                 placeCorridorEnd(t_id - (i + 1), 1);
-                assignRoomType(t_id - (i + 1), "End Corridor");
+                //assignRoomType(t_id - (i + 1), "End Corridor");
                 break;
             }
             else
@@ -678,7 +680,7 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
                     if (checkIfCorridorPlaceValid(t_id - (t_numberOfRooms + 1), 3) == 0)
                     {
                         placeCorridorEnd(t_id - t_numberOfRooms, 1);
-                        assignRoomType(t_id - t_numberOfRooms, "End Corridor");
+                        //assignRoomType(t_id - t_numberOfRooms, "End Corridor");
                     }
                     else
                     {
@@ -722,38 +724,44 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         {
             int counter = 0;
             int entranceDirection = -1;
-
-            if (cells[i].GetComponent<CellScript>().roomTypeName != "BORDER")
+            if (filledCells.Contains(i) == false)
             {
-                if (cells[i + 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    /*&& cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room")
+                if (cells[i].GetComponent<CellScript>().roomTypeName != "BORDER")
                 {
-                    entranceDirection = 1;
-                    counter++;
-                }
-                if (cells[i - 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && /*cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room")
-                {
-                    entranceDirection = 3;
-                    counter++;
-                }
-                if (cells[i + 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    && /*cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room")
-                {
-                    entranceDirection = 2;
-                    counter++;
-                }
-                if (cells[i - 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "EMPTY" 
-                    /*&& cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room")
-                {
-                    entranceDirection = 0;
-                    counter++;
-                }
+                    if (cells[i + 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 1].GetComponent<CellScript>().roomTypeName != "EMPTY"
+                        /*&& cells[i + 1].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i + 1].GetComponent<CellScript>().roomTypeName != "Room"
+                        /*&& cells[i + 1].GetComponent<CellScript>().roomTypeName != "End Corridor"*/ /*&& cells[i + 1].GetComponent<CellScript>().roomTypeName != "Curved Corridor"*/)
+                    {
+                        entranceDirection = 1;
+                        counter++;
+                    }
+                    if (cells[i - 1].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 1].GetComponent<CellScript>().roomTypeName != "EMPTY"
+                        && /*cells[i - 1].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i - 1].GetComponent<CellScript>().roomTypeName != "Room"
+                        /*&& cells[i - 1].GetComponent<CellScript>().roomTypeName != "End Corridor"*/ /*&& cells[i - 1].GetComponent<CellScript>().roomTypeName != "Curved Corridor"*/)
+                    {
+                        entranceDirection = 3;
+                        counter++;
+                    }
+                    if (cells[i + 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i + 50].GetComponent<CellScript>().roomTypeName != "EMPTY"
+                        && /*cells[i + 50].GetComponent<CellScript>().roomTypeName != "Spawn" &&*/ cells[i + 50].GetComponent<CellScript>().roomTypeName != "Room"
+                        /*&& cells[i + 50].GetComponent<CellScript>().roomTypeName != "End Corridor"*/ /*&& cells[i + 50].GetComponent<CellScript>().roomTypeName != "Curved Corridor"*/)
+                    {
+                        entranceDirection = 2;
+                        counter++;
+                    }
+                    if (cells[i - 50].GetComponent<CellScript>().roomTypeName != "BORDER" && cells[i - 50].GetComponent<CellScript>().roomTypeName != "EMPTY"
+                        /*&& cells[i - 50].GetComponent<CellScript>().roomTypeName != "Spawn"*/ && cells[i - 50].GetComponent<CellScript>().roomTypeName != "Room"
+                        /*&& cells[i - 50].GetComponent<CellScript>().roomTypeName != "End Corridor"*/ /*&& cells[i - 50].GetComponent<CellScript>().roomTypeName != "Curved Corridor"*/)
+                    {
+                        entranceDirection = 0;
+                        counter++;
+                    }
 
-                if (counter == 1)
-                {
-                    roomCoordinates.Add(i);
-                    cells[i].GetComponent<CellScript>().specialRoomEntranceDirection = entranceDirection;
+                    if (counter == 1)
+                    {
+                        roomCoordinates.Add(i);
+                        cells[i].GetComponent<CellScript>().specialRoomEntranceDirection = entranceDirection;
+                    }
                 }
             }
         }
@@ -765,24 +773,25 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
     void spawnImportantRooms()
     {
         int count = roomCoordinates.Count;
+        int counter = 0;
 
         for (int i = 0; i < roomSpawnAmount; i++)
         {
-            int randNum = Random.Range(1, count + 1);
+
+            int randNum = Random.Range(1, count);
 
             if (roomsToAdd.Contains(roomCoordinates.ElementAt<int>(randNum)) == false && isRoomPlaceValid(roomCoordinates.ElementAt<int>(randNum)) == true)
             {
                 roomsToAdd.Add(roomCoordinates.ElementAt<int>(randNum));
-                assignRoomType(roomsToAdd.ElementAt<int>(i), "Room");
+                assignRoomType(roomsToAdd.ElementAt<int>(i + counter), "Room");
             }
             else
             {
-                if (i != 0)
-                    i--;
+                counter--;
             }
         }
 
-        for (int i = 0; i < roomSpawnAmount; i++)
+        for (int i = 0; i < roomsToAdd.Count; i++)
         {
             int roomCoordinate = cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().id;
             int rotation = 90 * cells[roomsToAdd.ElementAt<int>(i)].GetComponent<CellScript>().specialRoomEntranceDirection;
@@ -858,5 +867,21 @@ public class MapSpawnAlgorithmScript : MonoBehaviour
         deleteUnusedCells();
         killerSpawnScript.spawnKiller();
 
+    }
+
+    private void addFilledCell(int _id)
+    {
+        filledCells.Add(_id);
+    }
+
+    private void findFilledCells()
+    {
+        for (int i = 0; i < MAX_CELLS; i++)
+        {
+            if (cells[i].GetComponent<CellScript>().roomTypeName != "EMPTY")
+            {
+                addFilledCell(i);
+            }
+        }
     }
 }

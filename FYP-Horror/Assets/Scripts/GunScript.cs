@@ -14,11 +14,13 @@ public class GunScript : MonoBehaviour
     public Camera weaponCamera;
     private ParticleSystem particleSystem;
     public GameObject killer;
+    private GameObject gameManager;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(moveGunOnScreen());
         particleSystem = this.GetComponent<ParticleSystem>();
+        gameManager = GameObject.Find("Game Manager");
     }
 
     // Update is called once per frame
@@ -106,6 +108,7 @@ public class GunScript : MonoBehaviour
             if (aimAtMiddleOfScreen().IsChildOf(killer.transform) == true)
             {
                 killer.GetComponent<KillerScript>().setToDie();
+                StartCoroutine(gameManager.GetComponent<GameManagerScript>().changeToMenu());
             }
         }
     }

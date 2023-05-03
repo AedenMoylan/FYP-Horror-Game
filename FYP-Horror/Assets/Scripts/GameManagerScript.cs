@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -179,6 +180,8 @@ public class GameManagerScript : MonoBehaviour
         canvas.enabled = false;
         audioManagerScript.playJumpscare();
         musicManagerScript.stopAllMusic();
+
+        StartCoroutine(changeToMenu());
     }
     /// <summary>
     /// plays chase music if player has been seen
@@ -226,5 +229,12 @@ public class GameManagerScript : MonoBehaviour
         int randObstacleNumber = Random.Range(0, wallObstacles1x1.Count);
 
         return wallObstacles1x1[randObstacleNumber];
+    }
+
+    public IEnumerator changeToMenu()
+    {
+        yield return new WaitForSeconds(6);
+
+        SceneManager.LoadScene("Map");
     }
 }

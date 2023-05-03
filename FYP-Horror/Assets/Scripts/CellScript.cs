@@ -27,6 +27,5 @@ public class CellScript : MonoBehaviour
 
         GameObject tempObject = this.gameObject.transform.Find("Meat Room(Clone)").gameObject;
         tempObject.transform.Find("pistol1").gameObject.SetActive(true);
-        Debug.Log("GunSpawned");
     }
 }
