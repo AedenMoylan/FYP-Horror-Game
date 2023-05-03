@@ -227,8 +227,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
                             int[] idsToMakeNonTraversable = { currentTile + 1, currentTile - 10 + 1, currentTile + 10 + 1, currentTile + 20 + 1 };
@@ -241,8 +241,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
                             int[] idsToMakeNonTraversable = { currentTile - 10 + 1, currentTile + 10 + 1, currentTile - 10 + 2, currentTile + 10 + 2, currentTile + 2};
@@ -279,8 +279,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
                             int[] idsToMakeNonTraversable = { currentTile - 1, currentTile - 10 - 1, currentTile + 10 - 1, currentTile + 20 - 1 };
@@ -292,8 +292,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 1);
                             int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile + 10 - 1, currentTile - 10 - 2, currentTile + 10 - 2, currentTile - 2 };
@@ -328,8 +328,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
                             int[] idsToMakeNonTraversable = { currentTile + 10, currentTile + 10 - 1, currentTile + 10 + 1, currentTile + 10 + 2 };
@@ -341,8 +341,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 10);
                             int[] idsToMakeNonTraversable = { currentTile + 10 - 1, currentTile + 10 + 1, currentTile + 20 - 1, currentTile + 20 + 1, currentTile + 20 };
@@ -379,8 +379,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0,wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.wardrobe, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile + 1);
                             int[] idsToMakeNonTraversable = { currentTile - 10, currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 10 + 2 };
@@ -392,8 +392,8 @@ public class RoomDecorationScript : MonoBehaviour
                         {
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x + wardrobePositionOffset, position.y, position.z);
-                            GameObject wardrobe = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject wardrobe2 = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject baseObstacle = Instantiate(gameManagerScript.tileObstacle2x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
+                            GameObject obstacle = Instantiate(gameManagerScript.deadBody, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
                             filledTiles.Add(currentTile - 10);
                             int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 20 - 1, currentTile - 20 + 1, currentTile - 20 };
@@ -405,14 +405,8 @@ public class RoomDecorationScript : MonoBehaviour
                             Vector3 position = roomTiles.transform.Find(returnRoomTileName(currentTile)).transform.position;
                             //position = new Vector3(position.x, position.y, position.z - wardrobePositionOffset);
                             GameObject tile1x1 = Instantiate(gameManagerScript.tileObstacle1x1, position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-                            GameObject tile1x1test = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
-
+                            GameObject obstacle = Instantiate(gameManagerScript.getRandom1x1WallObstacles(), position, Quaternion.Euler(0, wardrobeRotationOffset, 0));
                             filledTiles.Add(currentTile);
-
-                            ///
-                            /// probably wrong underneath
-                            ///
-                            //filledTiles.Add(currentTile - 10);
                             int[] idsToMakeNonTraversable = { currentTile - 10 - 1, currentTile - 10 + 1, currentTile - 10 };
                             setMultipleTilesAsNonPlaceable(idsToMakeNonTraversable);
                         }
