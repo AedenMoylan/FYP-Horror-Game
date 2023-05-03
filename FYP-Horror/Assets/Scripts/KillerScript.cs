@@ -176,14 +176,8 @@ public class KillerScript : MonoBehaviour
                     StartCoroutine(lookAnimation());
                 }
             }
-            else if (hasMovePositionBeenPlacedAtEndOfCorridor == false)
-            {
-                
-                string moveDirection = checkMovementDirection();
-                gameManagerScript.setKillerMoveLocationToEndOfCorridor(moveDirection, currentRoom);
-                hasMovePositionBeenPlacedAtEndOfCorridor = true;
-            }
-            else if (hasMovePositionBeenPlacedAtEndOfCorridor == true)
+
+            if (hasMovePositionBeenPlacedAtEndOfCorridor == true)
             {
                 foreach (AnimatorControllerParameter parameter in m_Animator.parameters)
                 {
@@ -191,6 +185,13 @@ public class KillerScript : MonoBehaviour
                 }
                 m_Animator.SetBool("Look", true);
                 StartCoroutine(lookAnimation());
+            }
+            else if (hasMovePositionBeenPlacedAtEndOfCorridor == false)
+            {
+                
+                string moveDirection = checkMovementDirection();
+                gameManagerScript.setKillerMoveLocationToEndOfCorridor(moveDirection, currentRoom);
+                hasMovePositionBeenPlacedAtEndOfCorridor = true;
             }
         }
 

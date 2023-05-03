@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     private AudioManagerScript audioManagerScript;
     private MusicManagerScript musicManagerScript;
     public Canvas canvas;
+    public Vector3 bearTrapPlacementPosition;
 
     public GameObject deadBody;
 

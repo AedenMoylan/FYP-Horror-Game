@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.1
+  m_AmbientIntensity: 0.25
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: aeab33f69c199e54794f516d31450ec4, type: 2}
@@ -6641,7 +6641,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1154535251
 MeshRenderer:
@@ -7917,9 +7917,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2216d480042d49a69c7e92ef6a902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFlashlightTimer: 25
+  maxFlashlightTimer: 40
   flashlightDecreaseAmount: 0.15
-  flashlightIncreaseAmount: 0.075
+  flashlightIncreaseAmount: 0.1
   depletedBatteryIncreaseAmount: 0.05
   flashlightUI: {fileID: 1604271618}
 --- !u!114 &1682101609
@@ -10804,6 +10804,7 @@ MonoBehaviour:
   JumpscareObject: {fileID: 1507762062}
   jumpscareAudio: {fileID: 391906877}
   canvas: {fileID: 195539728}
+  bearTrapPlacementPosition: {x: 0, y: 0, z: 0}
   deadBody: {fileID: 837851832569706230, guid: b2b415328a6d63f4fb3d7ac85fe3bb0a, type: 3}
   bed: {fileID: 1662952966913728460, guid: b58b925fb3f1637469e6aaea02f0af4d, type: 3}
   bedPositionOffset: {x: 0, y: 0.3, z: 0}
